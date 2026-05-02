@@ -1,7 +1,3 @@
-/* =============================================
-   TELE-OPTICS — MAIN STYLESHEET
-   ============================================= */
-
 /* CSS Variables */
 :root {
   /* Colors */
@@ -24,7 +20,7 @@
   --clr-text-muted: #9ca8b5;
 
   /* Header */
-  --clr-header-top: #1a2332;
+  --clr-header-top: #f7f8f9;
   --clr-header-nav: #ffffff;
   --clr-nav-active: #1565c0;
 
@@ -100,6 +96,21 @@ ul, ol { list-style: none; }
 img { max-width: 100%; display: block; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; }
 input, textarea, select { font-family: inherit; font-size: inherit; }
+
+/* =============================================
+   ICONS (Figma URL based)
+   ============================================= */
+.ui-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.ui-icon-xs { width: 12px; height: 12px; }
+.ui-icon-sm { width: 16px; height: 16px; }
+.ui-icon-lg { width: 22px; height: 22px; }
+.ui-icon-xl { width: 24px; height: 24px; }
+.ui-icon-xxl { width: 28px; height: 28px; }
 
 /* =============================================
    UTILITIES
@@ -199,9 +210,9 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
    ============================================= */
 .header-top {
   background: var(--clr-header-top);
-  color: #9ca8b5;
+  color: var(--clr-text-secondary);
   font-size: var(--font-size-sm);
-  padding: 6px 0;
+  padding: 2px 0;
 }
 .header-top .container {
   display: flex;
@@ -209,8 +220,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   gap: 20px;
   flex-wrap: wrap;
 }
-.header-top a { color: #9ca8b5; transition: color var(--transition); }
-.header-top a:hover { color: #fff; }
+.header-top a { color: var(--clr-text-secondary); transition: color var(--transition); }
+.header-top a:hover { color: var(--clr-primary); }
 .header-top .sep { color: #3a4a5e; }
 .header-top-left {
   display: flex;
@@ -228,10 +239,10 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   align-items: center;
   gap: 4px;
   cursor: pointer;
-  color: #9ca8b5;
+  color: var(--clr-text-secondary);
   transition: color var(--transition);
 }
-.city-selector:hover { color: #fff; }
+.city-selector:hover { color: var(--clr-primary); }
 .city-selector svg { width: 12px; height: 12px; }
 .header-top-phones {
   display: flex;
@@ -244,25 +255,76 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   gap: 5px;
   font-size: 13px;
   font-weight: 600;
-  color: #fff !important;
+  color: var(--clr-text) !important;
 }
 .phone-icon { width: 14px; height: 14px; }
 .header-top-socials {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16.04px;
 }
 .header-top-socials a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px; height: 22px;
-  border-radius: 4px;
-  background: #2c3a4e;
+  width: 30px; height: 30px;
   transition: background var(--transition);
 }
 .header-top-socials a:hover { background: var(--clr-primary); }
-.header-top-socials img { width: 14px; height: 14px; }
+.header-top-socials img { width: 21px; height: 17px; }
+
+.header-top-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.header-top-email,
+.header-top-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.top-more { position: relative; }
+.top-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--clr-text-secondary);
+  transition: color var(--transition);
+  font-size: var(--font-size-sm);
+}
+.top-more-btn:hover { color: var(--clr-primary); }
+.top-more-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  min-width: 180px;
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all var(--transition);
+  z-index: 300;
+}
+.top-more:hover .top-more-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.top-more-dropdown a {
+  display: block;
+  padding: 8px 14px;
+  font-size: var(--font-size-sm);
+  color: var(--clr-text);
+}
+.top-more-dropdown a:hover { background: var(--clr-primary-light); color: var(--clr-primary); }
 
 /* =============================================
    PLACEHOLDERS FOR ICONS / IMAGES (to be replaced)
@@ -327,7 +389,7 @@ img[src^="assets/"] {
   align-items: center;
   justify-content: center;
 }
-.logo-icon svg { width: 26px; height: 26px; fill: #fff; }
+.logo-icon img { width: 28px; height: 28px; }
 .logo-text {
   display: flex;
   flex-direction: column;
@@ -374,7 +436,7 @@ img[src^="assets/"] {
   transition: background var(--transition);
 }
 .search-btn:hover { background: var(--clr-primary-hover); }
-.search-btn svg { width: 18px; height: 18px; fill: #fff; }
+.search-btn img { filter: brightness(0) invert(1); }
 
 .header-actions {
   display: flex;
@@ -396,7 +458,7 @@ img[src^="assets/"] {
   min-width: 52px;
 }
 .header-action-btn:hover { background: var(--clr-border-light); color: var(--clr-primary); }
-.header-action-btn svg { width: 22px; height: 22px; }
+.header-action-btn img { width: 22px; height: 22px; }
 .action-badge {
   position: absolute;
   top: 2px; right: 6px;
@@ -632,6 +694,7 @@ img[src^="assets/"] {
 }
 .slider-prev:hover, .slider-next:hover { background: var(--clr-primary); }
 .slider-prev svg, .slider-next svg { width: 16px; height: 16px; }
+.slider-prev img, .slider-next img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
 
 /* =============================================
    CATEGORIES SECTION
@@ -865,6 +928,7 @@ img[src^="assets/"] {
   border-color: var(--clr-primary);
 }
 .carousel-btn svg { width: 16px; height: 16px; }
+.carousel-btn img { width: 16px; height: 16px; }
 .carousel-prev { left: -18px; }
 .carousel-next { right: -18px; }
 
@@ -953,7 +1017,6 @@ img[src^="assets/"] {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 22px;
 }
 .feature-text { flex: 1; }
 .feature-title {

@@ -14,9 +14,7 @@
     <div class="preloader" id="preloader">
         <div class="preloader-logo">
             <div class="preloader-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
+                <img src="assets/icons/logo.svg" alt="Logo">
             </div>
             <div class="preloader-name">TELE-OPTICS</div>
         </div>
@@ -29,35 +27,50 @@
     <header class="header-top">
         <div class="container">
             <div class="header-top-left">
-                <div class="city-selector">
+                <button class="city-selector" type="button" aria-label="Выбор города">
+                    <img class="ui-icon" data-icon="pin" alt="" aria-hidden="true">
                     <span>Москва</span>
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 10l5 5 5-5z"/>
-                    </svg>
-                </div>
-                <span class="sep">|</span>
-                <span>Доставка по всей России</span>
+                    <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
+                </button>
+                <nav class="header-top-links" aria-label="Верхнее меню">
+                    <a href="about.html">О компании</a>
+                    <a href="delivery.html">Доставка</a>
+                    <a href="payment.html">Оплата</a>
+                    <a href="promotions.html">Акции</a>
+                    <a href="sales.html">Распродажа</a>
+                    <div class="top-more">
+                        <button class="top-more-btn" type="button" aria-expanded="false">
+                            Еще
+                            <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
+                        </button>
+                        <div class="top-more-dropdown" role="menu">
+                            <a role="menuitem" href="guarantee.html">Гарантии</a>
+                            <a role="menuitem" href="blog.html">Блог</a>
+                            <a role="menuitem" href="reviews.html">Отзывы</a>
+                            <a role="menuitem" href="vacancies.html">Вакансии</a>
+                            <a role="menuitem" href="contacts.html">Контакты</a>
+                        </div>
+                    </div>
+                </nav>
             </div>
             <div class="header-top-right">
+                <div class="header-top-socials" aria-label="Мессенджеры">
+                    <a href="#" title="VK" aria-label="VK"><img class="ui-icon" data-icon="vk" alt=""></a>
+                    <a href="#" title="Telegram" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt=""></a>
+                    <a href="#" title="Viber" aria-label="Viber"><img class="ui-icon" data-icon="viber" alt=""></a>
+                    <a href="#" title="WhatsApp" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt=""></a>
+                </div>
                 <div class="header-top-phones">
-                    <a href="tel:+78001234567">
-                        <svg class="phone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
-                        +7 (800) 123-45-67
+                    <a href="tel:+74952150744">
+                        <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
+                        +7 495 215 0744
                     </a>
                 </div>
-                <div class="header-top-socials">
-                    <a href="#" title="VK">
-                        <img src="https://via.placeholder.com/20x20/fff/fff?text=VK" alt="VK">
-                    </a>
-                    <a href="#" title="Telegram">
-                        <img src="https://via.placeholder.com/20x20/fff/fff?text=TG" alt="Telegram">
-                    </a>
-                    <a href="#" title="WhatsApp">
-                        <img src="https://via.placeholder.com/20x20/fff/fff?text=WA" alt="WhatsApp">
-                    </a>
-                </div>
+                <a class="header-top-email" href="mailto:sales@tele-optics.ru">
+                    <img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true">
+                    sales@tele-optics.ru
+                </a>
+                <a class="header-top-auth" href="#" data-open="login">Вход / Регистрация</a>
             </div>
         </div>
     </header>
@@ -73,9 +86,7 @@
 
             <a href="/" class="logo">
                 <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
                 </div>
                 <div class="logo-text">
                     <div class="logo-name">TELE-OPTICS</div>
@@ -86,31 +97,28 @@
             <div class="header-search">
                 <input id="search-input" type="text" placeholder="Поиск товаров..." autocomplete="off">
                 <button class="search-btn" type="button" aria-label="Поиск">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
+                    <img class="ui-icon" data-icon="search" alt="" aria-hidden="true">
                 </button>
             </div>
 
             <div class="header-actions">
+                <button class="header-action-btn" type="button" data-open="compare">
+                    <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
+                    <span>Сравнение</span>
+                    <span class="action-badge" id="compare-badge">0</span>
+                </button>
                 <button class="header-action-btn" type="button" data-open="favorites">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
+                    <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
                     <span>Избранное</span>
                     <span class="action-badge" id="favorites-badge">0</span>
                 </button>
                 <button class="header-action-btn" type="button" data-open="cart">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 4V2C7 1.45 7.45 1 8 1h8c.55 0 1 .45 1 1v2h5c.55 0 1 .45 1 1s-.45 1-1 1h-1v13c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6H2c-.55 0-1-.45-1-1s.45-1 1-1h5zm2 0h6V3H9v1zm-2 3v11h10V7H7z"/>
-                    </svg>
+                    <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
                     <span>Корзина</span>
                     <span class="action-badge action-badge-yellow" id="cart-badge">0</span>
                 </button>
                 <button class="header-action-btn" type="button" data-open="login">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
+                    <img class="ui-icon ui-icon-lg" data-icon="user" alt="" aria-hidden="true">
                     <span>Войти</span>
                 </button>
             </div>
@@ -139,17 +147,24 @@
                         <a href="#">Цифровые камеры</a>
                     </div>
                 </li>
+                <li class="nav-item"><a href="catalog.html#teleskopy" class="nav-link">Телескопы</a></li>
+                <li class="nav-item"><a href="catalog.html#binokli" class="nav-link">Бинокли</a></li>
+                <li class="nav-item"><a href="catalog.html#lupy" class="nav-link">Лупы</a></li>
+                <li class="nav-item"><a href="catalog.html#mikroskopy" class="nav-link">Микроскопы</a></li>
+                <li class="nav-item"><a href="catalog.html#zritelnye-truby" class="nav-link">Зрительные трубы</a></li>
+                <li class="nav-item"><a href="catalog.html#monokulary" class="nav-link">Монокуляры</a></li>
+                <li class="nav-item"><a href="catalog.html#pritsely" class="nav-link">Прицелы</a></li>
+                <li class="nav-item"><a href="catalog.html#dalnomery" class="nav-link">Дальномеры</a></li>
+                <li class="nav-item"><a href="catalog.html#teplovizory" class="nav-link">Тепловизоры</a></li>
                 <li class="nav-item">
-                    <a href="catalog.html#brands" class="nav-link">Бренды</a>
-                </li>
-                <li class="nav-item">
-                    <a href="promotions.html" class="nav-link">Акции</a>
-                </li>
-                <li class="nav-item">
-                    <a href="delivery.html" class="nav-link">Доставка</a>
-                </li>
-                <li class="nav-item">
-                    <a href="contacts.html" class="nav-link">Контакты</a>
+                    <a href="#" class="nav-link">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></a>
+                    <div class="nav-dropdown">
+                        <a href="catalog.html#brands">Бренды</a>
+                        <a href="promotions.html">Акции</a>
+                        <a href="about.html">О компании</a>
+                        <a href="delivery.html">Доставка</a>
+                        <a href="contacts.html">Контакты</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -160,9 +175,7 @@
         <div class="mobile-menu-header">
             <a href="index.html" class="logo" aria-label="TELE-OPTICS">
                 <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
                 </div>
                 <div class="logo-text">
                     <div class="logo-name">TELE-OPTICS</div>
@@ -186,13 +199,13 @@
         </nav>
         <div class="mobile-menu-footer">
             <div class="mobile-menu-phone">
-                <span aria-hidden="true">📞</span>
-                <a href="tel:+78001234567">+7 (800) 123-45-67</a>
+                <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
+                <a href="tel:+74952150744">+7 495 215 0744</a>
             </div>
             <div class="footer-socials" aria-label="Социальные сети">
-                <a href="#" class="footer-social" aria-label="VK">VK</a>
-                <a href="#" class="footer-social" aria-label="Telegram">TG</a>
-                <a href="#" class="footer-social" aria-label="WhatsApp">WA</a>
+                <a href="#" class="footer-social" aria-label="VK"><img class="ui-icon" data-icon="vk" alt=""></a>
+                <a href="#" class="footer-social" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt=""></a>
+                <a href="#" class="footer-social" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt=""></a>
             </div>
         </div>
     </div>
@@ -225,15 +238,11 @@
                         <div class="slider-dot active"></div>
                         <div class="slider-dot"></div>
                     </div>
-                    <button class="slider-prev">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18l-6-6 6-6v12z"/>
-                        </svg>
+                    <button class="slider-prev" aria-label="Предыдущий слайд">
+                        <img class="ui-icon ui-icon-sm" data-icon="chevron-left" alt="" aria-hidden="true">
                     </button>
-                    <button class="slider-next">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18l6-6-6-6v12z"/>
-                        </svg>
+                    <button class="slider-next" aria-label="Следующий слайд">
+                        <img class="ui-icon ui-icon-sm" data-icon="chevron-right" alt="" aria-hidden="true">
                     </button>
                 </div>
             </div>
@@ -245,7 +254,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Категории товаров</h2>
-                <a href="#" class="section-link">Все категории <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6v12z"/></svg></a>
+                <a href="#" class="section-link">Все категории <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true"></a>
             </div>
             <div class="categories-grid" id="categories-grid" aria-label="Категории"></div>
         </div>
@@ -256,7 +265,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Рекомендуемые товары</h2>
-                <a href="#" class="section-link">Все товары <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6v12z"/></svg></a>
+                <a href="#" class="section-link">Все товары <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true"></a>
             </div>
             <div class="tabs-header" role="tablist" aria-label="Фильтр товаров">
                 <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="recommended">Рекомендуемые</button>
@@ -266,15 +275,11 @@
             </div>
             <div class="products-carousel">
                 <div class="products-row" id="products-row" aria-label="Товары"></div>
-                <button class="carousel-btn carousel-prev">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 18l-6-6 6-6v12z"/>
-                    </svg>
+                <button class="carousel-btn carousel-prev" aria-label="Назад">
+                    <img class="ui-icon ui-icon-lg" data-icon="chevron-left" alt="" aria-hidden="true">
                 </button>
-                <button class="carousel-btn carousel-next">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 18l6-6-6-6v12z"/>
-                    </svg>
+                <button class="carousel-btn carousel-next" aria-label="Вперед">
+                    <img class="ui-icon ui-icon-lg" data-icon="chevron-right" alt="" aria-hidden="true">
                 </button>
             </div>
         </div>
@@ -293,28 +298,28 @@
     <!-- Features Strip -->
     <div class="features-strip">
         <div class="feature-item">
-            <div class="feature-icon">🚚</div>
+            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="truck" alt="" aria-hidden="true"></div>
             <div class="feature-text">
                 <div class="feature-title">Бесплатная доставка</div>
                 <div class="feature-desc">При заказе от 5000 ₽</div>
             </div>
         </div>
         <div class="feature-item">
-            <div class="feature-icon">🔄</div>
+            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="return" alt="" aria-hidden="true"></div>
             <div class="feature-text">
                 <div class="feature-title">Возврат товара</div>
                 <div class="feature-desc">В течение 30 дней</div>
             </div>
         </div>
         <div class="feature-item">
-            <div class="feature-icon">🛡️</div>
+            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="shield" alt="" aria-hidden="true"></div>
             <div class="feature-text">
                 <div class="feature-title">Гарантия качества</div>
                 <div class="feature-desc">На всю продукцию</div>
             </div>
         </div>
         <div class="feature-item">
-            <div class="feature-icon">📞</div>
+            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="support" alt="" aria-hidden="true"></div>
             <div class="feature-text">
                 <div class="feature-title">Поддержка 24/7</div>
                 <div class="feature-desc">Горячая линия</div>
@@ -331,7 +336,7 @@
             <div class="our-goods-grid">
                 <div class="our-goods-category">
                     <div class="our-goods-header">
-                        <div class="our-goods-icon">🔭</div>
+                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-binokli" alt="" aria-hidden="true"></div>
                         <div class="our-goods-title">Бинокли</div>
                     </div>
                     <ul class="our-goods-links">
@@ -343,7 +348,7 @@
                 </div>
                 <div class="our-goods-category">
                     <div class="our-goods-header">
-                        <div class="our-goods-icon">🌌</div>
+                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-teleskopy" alt="" aria-hidden="true"></div>
                         <div class="our-goods-title">Телескопы</div>
                     </div>
                     <ul class="our-goods-links">
@@ -355,7 +360,7 @@
                 </div>
                 <div class="our-goods-category">
                     <div class="our-goods-header">
-                        <div class="our-goods-icon">📏</div>
+                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-dalnomery" alt="" aria-hidden="true"></div>
                         <div class="our-goods-title">Дальномеры</div>
                     </div>
                     <ul class="our-goods-links">
@@ -432,9 +437,7 @@
                 <div class="footer-logo-area">
                     <div class="footer-logo">
                         <div class="footer-logo-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
+                            <img class="ui-icon ui-icon-xl" data-icon="logo" alt="TELE-OPTICS">
                         </div>
                         <div class="footer-logo-name">TELE-OPTICS</div>
                     </div>
@@ -502,9 +505,7 @@
     <div class="newsletter-bar">
         <div class="container">
             <div class="newsletter-text">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
+                <img class="ui-icon ui-icon-xxl" data-icon="email" alt="" aria-hidden="true">
                 <div>
                     <div class="newsletter-title">Подпишитесь на рассылку</div>
                     <div class="newsletter-subtitle">Получайте информацию о новинках и акциях</div>
@@ -524,22 +525,15 @@
     <!-- Settings Bar -->
     <div class="settings-bar">
         <button class="theme-toggle" type="button">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
-                <path d="M12 5v14l9-9-9-5z"/>
-            </svg>
+            <img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true">
             Темная тема
         </button>
         <button class="lang-toggle active" type="button" aria-pressed="true" data-lang="ru">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
-            </svg>
+            <img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true">
             RU
         </button>
         <button class="visually-impaired-btn" type="button" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
+            <img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true">
             Для слабовидящих
         </button>
     </div>
@@ -548,22 +542,22 @@
     <div class="sticky-bar" aria-label="Нижнее меню">
         <div class="container">
             <a class="sticky-bar-item" href="viewed.html">
-                <span aria-hidden="true">👁</span>
+                <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
                 <span>Просмотренные</span>
                 <span class="sticky-bar-badge" id="viewed-badge">0</span>
             </a>
             <a class="sticky-bar-item" href="compare.html">
-                <span aria-hidden="true">⚖</span>
+                <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
                 <span>Сравнение</span>
                 <span class="sticky-bar-badge" id="compare-badge">0</span>
             </a>
             <a class="sticky-bar-item" href="favorites.html">
-                <span aria-hidden="true">♡</span>
+                <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
                 <span>Избранное</span>
                 <span class="sticky-bar-badge" id="favorites-badge-bottom">0</span>
             </a>
             <a class="sticky-bar-item" href="cart.html">
-                <span aria-hidden="true">🛒</span>
+                <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
                 <span>Корзина</span>
                 <span class="sticky-bar-badge" id="cart-badge-bottom">0</span>
             </a>
@@ -585,10 +579,8 @@
                     <label for="login-password">Пароль</label>
                     <div class="password-wrap">
                         <input type="password" id="login-password" placeholder="Ваш пароль" required>
-                        <button type="button" class="password-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                            </svg>
+                        <button type="button" class="password-toggle" aria-label="Показать пароль">
+                            <img class="ui-icon ui-icon-sm" data-icon="eye-open" alt="" aria-hidden="true">
                         </button>
                     </div>
                 </div>
@@ -602,18 +594,11 @@
                 </div>
                 <div class="social-login-btns">
                     <button type="button" class="social-login-btn">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                        </svg>
+                        <img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true">
                         Google
                     </button>
                     <button type="button" class="social-login-btn">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
+                        <img class="ui-icon ui-icon-sm" data-icon="facebook" alt="" aria-hidden="true">
                         Facebook
                     </button>
                 </div>

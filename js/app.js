@@ -9,6 +9,71 @@
 
   const API_BASE = 'http://localhost:3000';
 
+  /**
+   * Центральное место для замены иконок/картинок на прямые ссылки из Figma.
+   * Сюда вставляй прямые URL на SVG/PNG/JPG (не на страницу Figma).
+   * Пример: 'https://s3-alpha.figma.com/....png'
+   */
+  const ICON_URLS = {
+    // Header / UI
+    logo: 'assets/icons/logo.svg',
+    search: 'assets/icons/search.svg',
+    favorite: 'assets/icons/heart.svg',
+    cart: 'assets/icons/shopping-cart.svg',
+    user: 'assets/icons/user.svg',
+    compare: 'assets/icons/scales.svg',
+    viewed: 'assets/icons/eye.svg',
+    phone: 'assets/icons/phone.svg',
+    email: 'assets/icons/mail.svg',
+    pin: 'assets/icons/GEOPIN.svg',
+    'chevron-down': 'assets/icons/chevron-down.svg',
+    'chevron-right': 'assets/icons/chevron-right.svg',
+    'chevron-left': 'assets/icons/chevron-left.svg',
+    'eye-open': 'assets/icons/eye-open.svg',
+
+    // Socials
+    vk: 'assets/icons/vk.svg',
+    telegram: 'assets/icons/tg.svg',
+    viber: 'assets/icons/viber.svg',
+    whatsapp: 'assets/icons/whatsapp.svg',
+
+    // Features
+    truck: 'assets/icons/delivery.svg',
+    return: 'assets/icons/return.svg',
+    shield: 'assets/icons/shield.svg',
+    support: 'assets/icons/support.svg',
+
+    // Settings bar
+    theme: 'assets/icons/theme.svg',
+    lang: 'assets/icons/lang.svg',
+    accessibility: 'assets/icons/accessibility.svg',
+    google: 'assets/icons/google.svg',
+    facebook: 'assets/icons/facebook.svg',
+
+    // Categories / blocks
+    'cat-binokli': 'assets/icons/category-binokli.svg',
+    'cat-teleskopy': 'assets/icons/category-teleskopy.svg',
+    'cat-dalnomery': 'assets/icons/category-dalnomery.svg',
+
+    // Product card
+    'plus': 'assets/icons/plus.svg',
+  };
+
+  function isProbablyUrl(s) {
+    return typeof s === 'string' && /^(https?:)?\/\//.test(s);
+  }
+
+  function applyIconUrls(root = document) {
+    const nodes = Array.from(root.querySelectorAll('img[data-icon]'));
+    nodes.forEach((img) => {
+      const key = img.getAttribute('data-icon');
+      if (!key) return;
+      const url = ICON_URLS[key];
+      if (!url) return;
+      img.setAttribute('src', url);
+    });
+  }
+
   /** @returns {string} */
   function getLang() {
     return localStorage.getItem(STORAGE_KEYS.lang) || 'ru';
@@ -109,12 +174,11 @@
     grid.innerHTML = categories.slice(0, 5).map((c) => {
       const name = lang === 'en' ? (c.nameEn || c.name) : c.name;
       const count = typeof c.count === 'number' ? c.count : '';
-      const icon = c.icon || '';
+      const iconUrl = (/** @type {any} */ (c)).image || (/** @type {any} */ (c)).iconUrl || '';
       return `
         <a href="catalog.html#${c.slug || ''}" class="category-card" data-category-id="${c.id}">
           <div class="category-icon">
-            <span class="category-icon-placeholder" aria-hidden="true">${icon}</span>
-            <img class="visually-hidden" alt="" src="assets/icons/category-${c.slug || c.id}.svg">
+            <img alt="${name}" data-hide-img="false" src="${isProbablyUrl(iconUrl) ? iconUrl : (iconUrl || `assets/img/category-${c.slug || c.id}.png`)}">
           </div>
           <div class="category-name">${name}</div>
           <div class="category-count">${count ? `${count} ${lang === 'en' ? 'items' : 'товаров'}` : ''}</div>
@@ -159,16 +223,10 @@
           </a>
           <div class="product-actions-overlay">
             <button class="product-action-icon" type="button" data-action="favorite" aria-label="${lang === 'en' ? 'Add to favorites' : 'В избранное'}">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
+              <img class="ui-icon" data-icon="favorite" alt="" aria-hidden="true">
             </button>
             <button class="product-action-icon" type="button" data-action="compare" aria-label="${lang === 'en' ? 'Compare' : 'Сравнить'}">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 8h16v12H4V8zm2 2v8h12v-8H6z"/>
-                <path d="M4 4h16v2H4V4z"/>
-                <path d="M6 12h2v4H6v-4z"/>
-              </svg>
+              <img class="ui-icon" data-icon="compare" alt="" aria-hidden="true">
             </button>
           </div>
         </div>
@@ -185,9 +243,7 @@
               <div class="product-price-old">${old}</div>
             </div>
             <button class="add-to-cart-btn" type="button" data-action="add-to-cart" aria-label="${lang === 'en' ? 'Add to cart' : 'В корзину'}">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-              </svg>
+              <img class="ui-icon" data-icon="plus" alt="" aria-hidden="true">
             </button>
           </div>
         </div>
@@ -253,6 +309,8 @@
       'cart-badge-bottom': cartCount,
       'favorites-badge': favCount,
       'favorites-badge-bottom': favCount,
+      'compare-badge': 0,
+      'compare-badge-bottom': 0,
     };
 
     Object.entries(ids).forEach(([id, val]) => {
@@ -426,6 +484,7 @@
     bindBurgerMenu();
     bindProductActions();
 
+    applyIconUrls(document);
     updateBadgesFromStorage();
 
     const db = await loadDb();
@@ -452,6 +511,8 @@
     });
 
     rerender();
+    // icons inside freshly rendered product cards
+    applyIconUrls(document);
   }
 
   init();
