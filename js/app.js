@@ -20,7 +20,7 @@
     search: 'assets/icons/search.svg',
     favorite: 'assets/icons/heart.svg',
     cart: 'assets/icons/shopping-cart.svg',
-    user: 'assets/icons/user.svg',
+    user: 'assets/icons/EnterUser.svg',
     compare: 'assets/icons/scales.svg',
     viewed: 'assets/icons/eye.svg',
     phone: 'assets/icons/phone.svg',
