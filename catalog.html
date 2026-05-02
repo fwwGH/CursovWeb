@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — TELE-OPTICS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header-top">
+    <div class="container">
+      <div class="header-top-left">
+        <div class="city-selector"><span>Москва</span></div>
+        <span class="sep">|</span>
+        <span>Доставка по всей России</span>
+      </div>
+      <div class="header-top-right">
+        <div class="header-top-phones"><a href="tel:+78001234567">+7 (800) 123-45-67</a></div>
+      </div>
+    </div>
+  </header>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <div class="logo-text">
+          <div class="logo-name">TELE-OPTICS</div>
+          <div class="logo-domain">.ru</div>
+        </div>
+      </a>
+      <div class="header-search">
+        <input id="search-input" type="text" placeholder="Поиск товаров...">
+        <button class="search-btn" type="button" aria-label="Поиск"></button>
+      </div>
+      <div class="header-actions">
+        <button class="header-action-btn" type="button" data-open="favorites">
+          <span>Избранное</span><span class="action-badge" id="favorites-badge">0</span>
+        </button>
+        <button class="header-action-btn" type="button" data-open="cart">
+          <span>Корзина</span><span class="action-badge action-badge-yellow" id="cart-badge">0</span>
+        </button>
+        <button class="header-action-btn" type="button" data-open="login"><span>Войти</span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="header-nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+        <li class="nav-item"><a href="catalog.html" class="nav-link active">Каталог</a></li>
+        <li class="nav-item"><a href="delivery.html" class="nav-link">Доставка</a></li>
+        <li class="nav-item"><a href="contacts.html" class="nav-link">Контакты</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">/</span>
+      <span class="current">Каталог</span>
+    </div>
+
+    <section class="section">
+      <div class="section-header">
+        <h1 class="section-title">Каталог оптики</h1>
+      </div>
+
+      <div class="categories-grid" id="categories-grid" aria-label="Категории"></div>
+    </section>
+
+    <section class="section" id="brands">
+      <div class="section-header">
+        <h2 class="section-title">Бренды</h2>
+      </div>
+      <div class="brands-list" id="brands-list" aria-label="Бренды"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Товары</h2>
+      </div>
+      <div class="tabs-header" role="tablist" aria-label="Фильтр товаров">
+        <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="recommended">Рекомендуемые</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="hits">Хиты продаж</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="new">Новинки</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="sale">Акции</button>
+      </div>
+      <div class="products-row" id="products-row" aria-label="Товары"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2024 TELE-OPTICS</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Товар — TELE-OPTICS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header-main">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <div class="logo-text">
+          <div class="logo-name">TELE-OPTICS</div>
+          <div class="logo-domain">.ru</div>
+        </div>
+      </a>
+      <div class="header-search">
+        <input id="search-input" type="text" placeholder="Поиск товаров...">
+        <button class="search-btn" type="button" aria-label="Поиск"></button>
+      </div>
+      <div class="header-actions">
+        <button class="header-action-btn" type="button" data-open="favorites">
+          <span>Избранное</span><span class="action-badge" id="favorites-badge">0</span>
+        </button>
+        <a class="header-action-btn" href="cart.html">
+          <span>Корзина</span><span class="action-badge action-badge-yellow" id="cart-badge">0</span>
+        </a>
+        <button class="header-action-btn" type="button" data-open="login"><span>Войти</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="catalog.html">Каталог</a>
+      <span class="sep">/</span>
+      <span class="current">Товар</span>
+    </div>
+
+    <section class="section">
+      <div class="about-section" style="margin:0;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items:start;">
+          <div>
+            <div style="background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 16px;">
+              <img src="assets/img/product-detail.jpg" alt="Изображение товара будет позже" style="width:100%; height: 260px; object-fit: contain;">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;">
+              <img src="assets/img/product-thumb-1.jpg" alt="" style="width:56px; height:56px; border-radius: var(--radius-sm); object-fit: cover;">
+              <img src="assets/img/product-thumb-2.jpg" alt="" style="width:56px; height:56px; border-radius: var(--radius-sm); object-fit: cover;">
+              <img src="assets/img/product-thumb-3.jpg" alt="" style="width:56px; height:56px; border-radius: var(--radius-sm); object-fit: cover;">
+            </div>
+          </div>
+          <div>
+            <h1 class="section-title" style="margin-bottom: 10px;">Название товара (подставится по `id` позже)</h1>
+            <div class="product-rating" style="margin-bottom: 10px;">
+              <div class="stars" aria-hidden="true">★★★★★</div>
+              <span class="rating-value">4.67</span>
+              <span class="rating-count">(12)</span>
+            </div>
+            <div style="display:flex; gap: 14px; align-items: baseline; margin-bottom: 14px;">
+              <div style="font-size: 24px; font-weight: 900;">12 700 ₽</div>
+              <div style="text-decoration: line-through; color: var(--clr-text-muted);">15 250 ₽</div>
+            </div>
+            <div style="display:flex; gap: 10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" type="button" data-action="add-to-cart">В корзину</button>
+              <button class="btn btn-outline" type="button" data-action="favorite">В избранное</button>
+            </div>
+
+            <div style="height:16px;"></div>
+            <div class="about-goals-title">Характеристики</div>
+            <ul class="about-goals">
+              <li>Артикул: 000000</li>
+              <li>Кратность: 20x</li>
+              <li>Диаметр объектива: 50mm</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2024 TELE-OPTICS</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
+

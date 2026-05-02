@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог — TELE-OPTICS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header-main">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <div class="logo-text">
+          <div class="logo-name">TELE-OPTICS</div>
+          <div class="logo-domain">.ru</div>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">/</span>
+      <span class="current">Блог</span>
+    </div>
+
+    <section class="section">
+      <div class="section-header">
+        <h1 class="section-title">Блог</h1>
+      </div>
+
+      <div class="products-grid" style="grid-template-columns: 1fr;">
+        <article class="about-section" style="margin:0;">
+          <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+            <img src="assets/img/blog-1.jpg" alt="Изображение статьи будет позже" style="width:280px; height:160px; object-fit:cover; border-radius:var(--radius-md); background:var(--clr-border-light);">
+            <div style="flex:1; min-width:240px;">
+              <div style="font-size:12px; color:var(--clr-text-muted); margin-bottom:6px;">2 сентября</div>
+              <h2 style="font-size:18px; font-weight:800; margin-bottom:8px;">Конструкция современных биноклей</h2>
+              <p class="about-text">Короткое описание статьи (как в макете). Здесь будет осмысленный текст по теме.</p>
+              <a class="btn btn-outline" href="post.html?id=1">Читать</a>
+            </div>
+          </div>
+        </article>
+
+        <div style="height:14px;"></div>
+
+        <article class="about-section" style="margin:0;">
+          <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+            <img src="assets/img/blog-2.jpg" alt="Изображение статьи будет позже" style="width:280px; height:160px; object-fit:cover; border-radius:var(--radius-md); background:var(--clr-border-light);">
+            <div style="flex:1; min-width:240px;">
+              <div style="font-size:12px; color:var(--clr-text-muted); margin-bottom:6px;">2 сентября</div>
+              <h2 style="font-size:18px; font-weight:800; margin-bottom:8px;">Конструкция современных биноклей</h2>
+              <p class="about-text">Короткое описание статьи (как в макете). Здесь будет осмысленный текст по теме.</p>
+              <a class="btn btn-outline" href="post.html?id=2">Читать</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:24px;">
+        <button class="btn btn-outline" type="button" aria-label="Назад">Назад</button>
+        <button class="btn btn-primary" type="button" aria-label="Страница 1">1</button>
+        <button class="btn btn-outline" type="button" aria-label="Страница 2">2</button>
+        <button class="btn btn-outline" type="button" aria-label="Вперёд">Вперёд</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2024 TELE-OPTICS</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
+
