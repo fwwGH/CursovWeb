@@ -1,612 +1,999 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TELE-OPTICS - Магазин оптики</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TELE-OPTICS - Магазин оптики</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo">
-            <div class="preloader-icon">
-                <img src="assets/icons/logo.svg" alt="Logo">
-            </div>
-            <div class="preloader-name">TELE-OPTICS</div>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">
+    <div class="preloader-icon">
+      <img src="assets/icons/logo.svg" alt="Logo" class="ui-icon ui-icon-xxl">
+    </div>
+    <div class="preloader-name">TELE-OPTICS</div>
+  </div>
+  <div class="preloader-bar"><div class="preloader-bar-inner"></div></div>
+</div>
+
+<!-- ===== HEADER TOP ===== -->
+<header class="header-top">
+  <div class="container">
+    <div class="header-top-left">
+      <button class="city-selector" type="button" aria-label="Выбор города">
+        <img class="ui-icon ui-icon-xs" data-icon="pin" alt="" aria-hidden="true">
+        <span id="city-label">Москва</span>
+        <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
+      </button>
+      <nav class="header-top-links" aria-label="Верхнее меню">
+        <a href="about.html">О компании</a>
+        <a href="delivery.html">Доставка</a>
+        <a href="payment.html">Оплата</a>
+        <a href="promotions.html" class="header-top-accent">Акции</a>
+        <a href="sales.html">Распродажа</a>
+        <div class="top-more">
+          <button class="top-more-btn" type="button" aria-expanded="false">
+            Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
+          </button>
+          <div class="top-more-dropdown" role="menu">
+            <a href="guarantee.html" role="menuitem">Гарантии</a>
+            <a href="blog.html" role="menuitem">Блог</a>
+            <a href="reviews.html" role="menuitem">Отзывы</a>
+            <a href="vacancies.html" role="menuitem">Вакансии</a>
+            <a href="contacts.html" role="menuitem">Контакты</a>
+          </div>
         </div>
-        <div class="preloader-bar">
-            <div class="preloader-bar-inner"></div>
+      </nav>
+    </div>
+    <div class="header-top-right">
+      <div class="header-top-socials" aria-label="Мессенджеры">
+        <a href="#" title="Telegram" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt=""></a>
+        <a href="#" title="Viber" aria-label="Viber"><img class="ui-icon" data-icon="viber" alt=""></a>
+        <a href="#" title="WhatsApp" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt=""></a>
+      </div>
+      <div class="header-top-phones">
+        <a href="tel:+74952150744">
+          <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
+          +7 495 215 0744
+        </a>
+      </div>
+      <a class="header-top-email" href="mailto:sales@tele-optics.ru">
+        <img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true">
+        sales@tele-optics.ru
+      </a>
+      <a class="header-top-auth" href="#" data-open="login">Вход / Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HEADER MAIN ===== -->
+<header class="header-main">
+  <div class="container">
+    <button class="burger-btn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+    <a href="index.html" class="logo" aria-label="TELE-OPTICS — главная">
+      <div class="logo-icon">
+        <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">TELE-OPTICS</div>
+        <div class="logo-domain">МАГАЗИН ОПТИЧЕСКИХ ПРИБОРОВ</div>
+      </div>
+    </a>
+    <div class="header-search">
+      <input id="search-input" type="search" placeholder="Введите название: Бинокль армейский" autocomplete="off" aria-label="Поиск товаров">
+      <button class="search-btn" type="button" aria-label="Найти">
+        <img class="ui-icon" data-icon="search" alt="" aria-hidden="true">
+      </button>
+    </div>
+    <div class="header-actions">
+      <button class="header-action-btn" type="button" data-open="compare" aria-label="Сравнение">
+        <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
+        <span class="action-badge" id="compare-badge">0</span>
+      </button>
+      <button class="header-action-btn" type="button" data-open="favorites" aria-label="Избранное">
+        <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
+        <span class="action-badge" id="favorites-badge">0</span>
+      </button>
+      <button class="header-action-btn" type="button" data-open="cart" aria-label="Корзина">
+        <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
+        <span class="action-badge action-badge-yellow" id="cart-badge">0</span>
+      </button>
+      <button class="header-action-btn" type="button" data-open="login" aria-label="Войти">
+        <img class="ui-icon ui-icon-lg" data-icon="user" alt="" aria-hidden="true">
+        <span id="auth-label">Вход / Регистрация</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="header-nav" aria-label="Основная навигация">
+  <div class="container">
+    <ul class="nav-list">
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Телескопы</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link active" aria-current="page">Бинокли</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Лупы</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Микроскопы</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Зрительные трубы</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Монокуляры</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Прицелы</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Дальномеры</a></li>
+      <li class="nav-item"><a href="catalog.html" class="nav-link">Тепловизоры</a></li>
+      <li class="nav-item">
+        <a href="#" class="nav-link nav-link-more">
+          Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
+        </a>
+        <div class="nav-dropdown">
+          <a href="promotions.html">Акции</a>
+          <a href="sales.html">Распродажа</a>
+          <a href="blog.html">Блог</a>
+          <a href="reviews.html">Отзывы</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="about.html">О компании</a>
         </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Меню">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS"></div>
+      <div class="logo-text">
+        <div class="logo-name">TELE-OPTICS</div>
+        <div class="logo-domain">МАГАЗИН ОПТИЧЕСКИХ ПРИБОРОВ</div>
+      </div>
+    </a>
+    <button class="mobile-menu-close" type="button" aria-label="Закрыть меню">&times;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Мобильное меню">
+    <a class="mobile-nav-item" href="catalog.html">Телескопы <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Бинокли <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Лупы <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Микроскопы <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Зрительные трубы <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Монокуляры <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Прицелы <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Дальномеры <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="catalog.html">Тепловизоры <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="about.html">О компании <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="delivery.html">Доставка <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="payment.html">Оплата <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="promotions.html">Акции <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="guarantee.html">Гарантии <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="blog.html">Блог <span aria-hidden="true">›</span></a>
+    <a class="mobile-nav-item" href="contacts.html">Контакты <span aria-hidden="true">›</span></a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="mobile-menu-phone">
+      <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
+      <a href="tel:+74952150744">+7 495 215 0744</a>
+    </div>
+    <div class="mobile-menu-socials">
+      <a href="#" class="footer-social" aria-label="VK"><img class="ui-icon" data-icon="vk" alt="VK"></a>
+      <a href="#" class="footer-social" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt="TG"></a>
+      <a href="#" class="footer-social" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt="WA"></a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO SLIDER ===== -->
+<section class="hero" aria-label="Главный баннер">
+  <div class="hero-slider" id="hero-slider">
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active" role="group" aria-roledescription="слайд" aria-label="1 из 2" data-banner>
+      <div class="hero-slide-inner">
+        <div class="hero-content">
+          <div class="hero-tag" data-banner-tag>СКИДКА ДО 15%</div>
+          <h1 class="hero-title" data-banner-title>МЫ СНИЗИЛИ ЦЕНЫ!<br><span>НА НОЧНУЮ ОПТИКУ</span></h1>
+          <p class="hero-subtitle" data-banner-subtitle>Прицел ночного видения Digisight Ultra<br>N455 LRF с дальномером</p>
+          <div class="hero-price-block">
+            <span class="hero-price-old" data-banner-old-price>155 490₽</span>
+            <span class="hero-price-new" data-banner-new-price>149 990 ₽</span>
+          </div>
+          <a class="hero-btn" href="product.html" data-banner-btn>
+            Подробнее →
+          </a>
+        </div>
+        <div class="hero-image-side">
+          <img src="assets/images/MainBannerBig.png" alt="Тепловизионный монокуляр Hikmicro" data-banner-image loading="eager">
+          <div class="hero-product-info">
+            <div class="hero-product-brand" data-banner-brand>Hikmicro</div>
+            <div class="hero-product-type" data-banner-type>тепловизионный<br>монокуляр</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Header Top Bar -->
-    <header class="header-top">
-        <div class="container">
-            <div class="header-top-left">
-                <button class="city-selector" type="button" aria-label="Выбор города">
-                    <img class="ui-icon" data-icon="pin" alt="" aria-hidden="true">
-                    <span>Москва</span>
-                    <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
-                </button>
-                <nav class="header-top-links" aria-label="Верхнее меню">
-                    <a href="about.html">О компании</a>
-                    <a href="delivery.html">Доставка</a>
-                    <a href="payment.html">Оплата</a>
-                    <a href="promotions.html">Акции</a>
-                    <a href="sales.html">Распродажа</a>
-                    <div class="top-more">
-                        <button class="top-more-btn" type="button" aria-expanded="false">
-                            Еще
-                            <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
-                        </button>
-                        <div class="top-more-dropdown" role="menu">
-                            <a role="menuitem" href="guarantee.html">Гарантии</a>
-                            <a role="menuitem" href="blog.html">Блог</a>
-                            <a role="menuitem" href="reviews.html">Отзывы</a>
-                            <a role="menuitem" href="vacancies.html">Вакансии</a>
-                            <a role="menuitem" href="contacts.html">Контакты</a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div class="header-top-right">
-                <div class="header-top-socials" aria-label="Мессенджеры">
-                    <a href="#" title="Telegram" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt=""></a>
-                    <a href="#" title="Viber" aria-label="Viber"><img class="ui-icon" data-icon="viber" alt=""></a>
-                    <a href="#" title="WhatsApp" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt=""></a>
-                </div>
-                <div class="header-top-phones">
-                    <a href="tel:+74952150744">
-                        <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
-                        +7 495 215 0744
-                    </a>
-                </div>
-                <a class="header-top-email" href="mailto:sales@tele-optics.ru">
-                    <img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true">
-                    sales@tele-optics.ru
-                </a>
-                <a class="header-top-auth" href="#" data-open="login">Вход / Регистрация</a>
-            </div>
+    <!-- Slide 2 -->
+    <div class="hero-slide" role="group" aria-roledescription="слайд" aria-label="2 из 2">
+      <div class="hero-slide-inner">
+        <div class="hero-content">
+          <div class="hero-tag">СКИДКА -10%</div>
+          <h1 class="hero-title">БИНОКЛЬ<br><span>DISCOVERY FLINT 8×40</span></h1>
+          <p class="hero-subtitle">Новое поколение полевых биноклей от Discovery! Отличные оптические характеристики, привлекательный дизайн и доступная цена</p>
+          <div class="hero-price-block">
+            <span class="hero-price-old">8 990₽</span>
+            <span class="hero-price-new">7 490 ₽</span>
+          </div>
+          <a class="hero-btn" href="product.html">Подробнее →</a>
         </div>
-    </header>
-
-    <!-- Header Main -->
-    <header class="header-main">
-        <div class="container">
-            <button class="burger-btn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-            </button>
-
-            <a href="/" class="logo">
-                <div class="logo-icon">
-                    <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
-                </div>
-                <div class="logo-text">
-                    <div class="logo-name">TELE-OPTICS</div>
-                    <div class="logo-domain">.ru</div>
-                </div>
-            </a>
-
-            <div class="header-search">
-                <input id="search-input" type="text" placeholder="Поиск товаров..." autocomplete="off">
-                <button class="search-btn" type="button" aria-label="Поиск">
-                    <img class="ui-icon" data-icon="search" alt="" aria-hidden="true">
-                </button>
-            </div>
-
-            <div class="header-actions">
-                <button class="header-action-btn" type="button" data-open="viewed">
-                    <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
-                    <span class="action-badge" id="viewed-badge">0</span>
-                </button>
-                <button class="header-action-btn" type="button" data-open="compare">
-                    <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
-                    <span class="action-badge" id="compare-badge">0</span>
-                </button>
-                <button class="header-action-btn" type="button" data-open="favorites">
-                    <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
-                    <span class="action-badge" id="favorites-badge">0</span>
-                </button>
-                <button class="header-action-btn" type="button" data-open="cart">
-                    <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
-                    <span class="action-badge action-badge-yellow" id="cart-badge">0</span>
-                </button>
-                
-            </div>
+        <div class="hero-image-side">
+          <img src="assets/images/MainSecondBanner.png" alt="Бинокль Discovery Flint 8x40" loading="lazy">
+          <div class="hero-product-info">
+            <div class="hero-product-brand">Discovery</div>
+            <div class="hero-product-type">Бинокль<br>8×40</div>
+          </div>
         </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="header-nav">
-        <div class="container">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a href="catalog.html" class="nav-link">Каталог</a>
-                    <div class="nav-dropdown">
-                        <a href="#">Бинокли</a>
-                        <a href="#">Телескопы</a>
-                        <a href="#">Дальномеры</a>
-                        <a href="#">Зрительные трубы</a>
-                        <a href="#">Прицелы</a>
-                        <a href="#">Лупы</a>
-                        <a href="#">Монокуляры</a>
-                        <a href="#">Микроскопы</a>
-                        <a href="#">Тепловизоры</a>
-                        <a href="#">Цифровые камеры</a>
-                    </div>
-                </li>
-                <li class="nav-item"><a href="catalog.html#teleskopy" class="nav-link">Телескопы</a></li>
-                <li class="nav-item"><a href="catalog.html#binokli" class="nav-link">Бинокли</a></li>
-                <li class="nav-item"><a href="catalog.html#lupy" class="nav-link">Лупы</a></li>
-                <li class="nav-item"><a href="catalog.html#mikroskopy" class="nav-link">Микроскопы</a></li>
-                <li class="nav-item"><a href="catalog.html#zritelnye-truby" class="nav-link">Зрительные трубы</a></li>
-                <li class="nav-item"><a href="catalog.html#monokulary" class="nav-link">Монокуляры</a></li>
-                <li class="nav-item"><a href="catalog.html#pritsely" class="nav-link">Прицелы</a></li>
-                <li class="nav-item"><a href="catalog.html#dalnomery" class="nav-link">Дальномеры</a></li>
-                <li class="nav-item"><a href="catalog.html#teplovizory" class="nav-link">Тепловизоры</a></li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></a>
-                    <div class="nav-dropdown">
-                        <a href="catalog.html#brands">Бренды</a>
-                        <a href="promotions.html">Акции</a>
-                        <a href="about.html">О компании</a>
-                        <a href="delivery.html">Доставка</a>
-                        <a href="contacts.html">Контакты</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Mobile menu -->
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-        <div class="mobile-menu-header">
-            <a href="index.html" class="logo" aria-label="TELE-OPTICS">
-                <div class="logo-icon">
-                    <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
-                </div>
-                <div class="logo-text">
-                    <div class="logo-name">TELE-OPTICS</div>
-                    <div class="logo-domain">.ru</div>
-                </div>
-            </a>
-            <button class="mobile-menu-close" type="button" aria-label="Закрыть меню">×</button>
-        </div>
-        <nav class="mobile-nav">
-            <a class="mobile-nav-item" href="catalog.html">Каталог <span>›</span></a>
-            <a class="mobile-nav-item" href="about.html">О компании <span>›</span></a>
-            <a class="mobile-nav-item" href="delivery.html">Доставка <span>›</span></a>
-            <a class="mobile-nav-item" href="payment.html">Оплата <span>›</span></a>
-            <a class="mobile-nav-item" href="promotions.html">Акции <span>›</span></a>
-            <a class="mobile-nav-item" href="sales.html">Распродажа <span>›</span></a>
-            <a class="mobile-nav-item" href="vacancies.html">Вакансии <span>›</span></a>
-            <a class="mobile-nav-item" href="guarantee.html">Гарантии <span>›</span></a>
-            <a class="mobile-nav-item" href="blog.html">Блог <span>›</span></a>
-            <a class="mobile-nav-item" href="reviews.html">Отзывы <span>›</span></a>
-            <a class="mobile-nav-item" href="contacts.html">Контакты <span>›</span></a>
-        </nav>
-        <div class="mobile-menu-footer">
-            <div class="mobile-menu-phone">
-                <img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true">
-                <a href="tel:+74952150744">+7 495 215 0744</a>
-            </div>
-            <div class="footer-socials" aria-label="Социальные сети">
-                <a href="#" class="footer-social" aria-label="VK"><img class="ui-icon" data-icon="vk" alt=""></a>
-                <a href="#" class="footer-social" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt=""></a>
-                <a href="#" class="footer-social" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt=""></a>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <!-- Hero Slider -->
-    <section class="hero">
-        <div class="hero-slider">
-            <div class="hero-slide active" data-banner>
-                <div class="hero-slide-inner">
-                    <div class="hero-content">
-                        <div class="hero-tag" data-banner-tag>СКИДКА ДО 15%</div>
-                        <h1 class="hero-title" data-banner-title>МЫ СНИЗИЛИ ЦЕНЫ! НА НОЧНУЮ ОПТИКУ</h1>
-                        <p class="hero-subtitle" data-banner-subtitle>Прицел ночного видения Digisight Ultra N455 LRF с дальномером</p>
-                        <div class="hero-price-block">
-                            <div class="hero-price-old" data-banner-old-price>155 490 ₽</div>
-                            <div class="hero-price-new" data-banner-new-price>149 990 ₽</div>
-                        </div>
-                        <a class="hero-btn" href="product.html" data-banner-btn>Подробнее</a>
-                    </div>
-                    <div class="hero-image-side">
-                        <img data-banner-image src="assets/img/hero-product.png" alt="Товар (изображение будет добавлено позже)">
-                        <div class="hero-product-info">
-                            <div class="hero-product-brand" data-banner-brand>HIKMICRO</div>
-                            <div class="hero-product-type" data-banner-type>Тепловизор</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider-controls">
-                    <div class="slider-dots">
-                        <div class="slider-dot active"></div>
-                        <div class="slider-dot"></div>
-                    </div>
-                    <button class="slider-prev" aria-label="Предыдущий слайд">
-                        <img class="ui-icon ui-icon-sm" data-icon="chevron-left" alt="" aria-hidden="true">
-                    </button>
-                    <button class="slider-next" aria-label="Следующий слайд">
-                        <img class="ui-icon ui-icon-sm" data-icon="chevron-right" alt="" aria-hidden="true">
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Slider Controls -->
+    <div class="slider-controls" role="group" aria-label="Управление слайдером">
+      <button class="slider-prev" type="button" aria-label="Предыдущий слайд">
+        <img class="ui-icon ui-icon-sm" data-icon="chevron-left" alt="" aria-hidden="true">
+      </button>
+      <div class="slider-dots" role="tablist">
+        <button class="slider-dot active" role="tab" aria-selected="true" aria-label="Слайд 1" data-index="0"></button>
+        <button class="slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2" data-index="1"></button>
+      </div>
+      <button class="slider-next" type="button" aria-label="Следующий слайд">
+        <img class="ui-icon ui-icon-sm" data-icon="chevron-right" alt="" aria-hidden="true">
+      </button>
+    </div>
+  </div>
+</section>
 
-    <!-- Categories Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Категории товаров</h2>
-                <a href="#" class="section-link">Все категории <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true"></a>
-            </div>
-            <div class="categories-grid" id="categories-grid" aria-label="Категории"></div>
-        </div>
-    </section>
+<!-- ===== POPULAR CATEGORIES ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Популярные категории</h2>
+      <a href="catalog.html" class="section-link">
+        Перейти в каталог
+        <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true">
+      </a>
+    </div>
+    <div class="categories-grid" id="categories-grid" aria-label="Категории товаров"></div>
+  </div>
+</section>
 
-    <!-- Products Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Рекомендуемые товары</h2>
-                <a href="#" class="section-link">Все товары <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true"></a>
-            </div>
-            <div class="tabs-header" role="tablist" aria-label="Фильтр товаров">
-                <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="recommended">Рекомендуемые</button>
-                <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="hits">Хиты продаж</button>
-                <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="new">Новинки</button>
-                <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="sale">Акции</button>
-            </div>
-            <div class="products-carousel">
-                <div class="products-row" id="products-row" aria-label="Товары"></div>
-                <button class="carousel-btn carousel-prev" aria-label="Назад">
-                    <img class="ui-icon ui-icon-lg" data-icon="chevron-left" alt="" aria-hidden="true">
-                </button>
-                <button class="carousel-btn carousel-next" aria-label="Вперед">
-                    <img class="ui-icon ui-icon-lg" data-icon="chevron-right" alt="" aria-hidden="true">
-                </button>
-            </div>
-        </div>
-    </section>
+<!-- ===== HITS OF SALES ===== -->
+<section class="section section-hits">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Хиты продаж</h2>
+      <a href="catalog.html" class="section-link section-link-btn">
+        Смотреть весь каталог
+        <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true">
+      </a>
+    </div>
+    <div class="products-carousel" aria-label="Хиты продаж">
+      <button class="carousel-btn carousel-prev" type="button" aria-label="Назад">
+        <img class="ui-icon" data-icon="chevron-left" alt="" aria-hidden="true">
+      </button>
+      <div class="products-row" id="hits-row" role="list"></div>
+      <button class="carousel-btn carousel-next" type="button" aria-label="Вперёд">
+        <img class="ui-icon" data-icon="chevron-right" alt="" aria-hidden="true">
+      </button>
+    </div>
+    <div class="carousel-dots" id="hits-dots" role="tablist" aria-label="Страницы карусели"></div>
+  </div>
+</section>
 
-    <!-- Brands Section -->
-    <section class="brands-section">
-        <div class="container">
-            <div class="section-header brands-header">
-                <h2 class="section-title">Популярные бренды</h2>
-            </div>
-            <div class="brands-list" id="brands-list" aria-label="Бренды"></div>
-        </div>
-    </section>
+<!-- ===== BRANDS ===== -->
+<section class="brands-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Бренды</h2>
+      <a href="catalog.html#brands" class="section-link">
+        Все Бренды
+        <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true">
+      </a>
+    </div>
+    <div class="brands-list" id="brands-list" role="list" aria-label="Бренды производителей">
+      <div class="brand-item" role="listitem"><img src="assets/icons/BrandsTogether.svg" alt="Бренды" class="brands-together-img"></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Features Strip -->
-    <div class="features-strip">
-        <div class="feature-item">
-            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="truck" alt="" aria-hidden="true"></div>
-            <div class="feature-text">
-                <div class="feature-title">Бесплатная доставка</div>
-                <div class="feature-desc">При заказе от 5000 ₽</div>
-            </div>
+<!-- ===== RECOMMENDED (TABS) ===== -->
+<section class="section section-recommended">
+  <div class="container">
+    <div class="section-header section-header-tabs">
+      <div class="tabs-header" role="tablist" aria-label="Фильтр рекомендованных товаров">
+        <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="recommended">Рекомендуемые</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="new">Новинки</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="viewed">Самые просматриваемые</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="sale">Скидки</button>
+      </div>
+      <a href="catalog.html" class="section-link section-link-btn">
+        Смотреть весь каталог
+        <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true">
+      </a>
+    </div>
+    <div class="products-carousel" aria-label="Рекомендованные товары">
+      <button class="carousel-btn carousel-prev" type="button" aria-label="Назад">
+        <img class="ui-icon" data-icon="chevron-left" alt="" aria-hidden="true">
+      </button>
+      <div class="products-row" id="products-row" role="list"></div>
+      <button class="carousel-btn carousel-next" type="button" aria-label="Вперёд">
+        <img class="ui-icon" data-icon="chevron-right" alt="" aria-hidden="true">
+      </button>
+    </div>
+    <div class="carousel-dots" id="rec-dots" role="tablist" aria-label="Страницы карусели"></div>
+  </div>
+</section>
+
+<!-- ===== FEATURES STRIP ===== -->
+<div class="features-strip" role="list" aria-label="Преимущества">
+  <div class="container">
+    <div class="feature-item" role="listitem">
+      <div class="feature-icon">
+        <img src="assets/icons/delivery.svg" alt="" aria-hidden="true" width="32" height="32">
+      </div>
+      <div class="feature-text">
+        <div class="feature-title">Быстрая доставка</div>
+        <div class="feature-desc">По всей России</div>
+      </div>
+    </div>
+    <div class="feature-item" role="listitem">
+      <div class="feature-icon">
+        <img src="assets/icons/Certificate, Medal.svg" alt="" aria-hidden="true" width="32" height="32">
+      </div>
+      <div class="feature-text">
+        <div class="feature-title">Весь товар сертифицирован</div>
+        <div class="feature-desc">Оригинальная продукция</div>
+      </div>
+    </div>
+    <div class="feature-item" role="listitem">
+      <div class="feature-icon">
+        <img src="assets/icons/shield.svg" alt="" aria-hidden="true" width="32" height="32">
+      </div>
+      <div class="feature-text">
+        <div class="feature-title">3 года гарантии</div>
+        <div class="feature-desc">На всю продукцию</div>
+      </div>
+    </div>
+    <div class="feature-item" role="listitem">
+      <div class="feature-icon">
+        <img src="assets/icons/Medal, Prize, Reward.svg" alt="" aria-hidden="true" width="32" height="32">
+      </div>
+      <div class="feature-text">
+        <div class="feature-title">10 лет на рынке</div>
+        <div class="feature-desc">Опыт и доверие</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== OUR GOODS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Наши товары</h2>
+    </div>
+    <div class="our-goods-grid">
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon"><img src="assets/icons/category-binokli.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Бинокли</a>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="return" alt="" aria-hidden="true"></div>
-            <div class="feature-text">
-                <div class="feature-title">Возврат товара</div>
-                <div class="feature-desc">В течение 30 дней</div>
-            </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>11</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>8</span></a></li>
+          <li><a href="catalog.html">Для детей <span>5</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>14</span></a></li>
+          <li><a href="catalog.html">Для города <span>6</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>4</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--green"><img src="assets/icons/category-teleskopy.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Микроскопы</a>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="shield" alt="" aria-hidden="true"></div>
-            <div class="feature-text">
-                <div class="feature-title">Гарантия качества</div>
-                <div class="feature-desc">На всю продукцию</div>
-            </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>11</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>10</span></a></li>
+          <li><a href="catalog.html">Для детей <span>7</span></a></li>
+          <li><a href="catalog.html" class="link-blue">Для охоты и рыбалки <span>9</span></a></li>
+          <li><a href="catalog.html">Любительский <span>8</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--orange"><img src="assets/icons/category-dalnomery.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Телескопы</a>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><img class="ui-icon ui-icon-xl" data-icon="support" alt="" aria-hidden="true"></div>
-            <div class="feature-text">
-                <div class="feature-title">Поддержка 24/7</div>
-                <div class="feature-desc">Горячая линия</div>
-            </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>5</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>15</span></a></li>
+          <li><a href="catalog.html">Для детей <span>4</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>6</span></a></li>
+          <li><a href="catalog.html">Любительский <span>9</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--purple"><img src="assets/icons/category-binokli.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Монокуляры</a>
         </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>10</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>3</span></a></li>
+          <li><a href="catalog.html">Для детей <span>4</span></a></li>
+          <li><a href="catalog.html">Для города <span>6</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>8</span></a></li>
+          <li><a href="catalog.html">Любительский <span>5</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>3</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--blue"><img src="assets/icons/category-dalnomery.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Зрительные трубы</a>
+        </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>7</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>5</span></a></li>
+          <li><a href="catalog.html">Для детей <span>2</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>11</span></a></li>
+          <li><a href="catalog.html">Любительский <span>6</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>4</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--yellow"><img src="assets/icons/category-binokli.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Лупы</a>
+        </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>4</span></a></li>
+          <li><a href="catalog.html">Для детей <span>6</span></a></li>
+          <li><a href="catalog.html">Для города <span>5</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>3</span></a></li>
+          <li><a href="catalog.html">Любительский <span>7</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>5</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <!-- Row 2 -->
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--teal"><img src="assets/icons/category-dalnomery.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Дальномеры</a>
+        </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>9</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>3</span></a></li>
+          <li><a href="catalog.html">Для детей <span>2</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>12</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>8</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--dark"><img src="assets/icons/category-binokli.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Приборы ночного видения</a>
+        </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>15</span></a></li>
+          <li><a href="catalog.html">Астрономический <span>4</span></a></li>
+          <li><a href="catalog.html">Для детей <span>3</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>18</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>10</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+      <div class="our-goods-category">
+        <div class="our-goods-header">
+          <div class="our-goods-icon our-goods-icon--red"><img src="assets/icons/category-teleskopy.svg" alt="" aria-hidden="true" width="20" height="20"></div>
+          <a href="catalog.html" class="our-goods-title">Тепловизоры</a>
+        </div>
+        <ul class="our-goods-links">
+          <li><a href="catalog.html">Армейско-полевой <span>12</span></a></li>
+          <li><a href="catalog.html">Для детей <span>2</span></a></li>
+          <li><a href="catalog.html">Для охоты и рыбалки <span>20</span></a></li>
+          <li><a href="catalog.html">Для профессионалов <span>9</span></a></li>
+          <li><a href="catalog.html" class="show-all">Показать все →</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about-section">
+  <div class="container">
+    <h2 class="about-title">Магазин оптических приборов Tele-Optics.Ru</h2>
+    <p class="about-text">Наша компания существует на рынке оптических приборов более 5 лет. За это время мы сделали умным и счастливым огромное количество людей. Как показало время, нельзя постоянно быть одинаковым и удовлетворять запросы самых требовательных покупателей. Теперь мы предстаём перед Вами в новом облике, с новыми подходами, новейшим функционалом, который сделает Ваше время, проведённое у нас, не только приятным, но и полезным!</p>
+    <p class="about-text">Наша компания ставит перед собой только самые реальные цели:</p>
+    <ul class="about-goals">
+      <li>сотрудничество с прямыми дистрибьюторами и производителями для получения исключительных условий;</li>
+      <li>расширение возможностей доставки в любую точку Вашего Выбора;</li>
+      <li>сотрудничество с ведущими производителями оптических приборов и развивающихся органик;</li>
+      <li>бесплатные консультации по выбору предпочитаемого ассортимента;</li>
+      <li>обеспечение безупречного качества постоянных поставщиков.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== CONSULTATION + MAP ===== -->
+<section class="consultation-section">
+  <div class="container">
+    <div class="consultation-grid">
+      <div class="consultation-form">
+        <h2 class="consultation-title">Вам нужна консультация?</h2>
+        <p class="consultation-text">Задайте их по телефону +7 (000) 000-000-00 или оставьте свои координаты и наш менеджер перезвонит вам через 10 минут</p>
+        <form id="consultation-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Ваше имя" required aria-label="Ваше имя">
+            </div>
+            <div class="form-group">
+              <input type="tel" name="phone" placeholder="Ваш телефон" required aria-label="Ваш телефон">
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Ваш email" aria-label="Email">
+          </div>
+          <div class="form-group">
+            <textarea name="question" placeholder="Ваш вопрос" rows="3" aria-label="Вопрос"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Оставить заявку</button>
+          <p class="form-note">Нажимая «Оставить заявку», я соглашаюсь с <a href="#">обработкой персональных данных</a> на условиях <a href="#">Политики конфиденциальности</a>.</p>
+        </form>
+      </div>
+      <div class="map-container" id="yandex-map" aria-label="Карта офиса">
+        <div class="map-placeholder">
+          <div class="map-address-pin">
+            <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="32" height="32"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <div>
+              <div class="map-address-title">г. Москва, ул. Никольская, д. 15</div>
+              <div class="map-address-sub">Офис находится недалеко от Площади Революции</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <!-- Newsletter Bar (inside footer per Figma) -->
+  <div class="newsletter-bar">
+    <div class="container">
+      <div class="newsletter-text">
+        <img src="assets/icons/tg.svg" alt="" aria-hidden="true" width="36" height="36">
+        <div>
+          <div class="newsletter-title">Подпишитесь и будьте в курсе!</div>
+          <div class="newsletter-subtitle">Акции, скидки, распродажи ждут!</div>
+        </div>
+      </div>
+      <form class="newsletter-form" id="newsletter-form" novalidate>
+        <input type="email" placeholder="Введите email" aria-label="Email для подписки" required>
+        <button type="submit" class="btn btn-yellow">Подписаться</button>
+      </form>
+      <label class="newsletter-agree">
+        <input type="checkbox" required>
+        <span>Я согласен на обработку своих персональных данных</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Column 1: Logo & Info -->
+      <div class="footer-logo-area">
+        <a href="index.html" class="footer-logo" aria-label="TELE-OPTICS">
+          <div class="footer-logo-icon">
+            <img class="ui-icon ui-icon-xl" data-icon="logo" alt="TELE-OPTICS">
+          </div>
+          <div class="footer-logo-name">Tele-Optics</div>
+        </a>
+        <address class="footer-info">
+          <div><img class="ui-icon ui-icon-xs" data-icon="pin" alt="" aria-hidden="true"> Россия, г. Москва, ул. Никольская, д. 15</div>
+          <div style="margin-top:4px;"><img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true" style="opacity:0"> Пн–Пт с 09:00–19:00, Сб–Вс – выходной</div>
+          <div style="margin-top:4px;"><a href="mailto:sales@tele-optics.ru" style="color:var(--clr-primary)">sales@tele-optics.ru</a></div>
+        </address>
+        <div class="footer-rating">
+          <span>Рейтинг магазина</span>
+          <div class="stars">★★★★★</div>
+          <span>Яндекс.Маркет</span>
+        </div>
+      </div>
+
+      <!-- Column 2: Catalog -->
+      <div>
+        <h3 class="footer-col-title">Каталог</h3>
+        <ul class="footer-links">
+          <li><a href="catalog.html">Бинокли</a></li>
+          <li><a href="catalog.html">Телескопы</a></li>
+          <li><a href="catalog.html">Монокуляры</a></li>
+          <li><a href="catalog.html">Лупы</a></li>
+          <li><a href="catalog.html">Микроскопы</a></li>
+          <li><a href="catalog.html">Зрительные трубы</a></li>
+          <li><a href="catalog.html">Дальномеры</a></li>
+          <li><a href="catalog.html">Тепловизоры</a></li>
+          <li><a href="catalog.html">Приборы ночного видения</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Useful Info -->
+      <div>
+        <h3 class="footer-col-title">Полезная информация</h3>
+        <ul class="footer-links">
+          <li><a href="delivery.html">Доставка</a></li>
+          <li><a href="payment.html">Оплата</a></li>
+          <li><a href="#">Возврат</a></li>
+          <li><a href="#">Производители</a></li>
+          <li><a href="guarantee.html">Гарантия</a></li>
+          <li><a href="blog.html">Статьи</a></li>
+        </ul>
+        <div class="footer-payment" style="margin-top:16px;" aria-label="Способы оплаты">
+          <span class="footer-payment-icon">VISA</span>
+          <span class="footer-payment-icon">MC</span>
+          <span class="footer-payment-icon">МИР</span>
+          <span class="footer-payment-icon">SBP</span>
+        </div>
+      </div>
+
+      <!-- Column 4: Contacts -->
+      <div>
+        <h3 class="footer-col-title">Контакты</h3>
+        <a href="tel:+74952150744" class="footer-phone">+7 495 215 0744</a>
+        <div class="footer-socials" aria-label="Социальные сети">
+          <a href="#" class="footer-social" aria-label="VK"><img class="ui-icon" data-icon="vk" alt="VK"></a>
+          <a href="#" class="footer-social" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt="TG"></a>
+          <a href="#" class="footer-social" aria-label="Viber"><img class="ui-icon" data-icon="viber" alt="Viber"></a>
+          <a href="#" class="footer-social" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt="WA"></a>
+        </div>
+        <ul class="footer-links" style="margin-top:12px;">
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="#">Оптовые продажи</a></li>
+          <li><a href="#">Личный кабинет</a></li>
+        </ul>
+        <div class="footer-cta-btns">
+          <a href="#" class="btn btn-outline btn-sm">Подписаться на новости</a>
+          <a href="#" class="btn btn-yellow btn-sm">Скачать прайс-лист</a>
+        </div>
+      </div>
     </div>
 
-    <!-- Our Goods Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Наш каталог</h2>
-            </div>
-            <div class="our-goods-grid">
-                <div class="our-goods-category">
-                    <div class="our-goods-header">
-                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-binokli" alt="" aria-hidden="true"></div>
-                        <div class="our-goods-title">Бинокли</div>
-                    </div>
-                    <ul class="our-goods-links">
-                        <li><a href="#">Компактные бинокли <span>12</span></a></li>
-                        <li><a href="#">Полевые бинокли <span>8</span></a></li>
-                        <li><a href="#">Морские бинокли <span>5</span></a></li>
-                        <li><a href="#" class="show-all">Показать все</a></li>
-                    </ul>
-                </div>
-                <div class="our-goods-category">
-                    <div class="our-goods-header">
-                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-teleskopy" alt="" aria-hidden="true"></div>
-                        <div class="our-goods-title">Телескопы</div>
-                    </div>
-                    <ul class="our-goods-links">
-                        <li><a href="#">Рефракторы <span>15</span></a></li>
-                        <li><a href="#">Рефлекторы <span>10</span></a></li>
-                        <li><a href="#">Катадиоптрики <span>7</span></a></li>
-                        <li><a href="#" class="show-all">Показать все</a></li>
-                    </ul>
-                </div>
-                <div class="our-goods-category">
-                    <div class="our-goods-header">
-                        <div class="our-goods-icon"><img class="ui-icon ui-icon-lg" data-icon="cat-dalnomery" alt="" aria-hidden="true"></div>
-                        <div class="our-goods-title">Дальномеры</div>
-                    </div>
-                    <ul class="our-goods-links">
-                        <li><a href="#">Лазерные дальномеры <span>20</span></a></li>
-                        <li><a href="#">Оптические дальномеры <span>8</span></a></li>
-                        <li><a href="#" class="show-all">Показать все</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="container">
-            <h2 class="about-title">О компании TELE-OPTICS</h2>
-            <p class="about-text">TELE-OPTICS — ведущий интернет-магазин оптических приборов в России. Мы предлагаем широкий ассортимент качественной оптики от ведущих мировых производителей.</p>
-            <p class="about-text">Наша компания работает на рынке уже более 10 лет и завоевала доверие тысяч клиентов благодаря высокому качеству продукции, профессиональному обслуживанию и выгодным ценам.</p>
-            <div class="about-goals">
-                <div class="about-goals-title">Наши цели:</div>
-                <ul class="about-goals">
-                    <li>Предоставлять клиентам только качественную продукцию</li>
-                    <li>Обеспечивать быструю и надежную доставку</li>
-                    <li>Предлагать конкурентные цены</li>
-                    <li>Гарантировать высокий уровень сервиса</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Consultation Section -->
-    <section class="consultation-section">
-        <div class="consultation-form">
-            <h2 class="consultation-title">Нужна консультация?</h2>
-            <p class="consultation-text">Оставьте заявку и наши специалисты свяжутся с вами в ближайшее время</p>
-            <form>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" placeholder="Ваше имя" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Телефон" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Тема вопроса">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Опишите ваш вопрос" rows="4"></textarea>
-                </div>
-                <div class="form-note">
-                    Нажимая кнопку "Отправить", вы соглашаетесь с <a href="#" target="_blank">политикой конфиденциальности</a> и даете согласие на обработку персональных данных.
-                </div>
-                <button type="submit" class="btn btn-primary">Отправить заявку</button>
-            </form>
-        </div>
-        <div class="map-container">
-            <div class="map-placeholder">
-                <div>Карта с адресом магазина</div>
-                <div>г. Москва, ул. Примерная, д. 1</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-logo-area">
-                    <div class="footer-logo">
-                        <div class="footer-logo-icon">
-                            <img class="ui-icon ui-icon-xl" data-icon="logo" alt="TELE-OPTICS">
-                        </div>
-                        <div class="footer-logo-name">TELE-OPTICS</div>
-                    </div>
-                    <div class="footer-info">
-                        Интернет-магазин оптических приборов. <br>
-                        Работаем по всей России с 2014 года.
-                    </div>
-                    <div class="footer-rating">
-                        <div class="stars">★★★★★</div>
-                        <span>4.8 из 5 (1250 отзывов)</span>
-                    </div>
-                    <div class="footer-socials">
-                        <a href="#" class="footer-social">VK</a>
-                        <a href="#" class="footer-social">TG</a>
-                        <a href="#" class="footer-social">WA</a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="footer-col-title">Каталог</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Бинокли</a></li>
-                        <li><a href="#">Телескопы</a></li>
-                        <li><a href="#">Дальномеры</a></li>
-                        <li><a href="#">Зрительные трубы</a></li>
-                        <li><a href="#">Прицелы</a></li>
-                        <li><a href="#">Лупы</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-col-title">Покупателям</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Доставка и оплата</a></li>
-                        <li><a href="#">Возврат товара</a></li>
-                        <li><a href="#">Гарантия</a></li>
-                        <li><a href="#">Скидки и акции</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-col-title">Контакты</h3>
-                    <div class="footer-phone">+7 (800) 123-45-67</div>
-                    <div class="footer-info" style="margin-top: 8px;">
-                        Ежедневно с 9:00 до 21:00
-                    </div>
-                    <div class="footer-payment">
-                        <span class="footer-payment-icon">VISA</span>
-                        <span class="footer-payment-icon">MC</span>
-                        <span class="footer-payment-icon">МИР</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    © 2024 TELE-OPTICS. Все права защищены.
-                </div>
-                <div class="footer-bottom-links">
-                    <a href="#">Политика конфиденциальности</a>
-                    <a href="#">Пользовательское соглашение</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar">
-        <div class="container">
-            <div class="newsletter-text">
-                <img class="ui-icon ui-icon-xxl" data-icon="email" alt="" aria-hidden="true">
-                <div>
-                    <div class="newsletter-title">Подпишитесь на рассылку</div>
-                    <div class="newsletter-subtitle">Получайте информацию о новинках и акциях</div>
-                </div>
-            </div>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Ваш email">
-                <label class="newsletter-agree">
-                    <input type="checkbox" required>
-                    <span>Соглашаюсь с обработкой персональных данных</span>
-                </label>
-                <button type="submit" class="btn btn-yellow">Подписаться</button>
-            </form>
-        </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2022 Бинокль.Все права защищены.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия соглашения</a>
+        <a href="#">Карта сайта</a>
+      </div>
     </div>
+  </div>
+</footer>
 
-    <!-- Settings Bar -->
-    <div class="settings-bar">
-        <button class="theme-toggle" type="button">
-            <img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true">
-            Темная тема
-        </button>
-        <button class="lang-toggle active" type="button" aria-pressed="true" data-lang="ru">
-            <img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true">
-            RU
-        </button>
-        <button class="visually-impaired-btn" type="button" aria-pressed="false">
-            <img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true">
-            Для слабовидящих
-        </button>
-    </div>
+<!-- ===== STICKY BOTTOM BAR (mobile) ===== -->
+<nav class="sticky-bar" aria-label="Нижнее меню">
+  <div class="container">
+    <a class="sticky-bar-item" href="viewed.html" aria-label="Просмотренные">
+      <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
+      <span>Промотренные</span>
+      <span class="sticky-bar-badge" id="viewed-badge">0</span>
+    </a>
+    <a class="sticky-bar-item" href="compare.html" aria-label="Сравнение товаров">
+      <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
+      <span>Сравнение товаров</span>
+      <span class="sticky-bar-badge" id="compare-badge-bottom">0</span>
+    </a>
+    <a class="sticky-bar-item" href="favorites.html" aria-label="Избранное">
+      <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
+      <span>Избранное</span>
+      <span class="sticky-bar-badge" id="favorites-badge-bottom">0</span>
+    </a>
+    <a class="sticky-bar-item" href="cart.html" aria-label="Корзина">
+      <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
+      <span>Корзина</span>
+      <span class="sticky-bar-badge sticky-bar-badge-yellow" id="cart-badge-bottom">0</span>
+    </a>
+  </div>
+</nav>
 
-    <!-- Sticky Bottom Bar (mobile) -->
-    <div class="sticky-bar" aria-label="Нижнее меню">
-        <div class="container">
-            <a class="sticky-bar-item" href="viewed.html">
-                <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
-                <span>Просмотренные</span>
-                <span class="sticky-bar-badge" id="viewed-badge">0</span>
-            </a>
-            <a class="sticky-bar-item" href="compare.html">
-                <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
-                <span>Сравнение</span>
-                <span class="sticky-bar-badge" id="compare-badge">0</span>
-            </a>
-            <a class="sticky-bar-item" href="favorites.html">
-                <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
-                <span>Избранное</span>
-                <span class="sticky-bar-badge" id="favorites-badge-bottom">0</span>
-            </a>
-            <a class="sticky-bar-item" href="cart.html">
-                <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
-                <span>Корзина</span>
-                <span class="sticky-bar-badge" id="cart-badge-bottom">0</span>
-            </a>
+<!-- ===== SETTINGS BAR ===== -->
+<div class="settings-bar" role="group" aria-label="Настройки">
+  <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Переключить тему">
+    <img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true">
+    <span>Тёмная тема</span>
+  </button>
+  <button class="lang-toggle" type="button" aria-pressed="false" data-lang="ru" aria-label="Переключить язык">
+    <img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true">
+    <span>RU</span>
+  </button>
+  <button class="visually-impaired-btn" type="button" aria-pressed="false" aria-label="Версия для слабовидящих">
+    <img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true">
+    <span>Для слабовидящих</span>
+  </button>
+  <button class="reset-settings-btn" type="button" aria-label="Сбросить все настройки">Сбросить настройки</button>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="login-modal" role="dialog" aria-modal="true" aria-label="Авторизация">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Авторизация</h2>
+    <p class="modal-subtitle">Чтобы авторизоваться, войти в профиль, введите свои логин и пароль</p>
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <input type="email" id="login-email" placeholder="Ваш email" required aria-label="Email">
+      </div>
+      <div class="form-group">
+        <div class="password-wrap">
+          <input type="password" id="login-password" placeholder="Пароль" required aria-label="Пароль">
+          <button type="button" class="password-toggle" aria-label="Показать/скрыть пароль">
+            <img class="ui-icon ui-icon-sm" data-icon="eye-open" alt="" aria-hidden="true">
+          </button>
         </div>
+      </div>
+      <div class="form-row-inline">
+        <label class="checkbox-group">
+          <input type="checkbox" id="remember-me">
+          <span>Запомнить меня</span>
+        </label>
+        <a href="#" class="forgot-link">Забыли пароль?</a>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Войти</button>
+    </form>
+    <div class="modal-divider"><span>Войти через соцсети</span></div>
+    <div class="social-login-btns">
+      <button type="button" class="social-login-btn">
+        <img class="ui-icon ui-icon-sm" data-icon="vk" alt="" aria-hidden="true"> ВКонтакте
+      </button>
+      <button type="button" class="social-login-btn">
+        <img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true"> Google
+      </button>
     </div>
+    <div class="modal-footer-link">
+      Нет вашего аккаунта? <a href="#" data-switch-modal="register-modal">Зарегистрируйтесь</a>
+    </div>
+  </div>
+</div>
 
-    <!-- Modals -->
-    <div class="modal-overlay" id="login-modal">
-        <div class="modal">
-            <button class="modal-close">&times;</button>
-            <h2 class="modal-title">Вход в аккаунт</h2>
-            <p class="modal-subtitle">Войдите, чтобы получить доступ ко всем функциям</p>
-            <form>
-                <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Пароль</label>
-                    <div class="password-wrap">
-                        <input type="password" id="login-password" placeholder="Ваш пароль" required>
-                        <button type="button" class="password-toggle" aria-label="Показать пароль">
-                            <img class="ui-icon ui-icon-sm" data-icon="eye-open" alt="" aria-hidden="true">
-                        </button>
-                    </div>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="remember-me">
-                    <label for="remember-me">Запомнить меня</label>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
-                <div class="modal-divider">
-                    <span>или</span>
-                </div>
-                <div class="social-login-btns">
-                    <button type="button" class="social-login-btn">
-                        <img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true">
-                        Google
-                    </button>
-                    <button type="button" class="social-login-btn">
-                        <img class="ui-icon ui-icon-sm" data-icon="facebook" alt="" aria-hidden="true">
-                        Facebook
-                    </button>
-                </div>
-                <div class="modal-footer-link">
-                    <a href="#">Забыли пароль?</a>
-                    <a href="#">Регистрация</a>
-                </div>
-            </form>
+<!-- Register Modal -->
+<div class="modal-overlay" id="register-modal" role="dialog" aria-modal="true" aria-label="Регистрация">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Регистрация</h2>
+    <p class="modal-subtitle">Зарегистрируйтесь, чтобы использовать все возможности личного кабинета: отслеживание заказов, настройку уведомлений, связь с магазином и другое.</p>
+    <form id="register-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Ваше имя" required aria-label="Имя">
         </div>
+        <div class="form-group">
+          <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required aria-label="Телефон">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Ваш email" required aria-label="Email">
+      </div>
+      <div class="form-group">
+        <div class="password-wrap">
+          <input type="password" name="password" id="reg-password" placeholder="Пароль" required aria-label="Пароль">
+          <button type="button" class="password-toggle" aria-label="Показать пароль">
+            <img class="ui-icon ui-icon-sm" data-icon="eye-open" alt="" aria-hidden="true">
+          </button>
+        </div>
+        <span class="error-message" id="password-error"></span>
+      </div>
+      <div class="form-group">
+        <div class="password-wrap">
+          <input type="password" name="confirm_password" id="reg-confirm" placeholder="Подтвердите пароль" required aria-label="Подтвердите пароль">
+          <button type="button" class="password-toggle" aria-label="Показать пароль">
+            <img class="ui-icon ui-icon-sm" data-icon="eye-open" alt="" aria-hidden="true">
+          </button>
+        </div>
+      </div>
+      <label class="checkbox-group" style="margin-bottom:12px;">
+        <input type="checkbox" required>
+        <span>Я согласен с <a href="#">обработкой персональных данных</a> на условиях <a href="#">Политики конфиденциальности</a></span>
+      </label>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Регистрация</button>
+    </form>
+    <div class="modal-divider"><span>Зарегистрироваться через соцсети</span></div>
+    <div class="social-login-btns">
+      <button type="button" class="social-login-btn">
+        <img class="ui-icon ui-icon-sm" data-icon="vk" alt="" aria-hidden="true"> ВКонтакте
+      </button>
+      <button type="button" class="social-login-btn">
+        <img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true"> Google
+      </button>
     </div>
+    <div class="modal-footer-link">
+      Вы уже зарегистрированы? <a href="#" data-switch-modal="login-modal">Войти</a>
+    </div>
+  </div>
+</div>
 
-    <script src="js/app.js" defer></script>
+<!-- Cart Modal (popup) -->
+<div class="modal-overlay" id="cart-modal" role="dialog" aria-modal="true" aria-label="Корзина">
+  <div class="modal modal-cart">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Корзина</h2>
+    <div id="cart-modal-content">
+      <div class="cart-empty-msg">Ваша корзина пуста</div>
+    </div>
+    <div class="modal-footer-link" style="margin-top:16px;">
+      <a href="cart.html" class="btn btn-primary" style="width:100%;">Продолжить выбор →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Compare Modal (popup) -->
+<div class="modal-overlay" id="compare-modal" role="dialog" aria-modal="true" aria-label="Сравнение">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Сравнение</h2>
+    <div id="compare-modal-content">
+      <p class="modal-subtitle" id="compare-added-text"></p>
+    </div>
+    <div class="modal-footer-link" style="margin-top:16px;">
+      <a href="compare.html" class="btn btn-primary">Продолжить выбор →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Favorites Modal (popup) -->
+<div class="modal-overlay" id="favorites-modal" role="dialog" aria-modal="true" aria-label="Избранное">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Избранные</h2>
+    <div id="favorites-modal-content">
+      <p class="modal-subtitle" id="favorites-added-text"></p>
+    </div>
+    <div class="modal-footer-btns">
+      <a href="favorites.html" class="btn btn-primary">Продолжить выбор →</a>
+      <a href="#" class="btn btn-outline" data-open="login">Войти в личный кабинет</a>
+      <a href="#" class="btn btn-outline" data-open="register">Зарегистрироваться</a>
+    </div>
+  </div>
+</div>
+
+<!-- Callback / Заказать звонок Modal -->
+<div class="modal-overlay" id="callback-modal" role="dialog" aria-modal="true" aria-label="Заказать звонок">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Заказать звонок</h2>
+    <p class="modal-subtitle">Оставьте контактные данные и мы перезвоним вам в течение 15 минут</p>
+    <form id="callback-form" novalidate>
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Ваше имя" required aria-label="Имя">
+      </div>
+      <div class="form-group">
+        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required aria-label="Телефон">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:4px;">Оставить заявку</button>
+      <p class="form-note" style="margin-top:8px;">Нажимая «Оставить заявку», я соглашаюсь с <a href="#">обработкой персональных данных</a> на условиях <a href="#">Политики конфиденциальности</a>.</p>
+    </form>
+  </div>
+</div>
+
+<!-- City Selector Modal -->
+<div class="modal-overlay" id="city-modal" role="dialog" aria-modal="true" aria-label="Выбор города">
+  <div class="modal modal-city">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Укажите свой город</h2>
+    <div class="city-search-wrap">
+      <input type="search" id="city-search" placeholder="Поиск населённого пункта" aria-label="Поиск города">
+      <img class="ui-icon" data-icon="search" alt="" aria-hidden="true">
+    </div>
+    <div class="city-list" id="city-list">
+      <div class="city-cols">
+        <div class="city-col">
+          <a href="#" class="city-option" data-city="Москва">Москва</a>
+          <a href="#" class="city-option" data-city="Ангелина">Ангелина</a>
+          <a href="#" class="city-option" data-city="Балашиха">Балашиха</a>
+          <a href="#" class="city-option" data-city="Бронницы">Бронницы</a>
+          <a href="#" class="city-option" data-city="Верея">Верея</a>
+          <a href="#" class="city-option" data-city="Волоколамск">Волоколамск</a>
+          <a href="#" class="city-option" data-city="Воскресенск">Воскресенск</a>
+          <a href="#" class="city-option" data-city="Высоковск">Высоковск</a>
+          <a href="#" class="city-option" data-city="Голицыно">Голицыно</a>
+        </div>
+        <div class="city-col">
+          <a href="#" class="city-option" data-city="Дедовск">Дедовск</a>
+          <a href="#" class="city-option" data-city="Дмитров">Дмитров</a>
+          <a href="#" class="city-option" data-city="Долгопрудный">Долгопрудный</a>
+          <a href="#" class="city-option" data-city="Домодедово">Домодедово</a>
+          <a href="#" class="city-option" data-city="Дрезна">Дрезна</a>
+          <a href="#" class="city-option" data-city="Санкт-Петербург">Санкт-Петербург</a>
+          <a href="#" class="city-option" data-city="Абакан">Абакан</a>
+          <a href="#" class="city-option" data-city="Агалатово">Агалатово</a>
+          <a href="#" class="city-option" data-city="Александров">Александров</a>
+        </div>
+        <div class="city-col">
+          <a href="#" class="city-option" data-city="Алексеев">Алексеев</a>
+          <a href="#" class="city-option" data-city="Алуллаевск">Алуллаевск</a>
+          <a href="#" class="city-option" data-city="Анапа">Анапа</a>
+          <a href="#" class="city-option" data-city="Ангарск">Ангарск</a>
+          <a href="#" class="city-option" data-city="Анжеро-Судженск">Анжеро-Судженск</a>
+          <a href="#" class="city-option" data-city="Апатиты">Апатиты</a>
+          <a href="#" class="city-option" data-city="Арзамас">Арзамас</a>
+          <a href="#" class="city-option" data-city="Армавир">Армавир</a>
+          <a href="#" class="city-option" data-city="Арсеньев">Арсеньев</a>
+          <a href="#" class="city-option" data-city="Архангельск">Архангельск</a>
+        </div>
+      </div>
+      <a href="#" class="city-show-all">Все города</a>
+    </div>
+  </div>
+</div>
+
+<!-- Accessibility Panel -->
+<div class="accessibility-panel" id="a11y-panel" role="dialog" aria-label="Настройки для слабовидящих" aria-hidden="true">
+  <h3 class="accessibility-panel-title">Версия для слабовидящих</h3>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Размер шрифта</div>
+    <div class="accessibility-btns" role="group" aria-label="Размер шрифта">
+      <button class="accessibility-btn" type="button" data-a11y="fontSize" data-val="small" style="font-size:11px;" aria-label="Маленький">А</button>
+      <button class="accessibility-btn active" type="button" data-a11y="fontSize" data-val="normal" style="font-size:14px;" aria-label="Обычный">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="fontSize" data-val="large" style="font-size:18px;" aria-label="Большой">А</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Цветовая схема</div>
+    <div class="accessibility-btns" role="group" aria-label="Цветовая схема">
+      <button class="accessibility-btn active" type="button" data-a11y="scheme" data-val="default" style="background:#fff;color:#000;border:1px solid #ddd;" aria-label="По умолчанию">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="black-white" style="background:#000;color:#fff;" aria-label="Чёрный фон">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="black-green" style="background:#000;color:#0f0;" aria-label="Зелёный текст">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="beige-brown" style="background:#f5f0e8;color:#5c3d11;" aria-label="Бежевый фон">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="blue-navy" style="background:#cce4f7;color:#003366;" aria-label="Голубой фон">А</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Изображения</div>
+    <div class="accessibility-btns" role="group" aria-label="Изображения">
+      <button class="accessibility-btn active" type="button" data-a11y="images" data-val="show" aria-pressed="true">Показать</button>
+      <button class="accessibility-btn" type="button" data-a11y="images" data-val="hide" aria-pressed="false">Скрыть</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Выбор шрифта</div>
+    <div class="accessibility-btns">
+      <select class="accessibility-select" data-a11y="fontFamily" aria-label="Шрифт">
+        <option value="default">Roboto (по умолчанию)</option>
+        <option value="arial">Arial</option>
+        <option value="times">Times New Roman</option>
+        <option value="verdana">Verdana</option>
+      </select>
+    </div>
+  </div>
+  <button class="accessibility-close" type="button" id="a11y-close">Закрыть</button>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<script src="js/app.js" defer></script>
 </body>
 </html>
