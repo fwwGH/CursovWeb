@@ -34,9 +34,12 @@
     accessibility:'assets/icons/accessibility.svg',
     google:'assets/icons/google.svg',facebook:'assets/icons/facebook.svg',
     plus:'assets/icons/plus.svg',
-    'cat-binokli':'assets/icons/category-binokli.svg',
-    'cat-teleskopy':'assets/icons/category-teleskopy.svg',
-    'cat-dalnomery':'assets/icons/category-dalnomery.svg',
+    'cat-binokli':'assets/icons/binokly.svg',
+    'cat-teleskopy':'assets/icons/telescope.svg',
+    'cat-dalnomery':'assets/icons/dalnomeri.svg',
+    'cat-loopi':'assets/icons/loopi.svg',
+    'cat-zriteltruba': 'assets/icons/ZritelTrubi.svg',
+    'cat-crosshair': 'assets/icons/crosshair.svg',
   };
 
   /* --- storage --- */
@@ -276,14 +279,22 @@
   }
 
   /* --- categories --- */
-  const CAT_ICONS={1:'assets/icons/category-binokli.svg',2:'assets/icons/category-teleskopy.svg',3:'assets/icons/category-dalnomery.svg'};
+  const CAT_ICONS={
+    1: 'assets/icons/binokly.svg',
+    2: 'assets/icons/telescope.svg',
+    3: 'assets/icons/dalnomeri.svg',
+    4: 'assets/icons/ZritelTrubi.svg',
+    5: 'assets/icons/crosshair.svg',
+    6: 'assets/icons/loopi.svg',
+    7: 'assets/icons/monoculars.svg',
+    8: 'assets/icons/microscope.svg'};
   const CAT_BG=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
   function renderCategories(cats) {
     const g=document.getElementById('categories-grid'); if(!g) return;
     const lang=getLang();
     g.innerHTML=cats.map((c,i)=>{
       const name=lang==='en'?(c.nameEn||c.name):c.name;
-      const icon=CAT_ICONS[c.id]||'assets/icons/category-binokli.svg';
+      const icon=CAT_ICONS[c.id]||'assets/icons/binokly.svg';
       return `<a href="catalog.html#${c.slug}" class="category-card" aria-label="${name}">
   <div class="category-icon" style="background:${CAT_BG[i%CAT_BG.length]}">
     <img src="${icon}" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
