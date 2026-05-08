@@ -1,7 +1,3 @@
-/**
- * TELE-OPTICS — Full Application Script
- * Vanilla JS · No frameworks · No jQuery
- */
 
 (() => {
   'use strict';
