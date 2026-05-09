@@ -65,9 +65,10 @@
     <button class="burger-btn" type="button" aria-label="Открыть меню" aria-expanded="false">
       <span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span>
     </button>
-    <a href="index.html" class="logo" aria-label="TELE-OPTICS">
-      <div class="logo-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS"></div>
-      <div class="logo-text"><div class="logo-name">TELE-OPTICS</div><div class="logo-domain">МАГАЗИН ОПТИЧЕСКИХ ПРИБОРОВ</div></div>
+    <a href="index.html" class="logo" aria-label="TELE-OPTICS — главная">
+      <div class="logo-icon">
+        <img src="assets/icons/logovector.svg" alt="" width="152" height="48" loading="lazy">
+      </div>
     </a>
     <div class="header-search">
       <input id="search-input" type="search" placeholder="Введите название: Бинокль армейский" autocomplete="off" aria-label="Поиск товаров">
@@ -112,7 +113,11 @@
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Меню">
   <div class="mobile-menu-header">
-    <a href="index.html" class="logo"><div class="logo-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS"></div><div class="logo-text"><div class="logo-name">TELE-OPTICS</div></div></a>
+  <a href="index.html" class="logo" aria-label="TELE-OPTICS — главная">
+      <div class="logo-icon">
+        <img src="assets/icons/logovector.svg" alt="" width="152" height="48" loading="lazy">
+      </div>
+    </a>    
     <button class="mobile-menu-close" type="button" aria-label="Закрыть">&times;</button>
   </div>
   <nav class="mobile-nav">
@@ -272,9 +277,7 @@ document.getElementById('review-form')?.addEventListener('submit', async e => {
     <div class="footer-grid">
       <div class="footer-logo-area">
         <a href="index.html" class="footer-logo">
-          <div class="footer-logo-icon"><img class="ui-icon" data-icon="logo" alt="TELE-OPTICS"></div>
-          <div class="footer-logo-name">Tele-Optics</div>
-        </a>
+          <div class="footer-logo-icon"><img src="assets/icons/logovector.svg" alt="" width="152" height="48" loading="lazy"></div>        </a>
         <address class="footer-info">
           <div><img class="ui-icon ui-icon-xs" data-icon="pin" alt="" aria-hidden="true"> Россия, г. Москва, ул. Никольская, д. 15</div>
           <div style="margin-top:4px">Пн-Пт с 09:00-19:00, Сб-Вс – выходной</div>

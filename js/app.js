@@ -1,3 +1,7 @@
+/**
+ * TELE-OPTICS — Full Application Script
+ * Vanilla JS · No frameworks · No jQuery
+ */
 
 (() => {
   'use strict';
@@ -34,12 +38,9 @@
     accessibility:'assets/icons/accessibility.svg',
     google:'assets/icons/google.svg',facebook:'assets/icons/facebook.svg',
     plus:'assets/icons/plus.svg',
-    'cat-binokli':'assets/icons/binokly.svg',
-    'cat-teleskopy':'assets/icons/telescope.svg',
-    'cat-dalnomery':'assets/icons/dalnomeri.svg',
-    'cat-loopi':'assets/icons/loopi.svg',
-    'cat-zriteltruba': 'assets/icons/ZritelTrubi.svg',
-    'cat-crosshair': 'assets/icons/crosshair.svg',
+    'cat-binokli':'assets/icons/category-binokli.svg',
+    'cat-teleskopy':'assets/icons/category-teleskopy.svg',
+    'cat-dalnomery':'assets/icons/category-dalnomery.svg',
   };
 
   /* --- storage --- */
@@ -287,7 +288,9 @@
     5: 'assets/icons/crosshair.svg',
     6: 'assets/icons/loopi.svg',
     7: 'assets/icons/monoculars.svg',
-    8: 'assets/icons/microscope.svg'};
+    8: 'assets/icons/microscope.svg',
+    9: 'assets/icons/teplovisor.svg',
+    10: 'assets/icons/digitalcamera.svg',};
   const CAT_BG=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
   function renderCategories(cats) {
     const g=document.getElementById('categories-grid'); if(!g) return;
@@ -371,22 +374,36 @@
     if(img&&prod?.image) img.src=prod.image;
   }
 
-  /* --- hero slider --- */
+  /* --- hero slider (два независимых) --- */
   function initHeroSlider() {
-    const sl=document.getElementById('hero-slider'); if(!sl) return;
-    const slides=sl.querySelectorAll('.hero-slide'); const dots=sl.querySelectorAll('.slider-dot');
-    if(slides.length<2) return;
-    let cur=0,timer;
-    function go(n){
-      slides[cur].classList.remove('active'); dots[cur]?.classList.remove('active'); dots[cur]?.setAttribute('aria-selected','false');
-      cur=(n+slides.length)%slides.length;
-      slides[cur].classList.add('active'); dots[cur]?.classList.add('active'); dots[cur]?.setAttribute('aria-selected','true');
+    function makeSlider(containerId, slideSelector, dotSelector) {
+      const wrap  = document.getElementById(containerId);
+      if (!wrap) return;
+      const slides = wrap.querySelectorAll(slideSelector);
+      const dots   = wrap.querySelectorAll(dotSelector);
+      if (!slides.length) return;
+
+      let cur = 0, timer;
+
+      function go(n) {
+        slides[cur].classList.remove('active');
+        if (dots[cur]) { dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false'); }
+        cur = (n + slides.length) % slides.length;
+        slides[cur].classList.add('active');
+        if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); }
+      }
+
+      const nav = n => { clearInterval(timer); go(n); timer = setInterval(() => go(cur + 1), 5000); };
+
+      wrap.querySelector('.hero-arrow--prev')?.addEventListener('click', () => nav(cur - 1));
+      wrap.querySelector('.hero-arrow--next')?.addEventListener('click', () => nav(cur + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => nav(i)));
+
+      if (slides.length > 1) timer = setInterval(() => go(cur + 1), 5000);
     }
-    const nav=n=>{clearInterval(timer);go(n);timer=setInterval(()=>go(cur+1),5000);};
-    sl.querySelector('.slider-prev')?.addEventListener('click',()=>nav(cur-1));
-    sl.querySelector('.slider-next')?.addEventListener('click',()=>nav(cur+1));
-    dots.forEach((d,i)=>d.addEventListener('click',()=>nav(i)));
-    timer=setInterval(()=>go(cur+1),5000);
+
+    makeSlider('hero-main', '.hero-main-slide', '.hero-dot');
+    makeSlider('hero-side', '.hero-side-slide', '.hero-dot');
   }
 
   /* --- mobile menu --- */

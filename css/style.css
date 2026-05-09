@@ -345,7 +345,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-img[src^="assets/"] {
+img[src^="assets/images/"] {
   background: var(--clr-border-light);
 }
 
@@ -382,14 +382,12 @@ img[src^="assets/"] {
   text-decoration: none;
 }
 .logo-icon {
-  width: 42px; height: 42px;
-  background: var(--clr-primary);
-  border-radius: var(--radius-sm);
+  width: 152px; height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.logo-icon img { width: 28px; height: 28px; }
+.logo-icon img { width: 152px; height: 48px; }
 .logo-text {
   display: flex;
   flex-direction: column;
@@ -397,9 +395,12 @@ img[src^="assets/"] {
 }
 .logo-name {
   font-size: 18px;
-  font-weight: 800;
-  color: var(--clr-primary);
+  color: #000; /* чёрный цвет по запросу */
   letter-spacing: -0.5px;
+  font-weight: 400; /* обычный вес для "Optics" */
+}
+.logo-name .logo-bold {
+  font-weight: 800; /* жирный только для "Tele-" */
 }
 .logo-domain {
   font-size: 11px;
@@ -450,10 +451,7 @@ img[src^="assets/"] {
   align-items: center;
   gap: 2px;
   padding: 6px 10px;
-  border-radius: var(--radius-sm);
   position: relative;
-  color: var(--clr-text);
-  transition: background var(--transition), color var(--transition);
   font-size: 11px;
   min-width: 52px;
 }
@@ -1551,15 +1549,13 @@ img[src^="assets/"] {
   gap: 10px;
 }
 .preloader-icon {
-  width: 50px; height: 50px;
-  background: var(--clr-primary);
-  border-radius: var(--radius-md);
+  width: 200px; height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: pulse 1.2s ease-in-out infinite;
 }
-.preloader-icon svg { width: 30px; height: 30px; fill: #fff; }
+.preloader-icon svg { width: 152px; height: 48px; fill: #fff; }
 .preloader-name { font-size: 24px; font-weight: 800; color: var(--clr-primary); }
 .preloader-bar {
   width: 200px; height: 3px;
@@ -2437,4 +2433,281 @@ img[src^="assets/"] {
   .brands-grid { grid-template-columns: repeat(3,1fr); }
   .our-goods-grid { grid-template-columns: 1fr; }
   .settings-bar { right: 8px; }
+}
+
+/* =============================================
+   HERO SLIDER — FULL IMAGE MODE
+   ============================================= */
+
+/* Обёртка */
+.hero { position: relative; background: #1a2332; overflow: hidden; }
+.hero-slider { position: relative; width: 100%; }
+
+/* Слайд — скрыт по умолчанию */
+.hero-slide--full {
+  display: none;
+  position: relative;
+  width: 100%;
+}
+.hero-slide--full.active { display: block; }
+
+/* Картинка на весь слайд */
+.hero-slide-bg { width: 100%; line-height: 0; }
+.hero-bg-img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Кнопка «Подробнее» поверх картинки — левый нижний угол */
+.hero-slide-overlay {
+  position: absolute;
+  bottom: 52px;       /* выше dots */
+  left: 40px;
+}
+.hero-btn--overlay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--clr-accent);
+  color: #1a2332;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.hero-btn--overlay:hover {
+  background: var(--clr-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* Стрелки влево / вправо */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.hero-arrow:hover { background: var(--clr-primary); }
+.hero-arrow img { filter: brightness(0) invert(1); width: 16px; height: 16px; }
+.hero-arrow--prev { left: 10px; }
+.hero-arrow--next { right: 10px; }
+
+/* ── DOTS — точно как на скриншоте ──────────────────────────
+   Тёмная «таблетка» по центру снизу, белые круглые точки
+   ─────────────────────────────────────────────────────────── */
+.hero-dots-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(40, 42, 46, 0.72);   /* тёмно-серый фон */
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 7px 14px;
+  z-index: 10;
+}
+.hero-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);     /* неактивная — полупрозрачная */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+.hero-dot.active,
+.hero-dot:hover {
+  background: #fff;                      /* активная — ярко белая */
+  transform: scale(1.15);
+}
+
+/* ── Мобильная версия ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-bg-img { max-height: 220px; }
+  .hero-slide-overlay { bottom: 44px; left: 16px; }
+  .hero-btn--overlay { font-size: 12px; padding: 8px 16px; }
+  .hero-arrow { width: 28px; height: 28px; }
+  .hero-arrow img { width: 12px; height: 12px; }
+  .hero-dots-bar { bottom: 10px; gap: 6px; padding: 5px 10px; }
+  .hero-dot { width: 7px; height: 7px; }
+}
+
+/* =============================================
+   HERO — два слайдера рядом (2/3 + 1/3)
+   ============================================= */
+
+/* Убираем старые стили полноширинного слайда */
+.hero-slide--full { display: none !important; }
+.hero-slide-bg, .hero-bg-img { display: none !important; }
+.hero-slide-overlay { display: none !important; }
+
+/* Обёртка — два слайдера в ряд */
+.hero { background: #1a2332; overflow: hidden; padding: 0; }
+.hero-wrap {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  height: 300px;
+}
+
+/* ── Левый слайдер ── */
+.hero-main {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.hero-main-slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+.hero-main-slide.active { display: block; }
+.hero-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Кнопка «Подробнее» поверх левого баннера */
+.hero-btn--overlay {
+  position: absolute;
+  bottom: 48px;
+  left: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--clr-accent);
+  color: #1a2332;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  z-index: 5;
+}
+.hero-btn--overlay:hover {
+  background: var(--clr-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Правый слайдер ── */
+.hero-side {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  border-left: 2px solid rgba(255,255,255,.08);
+}
+.hero-side-slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+.hero-side-slide.active { display: block; }
+.hero-side-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── Стрелки (общие для обоих) ── */
+.hero-main .hero-arrow,
+.hero-side .hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.hero-main .hero-arrow:hover,
+.hero-side .hero-arrow:hover { background: var(--clr-primary); }
+.hero-main .hero-arrow img,
+.hero-side .hero-arrow img {
+  filter: brightness(0) invert(1);
+  width: 14px; height: 14px;
+}
+.hero-arrow--prev { left: 8px; }
+.hero-arrow--next { right: 8px; }
+
+/* ── Dots — тёмная таблетка по центру снизу ── */
+.hero-main .hero-dots-bar,
+.hero-side .hero-dots-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(40,42,46,.70);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 6px 12px;
+  z-index: 10;
+}
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.50);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+.hero-dot.active,
+.hero-dot:hover {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+/* ── Адаптив ── */
+@media (max-width: 1023px) {
+  .hero-wrap { height: 240px; }
+}
+@media (max-width: 768px) {
+  .hero-wrap {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .hero-main { height: 200px; }
+  .hero-side  { display: none; } /* правый баннер скрыт на мобильном */
+  .hero-btn--overlay { bottom: 40px; left: 16px; font-size: 12px; padding: 8px 14px; }
 }

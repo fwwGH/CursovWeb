@@ -15,9 +15,8 @@
 <div class="preloader" id="preloader">
   <div class="preloader-logo">
     <div class="preloader-icon">
-      <img src="assets/icons/logo.svg" alt="Logo" class="ui-icon ui-icon-xxl">
+      <img src="assets/icons/logovector.svg" alt="Logo" class="ui-icon ui-icon-xxl">
     </div>
-    <div class="preloader-name">TELE-OPTICS</div>
   </div>
   <div class="preloader-bar"><div class="preloader-bar-inner"></div></div>
 </div>
@@ -80,13 +79,9 @@
       <span class="burger-line"></span>
       <span class="burger-line"></span>
     </button>
-    <a href="index.html" class="logo" aria-label="TELE-OPTICS — главная">
+    <a href="index.html" class="logo" aria-label="Tele-Optics — главная">
       <div class="logo-icon">
-        <img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS">
-      </div>
-      <div class="logo-text">
-        <div class="logo-name">TELE-OPTICS</div>
-        <div class="logo-domain">МАГАЗИН ОПТИЧЕСКИХ ПРИБОРОВ</div>
+        <img src="assets/icons/logovector.svg" alt="TELE-OPTICS" width="152" height="48" loading="lazy">
       </div>
     </a>
     <div class="header-search">
@@ -96,7 +91,7 @@
       </button>
     </div>
     <div class="header-actions">
-      <button class="header-action-btn" href ="viewed.html" type="button" data-open="viewed" aria-label="Просмотренные">
+      <button class="header-action-btn" type="button" data-open="viewed" aria-label="Просмотренные">
         <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
         <span class="action-badge" id="viewed-badge">0</span>
       </button>
@@ -189,71 +184,97 @@
   </div>
 </div>
 
-<!-- ===== HERO SLIDER ===== -->
+<!-- ===== HERO — два слайдера рядом ===== -->
 <section class="hero" aria-label="Главный баннер">
-  <div class="hero-slider" id="hero-slider">
+  <div class="hero-wrap">
 
-    <!-- Slide 1 -->
-    <div class="hero-slide active" role="group" aria-roledescription="слайд" aria-label="1 из 2" data-banner>
-      <div class="hero-slide-inner">
-        <div class="hero-content">
-          <div class="hero-tag" data-banner-tag>СКИДКА ДО 15%</div>
-          <h1 class="hero-title" data-banner-title>МЫ СНИЗИЛИ ЦЕНЫ!<br><span>НА НОЧНУЮ ОПТИКУ</span></h1>
-          <p class="hero-subtitle" data-banner-subtitle>Прицел ночного видения Digisight Ultra<br>N455 LRF с дальномером</p>
-          <div class="hero-price-block">
-            <span class="hero-price-old" data-banner-old-price>155 490₽</span>
-            <span class="hero-price-new" data-banner-new-price>149 990 ₽</span>
-          </div>
-          <a class="hero-btn" href="product.html" data-banner-btn>
-            Подробнее →
-          </a>
-        </div>
-        <div class="hero-image-side">
-          <img src="assets/images/MainBannerBig.png" alt="Тепловизионный монокуляр Hikmicro" data-banner-image loading="eager">
-          <div class="hero-product-info">
-            <div class="hero-product-brand" data-banner-brand>Hikmicro</div>
-            <div class="hero-product-type" data-banner-type>тепловизионный<br>монокуляр</div>
-          </div>
-        </div>
+    <!-- ── ЛЕВЫЙ СЛАЙДЕР (2/3) — главный, с кнопкой Подробнее ── -->
+    <div class="hero-main" id="hero-main">
+
+      <!-- Слайды -->
+      <div class="hero-main-slide active" role="group" aria-label="Слайд 1">
+        <img src="assets/images/MainBannerBig.png"
+             alt="Мы снизили цены на ночную оптику"
+             class="hero-main-img" loading="eager">
+        <a class="hero-btn--overlay" href="product.html">Подробнее →</a>
       </div>
-    </div>
 
-    <!-- Slide 2 -->
-    <div class="hero-slide" role="group" aria-roledescription="слайд" aria-label="2 из 2">
-      <div class="hero-slide-inner">
-        <div class="hero-content">
-          <div class="hero-tag">СКИДКА -10%</div>
-          <h1 class="hero-title">БИНОКЛЬ<br><span>DISCOVERY FLINT 8×40</span></h1>
-          <p class="hero-subtitle">Новое поколение полевых биноклей от Discovery! Отличные оптические характеристики, привлекательный дизайн и доступная цена</p>
-          <div class="hero-price-block">
-            <span class="hero-price-old">8 990₽</span>
-            <span class="hero-price-new">7 490 ₽</span>
-          </div>
-          <a class="hero-btn" href="product.html">Подробнее →</a>
-        </div>
-        <div class="hero-image-side">
-          <img src="assets/images/MainSecondBanner.png" alt="Бинокль Discovery Flint 8x40" loading="lazy">
-          <div class="hero-product-info">
-            <div class="hero-product-brand">Discovery</div>
-            <div class="hero-product-type">Бинокль<br>8×40</div>
-          </div>
-        </div>
+      <div class="hero-main-slide" role="group" aria-label="Слайд 2">
+        <img src="assets/images/MainBannerBig.png"
+             alt="Бинокль Discovery Flint 8x40"
+             class="hero-main-img" loading="lazy">
+        <a class="hero-btn--overlay" href="product.html">Подробнее →</a>
       </div>
-    </div>
 
-    <!-- Slider Controls -->
-    <div class="slider-controls" role="group" aria-label="Управление слайдером">
-      <button class="slider-prev" type="button" aria-label="Предыдущий слайд">
+      <div class="hero-main-slide" role="group" aria-label="Слайд 3">
+        <img src="assets/images/MainBannerBig.png"
+             alt="Бинокль Discovery Flint 8x40"
+             class="hero-main-img" loading="lazy">
+        <a class="hero-btn--overlay" href="product.html">Подробнее →</a>
+      </div>
+
+      <div class="hero-main-slide" role="group" aria-label="Слайд 4">
+        <img src="assets/images/MainBannerBig.png"
+             alt="Бинокль Discovery Flint 8x40"
+             class="hero-main-img" loading="lazy">
+        <a class="hero-btn--overlay" href="product.html">Подробнее →</a>
+      </div>
+
+      <div class="hero-main-slide" role="group" aria-label="Слайд 5">
+        <img src="assets/images/MainBannerBig.png"
+             alt="Бинокль Discovery Flint 8x40"
+             class="hero-main-img" loading="lazy">
+        <a class="hero-btn--overlay" href="product.html">Подробнее →</a>
+      </div>
+
+      <!-- Стрелки -->
+      <button class="hero-arrow hero-arrow--prev" type="button" aria-label="Назад">
         <img class="ui-icon ui-icon-sm" data-icon="chevron-left" alt="" aria-hidden="true">
       </button>
-      <div class="slider-dots" role="tablist">
-        <button class="slider-dot active" role="tab" aria-selected="true" aria-label="Слайд 1" data-index="0"></button>
-        <button class="slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2" data-index="1"></button>
-      </div>
-      <button class="slider-next" type="button" aria-label="Следующий слайд">
+      <button class="hero-arrow hero-arrow--next" type="button" aria-label="Вперёд">
         <img class="ui-icon ui-icon-sm" data-icon="chevron-right" alt="" aria-hidden="true">
       </button>
+
+      <!-- Dots -->
+      <div class="hero-dots-bar" role="tablist" aria-label="Слайды">
+        <button class="hero-dot active" role="tab" aria-selected="true"  data-index="0" aria-label="Слайд 1"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" data-index="1" aria-label="Слайд 2"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" data-index="2" aria-label="Слайд 3"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" data-index="3" aria-label="Слайд 4"></button>
+      </div>
     </div>
+
+    <!-- ── ПРАВЫЙ СЛАЙДЕР (1/3) — второстепенный, без кнопки ── -->
+    <div class="hero-side" id="hero-side">
+
+      <!-- Слайды -->
+      <div class="hero-side-slide active" role="group" aria-label="Слайд 1">
+        <img src="assets/images/MainSecondBanner.png"
+             alt="Hikmicro тепловизионный монокуляр"
+             class="hero-side-img" loading="eager">
+      </div>
+
+      <div class="hero-side-slide" role="group" aria-label="Слайд 2">
+        <img src="assets/images/MainSecondBanner.png"
+             alt="Discovery Flint 8x40"
+             class="hero-side-img" loading="lazy">
+      </div>
+
+      <!-- Стрелки -->
+      <button class="hero-arrow hero-arrow--prev" type="button" aria-label="Назад">
+        <img class="ui-icon ui-icon-sm" data-icon="chevron-left" alt="" aria-hidden="true">
+      </button>
+      <button class="hero-arrow hero-arrow--next" type="button" aria-label="Вперёд">
+        <img class="ui-icon ui-icon-sm" data-icon="chevron-right" alt="" aria-hidden="true">
+      </button>
+
+      <!-- Dots -->
+      <div class="hero-dots-bar" role="tablist" aria-label="Слайды">
+        <button class="hero-dot active" role="tab" aria-selected="true"  data-index="0" aria-label="Слайд 1"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" data-index="1" aria-label="Слайд 2"></button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -607,10 +628,7 @@
       <!-- Column 1: Logo & Info -->
       <div class="footer-logo-area">
         <a href="index.html" class="footer-logo" aria-label="TELE-OPTICS">
-          <div class="footer-logo-icon">
-            <img class="ui-icon ui-icon-xl" data-icon="logo" alt="TELE-OPTICS">
-          </div>
-          <div class="footer-logo-name">Tele-Optics</div>
+          <div class="footer-logo-icon"><img src="assets/icons/logovector.svg" alt="" width="152" height="48" loading="lazy"></div>
         </a>
         <address class="footer-info">
           <div><img class="ui-icon ui-icon-xs" data-icon="pin" alt="" aria-hidden="true"> Россия, г. Москва, ул. Никольская, д. 15</div>
@@ -697,7 +715,7 @@
   <div class="container">
     <a class="sticky-bar-item" href="viewed.html" aria-label="Просмотренные">
       <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
-      <span>Просмотренные</span>
+      <span>Промотренные</span>
       <span class="sticky-bar-badge" id="viewed-badge">0</span>
     </a>
     <a class="sticky-bar-item" href="compare.html" aria-label="Сравнение товаров">
