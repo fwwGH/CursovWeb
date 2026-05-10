@@ -65,28 +65,17 @@
     <button class="burger-btn" type="button" aria-label="Открыть меню" aria-expanded="false">
       <span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span>
     </button>
-    <a href="index.html" class="logo" aria-label="TELE-OPTICS">
-      <div class="logo-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS"></div>
-      <div class="logo-text"><div class="logo-name">TELE-OPTICS</div><div class="logo-domain">МАГАЗИН ОПТИЧЕСКИХ ПРИБОРОВ</div></div>
+    <a href="index.html" class="logo" aria-label="Tele-Optics — главная">
+      <div class="logo-icon">
+        <img src="assets/icons/logovector.svg" alt="TELE-OPTICS" width="152" height="48" loading="lazy">
+      </div>
     </a>
     <div class="header-search">
       <input id="search-input" type="search" placeholder="Введите название: Бинокль армейский" autocomplete="off" aria-label="Поиск товаров">
       <button class="search-btn" type="button" aria-label="Найти"><img class="ui-icon" data-icon="search" alt="" aria-hidden="true"></button>
     </div>
         <div class="header-actions">
-      <button class="header-action-btn" type="button" data-open="compare" aria-label="Сравнение">
-        <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
-        <span class="action-badge" id="compare-badge">0</span>
-      </button>
-      <button class="header-action-btn" type="button" data-open="favorites" aria-label="Избранное">
-        <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
-        <span class="action-badge" id="favorites-badge">0</span>
-      </button>
-      <button class="header-action-btn" type="button" data-open="cart" aria-label="Корзина">
-        <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
-        <span class="action-badge action-badge-yellow" id="cart-badge">0</span>
-      </button>
-      <div class="viewed-popup-wrap">
+              <div class="viewed-popup-wrap">
         <button class="header-action-btn" type="button"
                 id="viewed-popup-btn" aria-label="Просмотренные товары"
                 aria-haspopup="true" aria-expanded="false">
@@ -106,6 +95,20 @@
           </div>
         </div>
       </div>
+
+      <button class="header-action-btn" type="button" data-open="compare" aria-label="Сравнение">
+        <img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true">
+        <span class="action-badge" id="compare-badge">0</span>
+      </button>
+      <button class="header-action-btn" type="button" data-open="favorites" aria-label="Избранное">
+        <img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true">
+        <span class="action-badge" id="favorites-badge">0</span>
+      </button>
+      <button class="header-action-btn" type="button" data-open="cart" aria-label="Корзина">
+        <img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true">
+        <span class="action-badge action-badge-yellow" id="cart-badge">0</span>
+      </button>
+      
     </div>
   </div>
 </header>
@@ -241,8 +244,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <div class="footer-grid">
       <div class="footer-logo-area">
         <a href="index.html" class="footer-logo">
-          <div class="footer-logo-icon"><img class="ui-icon" data-icon="logo" alt="TELE-OPTICS"></div>
-          <div class="footer-logo-name">Tele-Optics</div>
+          <div class="footer-logo-icon"><img src="assets/icons/footer-logovector.svg" alt="" width="190" height="60" loading="lazy"></div>
         </a>
         <address class="footer-info">
           <div><img class="ui-icon ui-icon-xs" data-icon="pin" alt="" aria-hidden="true"> Россия, г. Москва, ул. Никольская, д. 15</div>
@@ -313,7 +315,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   </div>
 </footer><nav class="sticky-bar" aria-label="Нижнее меню">
   <div class="container">
-    <a class="sticky-bar-item" href="viewed.html"><img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true"><span>Промотренные</span><span class="sticky-bar-badge" id="viewed-badge">0</span></a>
+    <a class="sticky-bar-item" href="viewed.html"><img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true"><span>Просмотренные</span><span class="sticky-bar-badge" id="viewed-badge">0</span></a>
     <a class="sticky-bar-item" href="compare.html"><img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true"><span>Сравнение товаров</span><span class="sticky-bar-badge" id="compare-badge-bottom">0</span></a>
     <a class="sticky-bar-item" href="favorites.html"><img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true"><span>Избранное</span><span class="sticky-bar-badge" id="favorites-badge-bottom">0</span></a>
     <a class="sticky-bar-item" href="cart.html"><img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true"><span>Корзина</span><span class="sticky-bar-badge sticky-bar-badge-yellow" id="cart-badge-bottom">0</span></a>
