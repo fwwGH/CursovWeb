@@ -280,7 +280,7 @@
   }
 
   /* --- categories --- */
-  const CAT_ICONS={
+const CAT_ICONS={
     1: 'assets/icons/binokly.svg',
     2: 'assets/icons/telescope.svg',
     3: 'assets/icons/dalnomeri.svg',
@@ -290,14 +290,13 @@
     7: 'assets/icons/monoculars.svg',
     8: 'assets/icons/microscope.svg',
     9: 'assets/icons/teplovisor.svg',
-    10: 'assets/icons/digitalcamera.svg',};
-  const CAT_BG=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
+    10: 'assets/icons/digitalcamera.svg',};  const CAT_BG=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
   function renderCategories(cats) {
     const g=document.getElementById('categories-grid'); if(!g) return;
     const lang=getLang();
     g.innerHTML=cats.map((c,i)=>{
       const name=lang==='en'?(c.nameEn||c.name):c.name;
-      const icon=CAT_ICONS[c.id]||'assets/icons/binokly.svg';
+      const icon=CAT_ICONS[c.id]||'assets/icons/category-binokli.svg';
       return `<a href="catalog.html#${c.slug}" class="category-card" aria-label="${name}">
   <div class="category-icon" style="background:${CAT_BG[i%CAT_BG.length]}">
     <img src="${icon}" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
@@ -611,3 +610,169 @@
 
   document.addEventListener('DOMContentLoaded', init);
 })();
+
+/* =============================================
+   VIEWED POPUP
+   ============================================= */
+function initViewedPopup() {
+  const btn    = document.getElementById('viewed-popup-btn');
+  const popup  = document.getElementById('viewed-popup');
+  const closeB = popup?.querySelector('.viewed-popup-close');
+  if (!btn || !popup) return;
+
+  // Toggle open/close
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = !popup.hidden;
+    popup.hidden = isOpen;
+    btn.setAttribute('aria-expanded', !isOpen);
+    if (!isOpen) renderViewedPopup();
+  });
+
+  // Close button
+  closeB?.addEventListener('click', () => {
+    popup.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!popup.hidden && !popup.contains(e.target) && e.target !== btn) {
+      popup.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !popup.hidden) {
+      popup.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+async function renderViewedPopup() {
+  const list   = document.getElementById('viewed-popup-list');
+  const footer = document.getElementById('viewed-popup-footer');
+  if (!list) return;
+
+  const viewedIds = getViewed();
+  if (!viewedIds.length) {
+    list.innerHTML = '<div class="viewed-popup-empty">Вы ещё не просматривали товары</div>';
+    if (footer) footer.hidden = true;
+    return;
+  }
+
+  let products = window._db?.products || [];
+  if (!products.length) {
+    try {
+      const r = await fetch('data/db.json');
+      const d = await r.json();
+      products = d.products || [];
+    } catch { return; }
+  }
+
+  const items = viewedIds
+    .map(id => products.find(p => p.id === id))
+    .filter(Boolean)
+    .slice(0, 6);
+
+  if (!items.length) {
+    list.innerHTML = '<div class="viewed-popup-empty">Товары не найдены</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(p => {
+    const price    = new Intl.NumberFormat('ru-RU').format(p.price) + ' ₽';
+    const oldPrice = p.oldPrice ? new Intl.NumberFormat('ru-RU').format(p.oldPrice) + ' ₽' : '';
+    const ratingStars = [1,2,3,4,5].map(i =>
+      `<span style="color:${i <= Math.round(p.rating||0) ? '#ffd600' : '#d0d6dd'}">★</span>`
+    ).join('');
+
+    return `
+<a class="viewed-mini-card" href="product.html?id=${p.id}">
+  <div class="viewed-mini-stock">В наличии</div>
+  <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+  <div class="viewed-mini-thumbs">
+    <div class="viewed-mini-thumb active"></div>
+    <div class="viewed-mini-thumb"></div>
+    <div class="viewed-mini-thumb"></div>
+  </div>
+  <div class="viewed-mini-name">${p.name}</div>
+  <div class="viewed-mini-rating">
+    <span class="stars">${ratingStars}</span>
+    <span>${p.rating ? p.rating.toFixed(2) : ''}</span>
+    <span style="color:var(--clr-text-muted)">${p.reviews ? `(${p.reviews} отзывов)` : ''}</span>
+  </div>
+  <div class="viewed-mini-price-row">
+    <div>
+      <div class="viewed-mini-price">${price}</div>
+      ${oldPrice ? `<div class="viewed-mini-price-old">${oldPrice}</div>` : ''}
+    </div>
+    <button class="viewed-mini-cart" type="button" aria-label="В корзину"
+            data-action="add-to-cart" data-product-id="${p.id}"
+            onclick="event.preventDefault();event.stopPropagation();">
+      <img class="ui-icon" data-icon="cart" alt="" aria-hidden="true">
+    </button>
+  </div>
+</a>`;
+  }).join('');
+
+  applyIcons(list);
+
+  // Bind cart buttons inside popup
+  list.querySelectorAll('[data-action="add-to-cart"]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      addToCart(Number(btn.dataset.productId));
+      btn.style.background = 'var(--clr-success)';
+      setTimeout(() => btn.style.background = '', 1000);
+    });
+  });
+
+  if (footer) footer.hidden = false;
+}
+
+/* =============================================
+   PRODUCT CARD HOVER SPECS
+   ============================================= */
+function initCardHoverSpecs() {
+  // Добавляем мини-характеристики в каждую карточку товара при рендере
+  // Вызывается после рендера карусели/грида
+  document.addEventListener('mouseenter', e => {
+    const card = e.target.closest('.product-card');
+    if (!card || card.querySelector('.product-card-specs')) return;
+
+    const id = Number(card.dataset.productId);
+    if (!id || !window._db) return;
+
+    const p = window._db.products.find(pr => pr.id === id);
+    if (!p?.specs && !p?.brand) return;
+
+    const sp = p.specs || {};
+    const lang = getLang();
+
+    const lines = [
+      p.brand                ? `<div class="spec-line"><span>${lang==='en'?'Brand':'Производитель'}:</span><strong>${p.brand}</strong></div>` : '',
+      sp.diameter            ? `<div class="spec-line"><span>${lang==='en'?'Lens diameter':'Диаметр объектива'}:</span><strong>${sp.diameter} мм</strong></div>` : '',
+      sp.magnification       ? `<div class="spec-line"><span>${lang==='en'?'Magnification':'Увеличение'}:</span><strong>${sp.magnification}</strong></div>` : '',
+      p.categoryId === 1     ? `<div class="spec-line"><span>${lang==='en'?'Purpose':'Назначение'}:</span><strong>${lang==='en'?'Hunting & fishing':'Охота и рыбалка'}</strong></div>` : '',
+      sp.coating             ? `<div class="spec-line"><span>${lang==='en'?'Coating':'Покрытие'}:</span><strong>${sp.coating}</strong></div>` : '',
+    ].filter(Boolean).slice(0, 4).join('');
+
+    if (!lines) return;
+
+    const specsEl = document.createElement('div');
+    specsEl.className = 'product-card-specs';
+    specsEl.innerHTML = lines;
+    card.appendChild(specsEl);
+  }, true);
+}
+
+/* ── Добавляем вызовы в init ── */
+const _origInit = document.addEventListener;
+document.addEventListener('DOMContentLoaded', () => {
+  initViewedPopup();
+  initCardHoverSpecs();
+});
