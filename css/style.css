@@ -426,16 +426,11 @@ img[src^="assets/images/"] {
   position: absolute;
   right: 0; top: 0; bottom: 0;
   width: 42px;
-  background: var(--clr-primary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition);
 }
 .search-btn:hover { background: var(--clr-primary-hover); }
-.search-btn img { filter: brightness(0) invert(1); }
-
 .header-actions {
   display: flex;
   align-items: center;
