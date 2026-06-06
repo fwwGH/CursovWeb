@@ -211,11 +211,29 @@
   function updateBadges() {
     const cc=getCart().reduce((s,i)=>s+(i.quantity||1),0);
     const fc=getFavs().length; const cp=getCompare().length; const vw=getViewed().length;
-    const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
-    set('cart-badge',cc);set('cart-badge-bottom',cc);
-    set('favorites-badge',fc);set('favorites-badge-bottom',fc);
-    set('compare-badge',cp);set('compare-badge-bottom',cp);
-    set('viewed-badge',vw);
+
+    // Set badge text + toggle yellow color when has items
+    function setBadge(id, val) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = val;
+      // Yellow when has items, grey when empty
+      if (val > 0) {
+        el.classList.add('action-badge-yellow');
+        el.classList.remove('action-badge-grey');
+      } else {
+        el.classList.remove('action-badge-yellow');
+        el.classList.add('action-badge-grey');
+      }
+    }
+
+    setBadge('cart-badge', cc);
+    setBadge('cart-badge-bottom', cc);
+    setBadge('favorites-badge', fc);
+    setBadge('favorites-badge-bottom', fc);
+    setBadge('compare-badge', cp);
+    setBadge('compare-badge-bottom', cp);
+    setBadge('viewed-badge', vw);
   }
 
   /* --- product card --- */
@@ -492,15 +510,30 @@ const CAT_ICONS={
 
     document.getElementById('login-form')?.addEventListener('submit',async e=>{
       e.preventDefault();
-      const email=document.getElementById('login-email')?.value;
-      const pass=document.getElementById('login-password')?.value;
+      const email=(document.getElementById('login-email')?.value||'').trim();
+      const pass=document.getElementById('login-password')?.value||'';
       if(!email||!pass){showToast('Заполните все поля','error');return;}
       try{
         const db=await fetchJson('data/db.json');
         const u=(db.users||[]).find(u=>u.email===email&&u.password===pass);
-        if(u){store(STORAGE.user,{id:u.id,name:u.name,role:u.role});showToast(`Добро пожаловать, ${u.name}!`,'success');closeModal(document.getElementById('login-modal'));const l=document.getElementById('auth-label');if(l)l.textContent=u.name.split(' ')[0];}
-        else showToast('Неверный email или пароль','error');
-      }catch{showToast('Ошибка входа','error');}
+        if(u){
+          const userData={id:u.id,name:u.name,role:u.role,email:u.email};
+          store(STORAGE.user,userData);
+          showToast('Добро пожаловать, '+u.name+'!','success');
+          closeModal(document.getElementById('login-modal'));
+          // Update all auth labels
+          document.querySelectorAll('#auth-label,.header-top-auth').forEach(el=>{
+            el.textContent=u.name.split(' ')[0];
+          });
+          // Show admin panel if admin
+          if(u.role==='admin') showAdminPanel(u);
+        } else {
+          showToast('Неверный email или пароль','error');
+        }
+      }catch(err){
+        console.error('Login error:',err);
+        showToast('Ошибка входа. Проверьте запущен ли json-server','error');
+      }
     });
 
     document.getElementById('register-form')?.addEventListener('submit',e=>{
@@ -571,6 +604,53 @@ const CAT_ICONS={
   /* ============================================================
      INIT
      ============================================================ */
+
+  /* =============================================
+     ADMIN PANEL
+     ============================================= */
+  function showAdminPanel(user) {
+    // Remove existing panel
+    document.getElementById('admin-panel')?.remove();
+    const panel = document.createElement('div');
+    panel.id = 'admin-panel';
+    panel.className = 'admin-panel';
+    panel.innerHTML = `
+      <div class="admin-panel-header">
+        <span>👑 Админ: ${user.name}</span>
+        <button class="admin-panel-close" type="button">×</button>
+      </div>
+      <div class="admin-panel-body">
+        <div class="admin-panel-title">Панель управления</div>
+        <div class="admin-btns">
+          <a href="kategoriya.html" class="admin-btn">📦 Управление товарами</a>
+          <a href="reviews.html" class="admin-btn">💬 Отзывы покупателей</a>
+          <a href="blog.html" class="admin-btn">📝 Статьи блога</a>
+          <a href="vacancies.html" class="admin-btn">👥 Вакансии</a>
+          <button class="admin-btn admin-btn-danger" id="admin-logout">🚪 Выйти</button>
+        </div>
+      </div>`;
+    document.body.appendChild(panel);
+    panel.querySelector('.admin-panel-close').addEventListener('click', () => panel.remove());
+    panel.querySelector('#admin-logout')?.addEventListener('click', () => {
+      localStorage.removeItem('teleoptics.user');
+      document.querySelectorAll('#auth-label,.header-top-auth').forEach(el => el.textContent = 'Вход / Регистрация');
+      panel.remove();
+      showToast('Вы вышли из системы');
+    });
+  }
+
+  /* =============================================
+     RESTORE SESSION
+     ============================================= */
+  function restoreSession() {
+    const u = store(STORAGE.user);
+    if (!u) return;
+    document.querySelectorAll('#auth-label,.header-top-auth').forEach(el => {
+      el.textContent = u.name.split(' ')[0];
+    });
+    if (u.role === 'admin') showAdminPanel(u);
+  }
+
   async function init() {
     initPreloader();
     initTheme();
@@ -593,9 +673,9 @@ const CAT_ICONS={
     initQty();
     bindProductActions();
     initPagination();
+    initKategoriyaPage();
 
-    const u=store(STORAGE.user);
-    if(u){const l=document.getElementById('auth-label');if(l)l.textContent=u.name.split(' ')[0];}
+    restoreSession();
 
     try {
       const db=await loadDb(); window._db=db;
@@ -609,6 +689,229 @@ const CAT_ICONS={
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
+  /* =============================================
+     PAGINATION SYSTEM — sliding window
+     ============================================= */
+
+  // Build sliding window pagination: 1 2 3 4 5 … 18
+  // When cur=2: 2 3 4 5 6 … 18
+  function buildPagination(container, totalPages, curPage, onPageChange) {
+    if (!container) return;
+
+    function render(cur) {
+      const btns = [];
+
+      // Prev
+      btns.push({label:'‹ Назад', page: cur-1, disabled: cur<=1, cls:'', aria:'Предыдущая'});
+
+      // Window: show 5 pages around current
+      const window_size = 5;
+      let start = Math.max(1, cur - Math.floor(window_size/2));
+      let end   = Math.min(totalPages, start + window_size - 1);
+      // Adjust if near end
+      if (end - start < window_size - 1) start = Math.max(1, end - window_size + 1);
+
+      if (start > 1) {
+        btns.push({label:'1', page:1, cls:''});
+        if (start > 2) btns.push({label:'…', page:null, cls:'dots'});
+      }
+
+      for (let i = start; i <= end; i++) {
+        btns.push({label:String(i), page:i, cls: i===cur ? 'active' : ''});
+      }
+
+      if (end < totalPages) {
+        if (end < totalPages - 1) btns.push({label:'…', page:null, cls:'dots'});
+        btns.push({label:String(totalPages), page:totalPages, cls:''});
+      }
+
+      // Next
+      btns.push({label:'Далее ›', page: cur+1, disabled: cur>=totalPages, cls:'', aria:'Следующая'});
+
+      container.innerHTML = btns.map(b => {
+        if (b.cls === 'dots') return `<span class="pagination-dots">…</span>`;
+        const disabled = b.disabled ? 'disabled' : '';
+        const active   = b.cls === 'active' ? ' active' : '';
+        const aria     = b.cls === 'active' ? ' aria-current="page"' : '';
+        const pg       = b.page ? `data-page="${b.page}"` : '';
+        return `<button class="pagination-btn${active}" type="button" ${pg} ${disabled} ${aria}>${b.label}</button>`;
+      }).join('');
+
+      // Bind clicks
+      container.querySelectorAll('.pagination-btn:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pg = +btn.dataset.page;
+          if (!pg || pg < 1 || pg > totalPages) return;
+          render(pg);
+          onPageChange(pg);
+          // Scroll to top of list
+          document.getElementById('kategoriya-grid')?.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    }
+
+    render(curPage);
+  }
+
+  /* =============================================
+     KATEGORIYA PAGE — products + filter + pagination
+     ============================================= */
+  async function initKategoriyaPage() {
+    const grid = document.getElementById('kategoriya-grid');
+    if (!grid) return;
+
+    let allProducts = [];
+    let filteredProducts = [];
+    const ITEMS_PER_PAGE = 12;
+    let currentPage = 1;
+
+    // Load products
+    try {
+      const db = await fetchJson('data/db.json');
+      allProducts = db.products || [];
+    } catch {
+      try {
+        const db = window._db || await fetchJson('data/db.json');
+        allProducts = (db?.products) || [];
+      } catch { return; }
+    }
+
+    // Get URL category from hash
+    const hash = window.location.hash.replace('#','');
+    const catSlug = new URLSearchParams(window.location.search).get('cat') || hash || '';
+    const searchQ = new URLSearchParams(window.location.search).get('search') || '';
+
+    function applyFilters() {
+      filteredProducts = allProducts.filter(p => {
+        if (searchQ) {
+          const q = searchQ.toLowerCase();
+          if (!p.name.toLowerCase().includes(q) && !(p.brand||'').toLowerCase().includes(q)) return false;
+        }
+        return true;
+      });
+
+      // Price filter
+      const minInput = document.getElementById('price-min');
+      const maxInput = document.getElementById('price-max');
+      if (minInput && maxInput) {
+        const min = +minInput.value || 0;
+        const max = +maxInput.value || Infinity;
+        filteredProducts = filteredProducts.filter(p => p.price >= min && p.price <= max);
+      }
+
+      // Brand filter
+      const checkedBrands = [...document.querySelectorAll('.filter-sidebar input[type=checkbox]:checked')]
+        .map(cb => cb.value.toLowerCase())
+        .filter(v => v);
+      if (checkedBrands.length) {
+        filteredProducts = filteredProducts.filter(p => checkedBrands.includes((p.brand||'').toLowerCase()));
+      }
+
+      // Sort
+      const sortSel = document.querySelector('.sort-dropdown');
+      if (sortSel) {
+        switch(sortSel.value) {
+          case 'price-asc':  filteredProducts.sort((a,b) => a.price - b.price); break;
+          case 'price-desc': filteredProducts.sort((a,b) => b.price - a.price); break;
+          case 'rating':     filteredProducts.sort((a,b) => (b.rating||0) - (a.rating||0)); break;
+          case 'name':       filteredProducts.sort((a,b) => a.name.localeCompare(b.name,'ru')); break;
+          default:           filteredProducts.sort((a,b) => (b.reviews||0) - (a.reviews||0));
+        }
+      }
+
+      currentPage = 1;
+      renderPage();
+    }
+
+    function renderPage() {
+      const total = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const items = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+
+      if (!items.length) {
+        grid.innerHTML = '<div style="padding:40px;text-align:center;color:var(--clr-text-muted);grid-column:1/-1">Товары не найдены</div>';
+      } else {
+        grid.innerHTML = items.map(p => productCard(p)).join('');
+        applyIcons(grid);
+      }
+
+      // Render pagination
+      const pg = document.getElementById('kategoriya-pagination');
+      buildPagination(pg, total, currentPage, (page) => {
+        currentPage = page;
+        renderPage();
+      });
+
+      // Update count label
+      const filterBtn = document.querySelector('.filter-btn-count');
+      if (filterBtn) filterBtn.textContent = 'Показать товары ' + filteredProducts.length;
+    }
+
+    // Init filters
+    applyFilters();
+
+    // Bind sort change
+    document.querySelector('.sort-dropdown')?.addEventListener('change', applyFilters);
+
+    // Bind filter apply
+    document.querySelector('.filter-apply-btn')?.addEventListener('click', applyFilters);
+    document.querySelector('.filter-reset-btn')?.addEventListener('click', () => {
+      document.querySelectorAll('.filter-sidebar input[type=checkbox]').forEach(cb => cb.checked = false);
+      const minI = document.getElementById('price-min');
+      const maxI = document.getElementById('price-max');
+      if (minI) { minI.value = minI.min || 0; }
+      if (maxI) { maxI.value = maxI.max || 200000; }
+      const minV = document.getElementById('price-min-val');
+      const maxV = document.getElementById('price-max-val');
+      if (minV) minV.textContent = '0';
+      if (maxV) maxV.textContent = '200 000';
+      applyFilters();
+    });
+
+    // Price range sliders
+    const minS = document.getElementById('price-min');
+    const maxS = document.getElementById('price-max');
+    if (minS && maxS) {
+      [minS, maxS].forEach(s => s.addEventListener('input', () => {
+        if (+minS.value > +maxS.value) minS.value = maxS.value;
+        const minV = document.getElementById('price-min-val');
+        const maxV = document.getElementById('price-max-val');
+        if (minV) minV.textContent = new Intl.NumberFormat('ru-RU').format(minS.value);
+        if (maxV) maxV.textContent = new Intl.NumberFormat('ru-RU').format(maxS.value);
+      }));
+    }
+
+    // Sidebar hits/new
+    const sidebarHits = document.getElementById('sidebar-hits');
+    if (sidebarHits) {
+      const hits = allProducts.filter(p => p.isHit).slice(0,2);
+      sidebarHits.innerHTML = hits.map(p => `
+        <a href="product.html?id=${p.id}" class="sidebar-mini-card">
+          <img src="${p.image||''}" alt="${p.name}" width="60" height="60" loading="lazy">
+          <div>
+            <div style="font-size:12px;line-height:1.3;color:var(--clr-text)">${p.name.substring(0,40)}…</div>
+            <div style="font-size:13px;font-weight:700;color:var(--clr-text);margin-top:3px">${fmtPrice(p.price)}</div>
+            ${p.oldPrice?`<div style="font-size:11px;color:var(--clr-text-muted);text-decoration:line-through">${fmtPrice(p.oldPrice)}</div>`:''}
+          </div>
+        </a>`).join('');
+      applyIcons(sidebarHits);
+    }
+    const sidebarNew = document.getElementById('sidebar-new');
+    if (sidebarNew) {
+      const news = allProducts.filter(p => p.isNew).slice(0,1);
+      sidebarNew.innerHTML = news.map(p => `
+        <a href="product.html?id=${p.id}" class="sidebar-mini-card">
+          <img src="${p.image||''}" alt="${p.name}" width="60" height="60" loading="lazy">
+          <div>
+            <div style="font-size:12px;line-height:1.3;color:var(--clr-text)">${p.name.substring(0,40)}…</div>
+            <div style="font-size:13px;font-weight:700;color:var(--clr-text);margin-top:3px">${fmtPrice(p.price)}</div>
+          </div>
+        </a>`).join('');
+      applyIcons(sidebarNew);
+    }
+  }
+
 })();
 
 /* =============================================

@@ -55,6 +55,22 @@
       <a class="header-top-email" href="mailto:sales@tele-optics.ru">
         <img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true"> sales@tele-optics.ru
       </a>
+      <!-- Тема / Язык / Слабовидящие -->
+      <div class="header-top-settings" role="group" aria-label="Настройки отображения">
+        <button class="header-setting-btn theme-toggle" type="button" aria-pressed="false" aria-label="Переключить тему" title="Тёмная/светлая тема">
+          <img class="ui-icon" data-icon="theme" alt="" aria-hidden="true">
+          <span class="header-setting-label">Тема</span>
+        </button>
+        <button class="header-setting-btn lang-toggle" type="button" data-lang="ru" aria-label="Переключить язык" title="Язык / Language">
+          <img class="ui-icon" data-icon="lang" alt="" aria-hidden="true">
+          <span class="header-setting-label">RU</span>
+        </button>
+        <button class="header-setting-btn visually-impaired-btn" type="button" aria-pressed="false" aria-label="Версия для слабовидящих" title="Для слабовидящих">
+          <img class="ui-icon" data-icon="accessibility" alt="" aria-hidden="true">
+          <span class="header-setting-label">👁</span>
+        </button>
+        <button class="header-setting-btn reset-settings-btn" type="button" title="Сбросить настройки">↺</button>
+      </div>
       <a class="header-top-auth" href="#" data-open="login">Вход / Регистрация</a>
     </div>
   </div>
@@ -220,8 +236,8 @@
           <label class="filter-checkbox"><input type="checkbox"> Вынос выходного зрачка</label>
         </div>
 
-        <button type="button" class="btn btn-primary" style="width:100%;margin-top:8px">Показать товары 1493</button>
-        <button type="button" class="btn btn-outline" style="width:100%;margin-top:8px">↺ Сбросить фильтры</button>
+        <button type="button" class="btn btn-primary filter-apply-btn" style="width:100%;margin-top:8px"><span class="filter-btn-count">Показать товары 1493</span></button>
+        <button type="button" class="btn btn-outline filter-reset-btn" style="width:100%;margin-top:8px">↺ Сбросить фильтры</button>
 
         <!-- Hits sidebar -->
         <div class="filter-hits" style="margin-top:24px">
@@ -272,17 +288,7 @@
         <div class="products-grid" id="kategoriya-grid" role="list"></div>
 
         <!-- Pagination -->
-        <nav class="pagination" aria-label="Навигация по страницам">
-          <button class="pagination-btn" type="button" aria-label="Назад">‹ Назад</button>
-          <button class="pagination-btn" type="button" data-page="1">1</button>
-          <button class="pagination-btn active" type="button" data-page="2" aria-current="page">2</button>
-          <button class="pagination-btn" type="button" data-page="3">3</button>
-          <button class="pagination-btn" type="button" data-page="4">4</button>
-          <button class="pagination-btn" type="button" data-page="5">5</button>
-          <span class="pagination-dots">…</span>
-          <button class="pagination-btn" type="button" data-page="18">18</button>
-          <button class="pagination-btn" type="button" aria-label="Далее">Далее ›</button>
-        </nav>
+        <nav class="pagination" id="kategoriya-pagination" aria-label="Навигация по страницам"></nav>
 
         <!-- Tags cloud -->
         <section class="section tags-section">
