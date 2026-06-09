@@ -211,29 +211,11 @@
   function updateBadges() {
     const cc=getCart().reduce((s,i)=>s+(i.quantity||1),0);
     const fc=getFavs().length; const cp=getCompare().length; const vw=getViewed().length;
-
-    // Set badge text + toggle yellow color when has items
-    function setBadge(id, val) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.textContent = val;
-      // Yellow when has items, grey when empty
-      if (val > 0) {
-        el.classList.add('action-badge-yellow');
-        el.classList.remove('action-badge-grey');
-      } else {
-        el.classList.remove('action-badge-yellow');
-        el.classList.add('action-badge-grey');
-      }
-    }
-
-    setBadge('cart-badge', cc);
-    setBadge('cart-badge-bottom', cc);
-    setBadge('favorites-badge', fc);
-    setBadge('favorites-badge-bottom', fc);
-    setBadge('compare-badge', cp);
-    setBadge('compare-badge-bottom', cp);
-    setBadge('viewed-badge', vw);
+    const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+    set('cart-badge',cc);set('cart-badge-bottom',cc);
+    set('favorites-badge',fc);set('favorites-badge-bottom',fc);
+    set('compare-badge',cp);set('compare-badge-bottom',cp);
+    set('viewed-badge',vw);
   }
 
   /* --- product card --- */
@@ -392,36 +374,7 @@ const CAT_ICONS={
   }
 
   /* --- hero slider (два независимых) --- */
-  function initHeroSlider() {
-    function makeSlider(containerId, slideSelector, dotSelector) {
-      const wrap  = document.getElementById(containerId);
-      if (!wrap) return;
-      const slides = wrap.querySelectorAll(slideSelector);
-      const dots   = wrap.querySelectorAll(dotSelector);
-      if (!slides.length) return;
-
-      let cur = 0, timer;
-
-      function go(n) {
-        slides[cur].classList.remove('active');
-        if (dots[cur]) { dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false'); }
-        cur = (n + slides.length) % slides.length;
-        slides[cur].classList.add('active');
-        if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); }
-      }
-
-      const nav = n => { clearInterval(timer); go(n); timer = setInterval(() => go(cur + 1), 5000); };
-
-      wrap.querySelector('.hero-arrow--prev')?.addEventListener('click', () => nav(cur - 1));
-      wrap.querySelector('.hero-arrow--next')?.addEventListener('click', () => nav(cur + 1));
-      dots.forEach((d, i) => d.addEventListener('click', () => nav(i)));
-
-      if (slides.length > 1) timer = setInterval(() => go(cur + 1), 5000);
-    }
-
-    makeSlider('hero-main', '.hero-main-slide', '.hero-dot');
-    makeSlider('hero-side', '.hero-side-slide', '.hero-dot');
-  }
+  
 
   /* --- mobile menu --- */
   function initMobileMenu() {
@@ -510,29 +463,25 @@ const CAT_ICONS={
 
     document.getElementById('login-form')?.addEventListener('submit',async e=>{
       e.preventDefault();
-      const email=(document.getElementById('login-email')?.value||'').trim();
-      const pass=document.getElementById('login-password')?.value||'';
+      const email=document.getElementById('login-email')?.value;
+      const pass=document.getElementById('login-password')?.value;
       if(!email||!pass){showToast('Заполните все поля','error');return;}
       try{
         const db=await fetchJson('data/db.json');
         const u=(db.users||[]).find(u=>u.email===email&&u.password===pass);
         if(u){
           const userData={id:u.id,name:u.name,role:u.role,email:u.email};
-          store(STORAGE.user,userData);
+          store(STORAGE.user, userData);
           showToast('Добро пожаловать, '+u.name+'!','success');
           closeModal(document.getElementById('login-modal'));
-          // Update all auth labels
-          document.querySelectorAll('#auth-label,.header-top-auth').forEach(el=>{
-            el.textContent=u.name.split(' ')[0];
-          });
-          // Show admin panel if admin
+          updateAuthUI(u.name);
           if(u.role==='admin') showAdminPanel(u);
         } else {
           showToast('Неверный email или пароль','error');
         }
-      }catch(err){
+      } catch(err) {
         console.error('Login error:',err);
-        showToast('Ошибка входа. Проверьте запущен ли json-server','error');
+        showToast('Ошибка входа','error');
       }
     });
 
@@ -605,50 +554,36 @@ const CAT_ICONS={
      INIT
      ============================================================ */
 
-  /* =============================================
-     ADMIN PANEL
-     ============================================= */
-  function showAdminPanel(user) {
-    // Remove existing panel
-    document.getElementById('admin-panel')?.remove();
-    const panel = document.createElement('div');
-    panel.id = 'admin-panel';
-    panel.className = 'admin-panel';
-    panel.innerHTML = `
-      <div class="admin-panel-header">
-        <span>👑 Админ: ${user.name}</span>
-        <button class="admin-panel-close" type="button">×</button>
-      </div>
-      <div class="admin-panel-body">
-        <div class="admin-panel-title">Панель управления</div>
-        <div class="admin-btns">
-          <a href="kategoriya.html" class="admin-btn">📦 Управление товарами</a>
-          <a href="reviews.html" class="admin-btn">💬 Отзывы покупателей</a>
-          <a href="blog.html" class="admin-btn">📝 Статьи блога</a>
-          <a href="vacancies.html" class="admin-btn">👥 Вакансии</a>
-          <button class="admin-btn admin-btn-danger" id="admin-logout">🚪 Выйти</button>
-        </div>
-      </div>`;
-    document.body.appendChild(panel);
-    panel.querySelector('.admin-panel-close').addEventListener('click', () => panel.remove());
-    panel.querySelector('#admin-logout')?.addEventListener('click', () => {
-      localStorage.removeItem('teleoptics.user');
-      document.querySelectorAll('#auth-label,.header-top-auth').forEach(el => el.textContent = 'Вход / Регистрация');
-      panel.remove();
-      showToast('Вы вышли из системы');
+  // Update all auth-related UI elements with user name
+  function updateAuthUI(name) {
+    const short = name.split(' ')[0];
+    // header-top auth link
+    document.querySelectorAll('.header-top-auth').forEach(el => {
+      el.textContent = short;
+      el.removeAttribute('data-open');
+      el.href = '#';
+    });
+    // header-main auth button span
+    document.querySelectorAll('#auth-label').forEach(el => {
+      el.textContent = short;
+    });
+    // Any other auth labels
+    document.querySelectorAll('[data-auth-name]').forEach(el => {
+      el.textContent = short;
     });
   }
 
-  /* =============================================
-     RESTORE SESSION
-     ============================================= */
+  // Restore session on page load
   function restoreSession() {
     const u = store(STORAGE.user);
     if (!u) return;
-    document.querySelectorAll('#auth-label,.header-top-auth').forEach(el => {
-      el.textContent = u.name.split(' ')[0];
-    });
-    if (u.role === 'admin') showAdminPanel(u);
+    updateAuthUI(u.name);
+    if (u.role === 'admin') {
+      // Show admin indicator subtly
+      document.querySelectorAll('.header-top-auth').forEach(el => {
+        el.style.color = '#ffd600';
+      });
+    }
   }
 
   async function init() {
@@ -666,16 +601,33 @@ const CAT_ICONS={
     initSearch();
     initCity();
     initForms();
-    initHeroSlider();
     initAccordion();
     initFilter();
     initGallery();
     initQty();
     bindProductActions();
-    initPagination();
-    initKategoriyaPage();
 
-    restoreSession();
+  // ── Track viewed on card click ──
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a.product-image-wrap, a.product-name');
+    if (!link) return;
+    const card = link.closest('[data-product-id]');
+    if (card) addViewed(Number(card.dataset.productId));
+  });
+
+
+  // Track viewed products on card click
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a.product-image-wrap, a.product-name, .product-card a');
+    if (!link) return;
+    const card = link.closest('[data-product-id]');
+    if (card) addViewed(Number(card.dataset.productId));
+  });
+
+    initPagination();
+
+    const u=store(STORAGE.user);
+    if(u){const l=document.getElementById('auth-label');if(l)l.textContent=u.name.split(' ')[0];}
 
     try {
       const db=await loadDb(); window._db=db;
@@ -690,228 +642,11 @@ const CAT_ICONS={
 
   document.addEventListener('DOMContentLoaded', init);
 
-  /* =============================================
-     PAGINATION SYSTEM — sliding window
-     ============================================= */
-
-  // Build sliding window pagination: 1 2 3 4 5 … 18
-  // When cur=2: 2 3 4 5 6 … 18
-  function buildPagination(container, totalPages, curPage, onPageChange) {
-    if (!container) return;
-
-    function render(cur) {
-      const btns = [];
-
-      // Prev
-      btns.push({label:'‹ Назад', page: cur-1, disabled: cur<=1, cls:'', aria:'Предыдущая'});
-
-      // Window: show 5 pages around current
-      const window_size = 5;
-      let start = Math.max(1, cur - Math.floor(window_size/2));
-      let end   = Math.min(totalPages, start + window_size - 1);
-      // Adjust if near end
-      if (end - start < window_size - 1) start = Math.max(1, end - window_size + 1);
-
-      if (start > 1) {
-        btns.push({label:'1', page:1, cls:''});
-        if (start > 2) btns.push({label:'…', page:null, cls:'dots'});
-      }
-
-      for (let i = start; i <= end; i++) {
-        btns.push({label:String(i), page:i, cls: i===cur ? 'active' : ''});
-      }
-
-      if (end < totalPages) {
-        if (end < totalPages - 1) btns.push({label:'…', page:null, cls:'dots'});
-        btns.push({label:String(totalPages), page:totalPages, cls:''});
-      }
-
-      // Next
-      btns.push({label:'Далее ›', page: cur+1, disabled: cur>=totalPages, cls:'', aria:'Следующая'});
-
-      container.innerHTML = btns.map(b => {
-        if (b.cls === 'dots') return `<span class="pagination-dots">…</span>`;
-        const disabled = b.disabled ? 'disabled' : '';
-        const active   = b.cls === 'active' ? ' active' : '';
-        const aria     = b.cls === 'active' ? ' aria-current="page"' : '';
-        const pg       = b.page ? `data-page="${b.page}"` : '';
-        return `<button class="pagination-btn${active}" type="button" ${pg} ${disabled} ${aria}>${b.label}</button>`;
-      }).join('');
-
-      // Bind clicks
-      container.querySelectorAll('.pagination-btn:not([disabled])').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pg = +btn.dataset.page;
-          if (!pg || pg < 1 || pg > totalPages) return;
-          render(pg);
-          onPageChange(pg);
-          // Scroll to top of list
-          document.getElementById('kategoriya-grid')?.scrollIntoView({behavior:'smooth', block:'start'});
-        });
-      });
-    }
-
-    render(curPage);
-  }
-
-  /* =============================================
-     KATEGORIYA PAGE — products + filter + pagination
-     ============================================= */
-  async function initKategoriyaPage() {
-    const grid = document.getElementById('kategoriya-grid');
-    if (!grid) return;
-
-    let allProducts = [];
-    let filteredProducts = [];
-    const ITEMS_PER_PAGE = 12;
-    let currentPage = 1;
-
-    // Load products
-    try {
-      const db = await fetchJson('data/db.json');
-      allProducts = db.products || [];
-    } catch {
-      try {
-        const db = window._db || await fetchJson('data/db.json');
-        allProducts = (db?.products) || [];
-      } catch { return; }
-    }
-
-    // Get URL category from hash
-    const hash = window.location.hash.replace('#','');
-    const catSlug = new URLSearchParams(window.location.search).get('cat') || hash || '';
-    const searchQ = new URLSearchParams(window.location.search).get('search') || '';
-
-    function applyFilters() {
-      filteredProducts = allProducts.filter(p => {
-        if (searchQ) {
-          const q = searchQ.toLowerCase();
-          if (!p.name.toLowerCase().includes(q) && !(p.brand||'').toLowerCase().includes(q)) return false;
-        }
-        return true;
-      });
-
-      // Price filter
-      const minInput = document.getElementById('price-min');
-      const maxInput = document.getElementById('price-max');
-      if (minInput && maxInput) {
-        const min = +minInput.value || 0;
-        const max = +maxInput.value || Infinity;
-        filteredProducts = filteredProducts.filter(p => p.price >= min && p.price <= max);
-      }
-
-      // Brand filter
-      const checkedBrands = [...document.querySelectorAll('.filter-sidebar input[type=checkbox]:checked')]
-        .map(cb => cb.value.toLowerCase())
-        .filter(v => v);
-      if (checkedBrands.length) {
-        filteredProducts = filteredProducts.filter(p => checkedBrands.includes((p.brand||'').toLowerCase()));
-      }
-
-      // Sort
-      const sortSel = document.querySelector('.sort-dropdown');
-      if (sortSel) {
-        switch(sortSel.value) {
-          case 'price-asc':  filteredProducts.sort((a,b) => a.price - b.price); break;
-          case 'price-desc': filteredProducts.sort((a,b) => b.price - a.price); break;
-          case 'rating':     filteredProducts.sort((a,b) => (b.rating||0) - (a.rating||0)); break;
-          case 'name':       filteredProducts.sort((a,b) => a.name.localeCompare(b.name,'ru')); break;
-          default:           filteredProducts.sort((a,b) => (b.reviews||0) - (a.reviews||0));
-        }
-      }
-
-      currentPage = 1;
-      renderPage();
-    }
-
-    function renderPage() {
-      const total = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-      const start = (currentPage - 1) * ITEMS_PER_PAGE;
-      const items = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
-
-      if (!items.length) {
-        grid.innerHTML = '<div style="padding:40px;text-align:center;color:var(--clr-text-muted);grid-column:1/-1">Товары не найдены</div>';
-      } else {
-        grid.innerHTML = items.map(p => productCard(p)).join('');
-        applyIcons(grid);
-      }
-
-      // Render pagination
-      const pg = document.getElementById('kategoriya-pagination');
-      buildPagination(pg, total, currentPage, (page) => {
-        currentPage = page;
-        renderPage();
-      });
-
-      // Update count label
-      const filterBtn = document.querySelector('.filter-btn-count');
-      if (filterBtn) filterBtn.textContent = 'Показать товары ' + filteredProducts.length;
-    }
-
-    // Init filters
-    applyFilters();
-
-    // Bind sort change
-    document.querySelector('.sort-dropdown')?.addEventListener('change', applyFilters);
-
-    // Bind filter apply
-    document.querySelector('.filter-apply-btn')?.addEventListener('click', applyFilters);
-    document.querySelector('.filter-reset-btn')?.addEventListener('click', () => {
-      document.querySelectorAll('.filter-sidebar input[type=checkbox]').forEach(cb => cb.checked = false);
-      const minI = document.getElementById('price-min');
-      const maxI = document.getElementById('price-max');
-      if (minI) { minI.value = minI.min || 0; }
-      if (maxI) { maxI.value = maxI.max || 200000; }
-      const minV = document.getElementById('price-min-val');
-      const maxV = document.getElementById('price-max-val');
-      if (minV) minV.textContent = '0';
-      if (maxV) maxV.textContent = '200 000';
-      applyFilters();
-    });
-
-    // Price range sliders
-    const minS = document.getElementById('price-min');
-    const maxS = document.getElementById('price-max');
-    if (minS && maxS) {
-      [minS, maxS].forEach(s => s.addEventListener('input', () => {
-        if (+minS.value > +maxS.value) minS.value = maxS.value;
-        const minV = document.getElementById('price-min-val');
-        const maxV = document.getElementById('price-max-val');
-        if (minV) minV.textContent = new Intl.NumberFormat('ru-RU').format(minS.value);
-        if (maxV) maxV.textContent = new Intl.NumberFormat('ru-RU').format(maxS.value);
-      }));
-    }
-
-    // Sidebar hits/new
-    const sidebarHits = document.getElementById('sidebar-hits');
-    if (sidebarHits) {
-      const hits = allProducts.filter(p => p.isHit).slice(0,2);
-      sidebarHits.innerHTML = hits.map(p => `
-        <a href="product.html?id=${p.id}" class="sidebar-mini-card">
-          <img src="${p.image||''}" alt="${p.name}" width="60" height="60" loading="lazy">
-          <div>
-            <div style="font-size:12px;line-height:1.3;color:var(--clr-text)">${p.name.substring(0,40)}…</div>
-            <div style="font-size:13px;font-weight:700;color:var(--clr-text);margin-top:3px">${fmtPrice(p.price)}</div>
-            ${p.oldPrice?`<div style="font-size:11px;color:var(--clr-text-muted);text-decoration:line-through">${fmtPrice(p.oldPrice)}</div>`:''}
-          </div>
-        </a>`).join('');
-      applyIcons(sidebarHits);
-    }
-    const sidebarNew = document.getElementById('sidebar-new');
-    if (sidebarNew) {
-      const news = allProducts.filter(p => p.isNew).slice(0,1);
-      sidebarNew.innerHTML = news.map(p => `
-        <a href="product.html?id=${p.id}" class="sidebar-mini-card">
-          <img src="${p.image||''}" alt="${p.name}" width="60" height="60" loading="lazy">
-          <div>
-            <div style="font-size:12px;line-height:1.3;color:var(--clr-text)">${p.name.substring(0,40)}…</div>
-            <div style="font-size:13px;font-weight:700;color:var(--clr-text);margin-top:3px">${fmtPrice(p.price)}</div>
-          </div>
-        </a>`).join('');
-      applyIcons(sidebarNew);
-    }
-  }
-
+  // Expose utility functions globally so out-of-IIFE code can use them
+  window.applyIcons   = applyIcons;
+  window.addToCart    = addToCart;
+  window.updateBadges = updateBadges;
+  window.showToast    = showToast;
 })();
 
 /* =============================================
@@ -960,7 +695,7 @@ async function renderViewedPopup() {
   const footer = document.getElementById('viewed-popup-footer');
   if (!list) return;
 
-  const viewedIds = getViewed();
+  const viewedIds = JSON.parse(localStorage.getItem('teleoptics.viewed') || '[]');
   if (!viewedIds.length) {
     list.innerHTML = '<div class="viewed-popup-empty">Вы ещё не просматривали товары</div>';
     if (footer) footer.hidden = true;
@@ -1078,4 +813,303 @@ const _origInit = document.addEventListener;
 document.addEventListener('DOMContentLoaded', () => {
   initViewedPopup();
   initCardHoverSpecs();
+});
+
+/* =============================================
+   CART MODAL — рабочая всплывашка
+   ============================================= */
+function fmtP(n) { return new Intl.NumberFormat('ru-RU').format(n) + ' ₽'; }
+
+async function openCartModal() {
+  const overlay = document.getElementById('cart-modal');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  await renderCartModal();
+}
+
+async function renderCartModal() {
+  const list     = document.getElementById('cart-modal-list');
+  const summary  = document.getElementById('cart-modal-summary');
+  const subtitle = document.getElementById('cart-modal-subtitle');
+  const totalEl  = document.getElementById('cart-modal-total');
+  if (!list) return;
+
+  const cartItems = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+  if (!cartItems.length) {
+    list.innerHTML = '<div class="popup-modal-empty">Ваша корзина пуста</div>';
+    if (summary) summary.style.display = 'none';
+    if (subtitle) subtitle.textContent = '';
+    return;
+  }
+
+  let products = [];
+  try {
+    const db = window._db || (await fetch('data/db.json').then(r => r.json()));
+    products = db.products || [];
+  } catch {}
+
+  let total = 0;
+  let totalQty = 0;
+
+  const rows = cartItems.map(item => {
+    const p = products.find(x => x.id === item.productId);
+    if (!p) return '';
+    const qty   = item.quantity || 1;
+    const price = p.price * qty;
+    total    += price;
+    totalQty += qty;
+    return `
+<div class="cart-modal-item" data-product-id="${p.id}">
+  <img class="cart-modal-item-img" src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+  <a class="cart-modal-item-name" href="product.html?id=${p.id}">${p.name}</a>
+  <div class="cart-modal-item-qty">
+    <button class="cart-modal-qty-btn" data-dir="-1" aria-label="Уменьшить">−</button>
+    <input class="cart-modal-qty-val" type="number" value="${qty}" min="1" aria-label="Количество" readonly>
+    <button class="cart-modal-qty-btn" data-dir="1" aria-label="Увеличить">+</button>
+  </div>
+  <div class="cart-modal-item-price">${fmtP(price)}</div>
+  <button class="cart-modal-item-remove" aria-label="Удалить">×</button>
+</div>`;
+  }).join('');
+
+  list.innerHTML = rows || '<div class="popup-modal-empty">Ваша корзина пуста</div>';
+  if (summary) summary.style.display = 'flex';
+  if (subtitle) subtitle.textContent = `Вы выбрали ${totalQty} товара на сумму ${fmtP(total).replace(' ₽', '')} рублей`;
+  if (totalEl)  totalEl.textContent = fmtP(total);
+
+  // Qty buttons
+  list.querySelectorAll('.cart-modal-qty-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row   = btn.closest('.cart-modal-item');
+      const id    = Number(row.dataset.productId);
+      const input = row.querySelector('.cart-modal-qty-val');
+      const dir   = Number(btn.dataset.dir);
+      const cart  = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+      const it    = cart.find(x => x.productId === id);
+      if (!it) return;
+      it.quantity = Math.max(1, (it.quantity || 1) + dir);
+      input.value = it.quantity;
+      localStorage.setItem('teleoptics.cart', JSON.stringify(cart));
+      renderCartModal();
+      updateBadges();
+    });
+  });
+
+  // Remove buttons
+  list.querySelectorAll('.cart-modal-item-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row  = btn.closest('.cart-modal-item');
+      const id   = Number(row.dataset.productId);
+      const cart = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]')
+        .filter(x => x.productId !== id);
+      localStorage.setItem('teleoptics.cart', JSON.stringify(cart));
+      updateBadges();
+      renderCartModal();
+    });
+  });
+
+  // Clear all
+  document.getElementById('cart-modal-clear')?.addEventListener('click', () => {
+    localStorage.removeItem('teleoptics.cart');
+    updateBadges();
+    renderCartModal();
+  });
+}
+
+/* =============================================
+   COMPARE MODAL — всплывашка сравнения
+   ============================================= */
+async function openCompareModal() {
+  const overlay = document.getElementById('compare-modal');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  await renderCompareModal();
+}
+
+async function renderCompareModal() {
+  const list = document.getElementById('compare-modal-list');
+  if (!list) return;
+
+  const ids = JSON.parse(localStorage.getItem('teleoptics.compare') || '[]');
+  if (!ids.length) {
+    list.innerHTML = '<div class="popup-modal-empty">Вы ещё не добавили товары к сравнению</div>';
+    return;
+  }
+
+  let products = [];
+  try {
+    const db = window._db || (await fetch('data/db.json').then(r => r.json()));
+    products = (db.products || []).filter(p => ids.includes(p.id));
+  } catch {}
+
+  if (!products.length) {
+    list.innerHTML = '<div class="popup-modal-empty">Товары не найдены</div>';
+    return;
+  }
+
+  list.innerHTML = products.map(p => `
+<div class="popup-mini-card" data-product-id="${p.id}">
+  <button class="popup-mini-card-remove" type="button" aria-label="Удалить из сравнения">×</button>
+  <a href="product.html?id=${p.id}" style="text-decoration:none">
+    <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+    <div class="popup-mini-card-name">${p.name}</div>
+    <div class="popup-mini-card-price">${fmtP(p.price)}</div>
+  </a>
+</div>`).join('');
+
+  // Remove from compare
+  list.querySelectorAll('.popup-mini-card-remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id   = Number(btn.closest('[data-product-id]').dataset.productId);
+      const list2 = JSON.parse(localStorage.getItem('teleoptics.compare') || '[]')
+        .filter(x => x !== id);
+      localStorage.setItem('teleoptics.compare', JSON.stringify(list2));
+      updateBadges();
+      renderCompareModal();
+    });
+  });
+}
+
+/* =============================================
+   FAVORITES MODAL — всплывашка избранного
+   ============================================= */
+async function openFavoritesModal() {
+  const overlay = document.getElementById('favorites-modal');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  await renderFavoritesModal();
+}
+
+async function renderFavoritesModal() {
+  const list = document.getElementById('favorites-modal-list');
+  if (!list) return;
+
+  const ids = JSON.parse(localStorage.getItem('teleoptics.favorites') || '[]');
+  if (!ids.length) {
+    list.innerHTML = '<div class="popup-modal-empty">Вы ещё ничего не добавили в избранное</div>';
+    return;
+  }
+
+  let products = [];
+  try {
+    const db = window._db || (await fetch('data/db.json').then(r => r.json()));
+    products = (db.products || []).filter(p => ids.includes(p.id));
+  } catch {}
+
+  if (!products.length) {
+    list.innerHTML = '<div class="popup-modal-empty">Товары не найдены</div>';
+    return;
+  }
+
+  list.innerHTML = products.map(p => `
+<div class="popup-mini-card" data-product-id="${p.id}">
+  <button class="popup-mini-card-remove" type="button" aria-label="Удалить из избранного">×</button>
+  <a href="product.html?id=${p.id}" style="text-decoration:none">
+    <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+    <div class="popup-mini-card-name">${p.name}</div>
+    <div class="popup-mini-card-price">${fmtP(p.price)}</div>
+  </a>
+  <button class="btn btn-primary" type="button"
+    style="width:100%;margin-top:8px;font-size:11px;padding:6px"
+    data-action="add-to-cart" data-product-id="${p.id}">В корзину</button>
+</div>`).join('');
+
+  // Remove from favorites
+  list.querySelectorAll('.popup-mini-card-remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id   = Number(btn.closest('[data-product-id]').dataset.productId);
+      const favs = JSON.parse(localStorage.getItem('teleoptics.favorites') || '[]')
+        .filter(x => x !== id);
+      localStorage.setItem('teleoptics.favorites', JSON.stringify(favs));
+      updateBadges();
+      renderFavoritesModal();
+    });
+  });
+
+  // Add to cart from favorites
+  list.querySelectorAll('[data-action="add-to-cart"]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = Number(btn.dataset.productId);
+      addToCart(id);
+      btn.style.background = 'var(--clr-success)';
+      setTimeout(() => btn.style.background = '', 1000);
+    });
+  });
+
+  applyIcons(list);
+}
+
+/* =============================================
+   INTERCEPT data-open CLICKS → custom handlers
+   ============================================= */
+function initPopupModals() {
+  document.addEventListener('click', e => {
+    const trigger = e.target.closest('[data-open]');
+    if (!trigger) return;
+    const target = trigger.getAttribute('data-open');
+    if (target === 'cart') {
+      e.preventDefault(); e.stopPropagation();
+      openCartModal(); return;
+    }
+    if (target === 'compare') {
+      e.preventDefault(); e.stopPropagation();
+      openCompareModal(); return;
+    }
+    if (target === 'favorites') {
+      e.preventDefault(); e.stopPropagation();
+      openFavoritesModal(); return;
+    }
+    // login/register/callback/city — обычный modal
+    openModal(target + '-modal');
+  }, true); // capture phase — перехватываем до других handlers
+}
+
+/* =============================================
+   HERO SLIDER — two independent sliders
+   ============================================= */
+function initHeroSlider() {
+  function makeSlider(containerId, slideSelector) {
+    const wrap = document.getElementById(containerId);
+    if (!wrap) return;
+    const slides = wrap.querySelectorAll(slideSelector);
+    const dots   = wrap.querySelectorAll('.hero-dot');
+    if (!slides.length) return;
+
+    let cur = 0, timer;
+
+    function go(n) {
+      slides[cur].classList.remove('active');
+      if (dots[cur]) { dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false'); }
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      if (dots[cur]) { dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); }
+    }
+    const nav = n => { clearInterval(timer); go(n); if (slides.length > 1) timer = setInterval(() => go(cur+1), 5000); };
+
+    wrap.querySelector('.hero-arrow-btn--prev')?.addEventListener('click', () => nav(cur-1));
+    wrap.querySelector('.hero-arrow-btn--next')?.addEventListener('click', () => nav(cur+1));
+    dots.forEach((d,i) => d.addEventListener('click', () => nav(i)));
+
+    // Swipe
+    let tx = 0;
+    wrap.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+    wrap.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - tx; if(Math.abs(dx)>50) nav(dx<0?cur+1:cur-1); });
+
+    if (slides.length > 1) timer = setInterval(() => go(cur+1), 5000);
+  }
+
+  makeSlider('hero-main', '.hero-main-slide');
+  makeSlider('hero-side', '.hero-side-slide');
+}
+
+/* ── Add to init ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initPopupModals();
+  initHeroSlider();
 });
