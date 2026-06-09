@@ -3338,3 +3338,37 @@ input[type=number].qty-input {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0,0,0,.13);
 }
+/* === Стили админ-панели === */
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.admin-settings {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--clr-surface, #f7f8fa);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--clr-border, #e8eaf0);
+}
+
+.admin-settings button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--clr-text);
+}
+
+.admin-settings button:hover {
+  background: var(--clr-bg-alt, #f0f1f5);
+}

@@ -358,16 +358,36 @@
 
   <!-- ═══ MAIN ═══ -->
   <div class="admin-main">
-    <!-- Topbar -->
-    <header class="admin-topbar">
-      <div class="admin-topbar-title" id="admin-page-title">Дашборд</div>
-      <div style="display:flex;align-items:center;gap:16px">
-        <div class="admin-topbar-user">
-          Вы вошли как: <strong id="admin-user-name">Администратор</strong>
-        </div>
-        <a href="index.html" class="admin-topbar-store-link">🏪 На сайт</a>
-      </div>
-    </header>
+ <header class="admin-topbar">
+  <div class="admin-topbar-title" id="admin-page-title">Дашборд</div>
+
+  <div class="admin-topbar-right">
+    
+    <!-- Кнопки настроек -->
+    <div class="admin-settings">
+      <button class="theme-toggle" type="button" aria-label="Переключить тему">
+        <img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true">
+        <span>Тёмная тема</span>
+      </button>
+
+      <button class="lang-toggle" type="button" aria-label="Переключить язык">
+        <img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true">
+        <span>RU</span>
+      </button>
+
+      <button class="visually-impaired-btn" type="button" aria-label="Версия для слабовидящих">
+        <img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true">
+        <span>Для слабовидящих</span>
+      </button>
+    </div>
+
+    <div class="admin-topbar-user">
+      Вы вошли как: <strong id="admin-user-name">Администратор</strong>
+    </div>
+    
+    <a href="index.html" class="admin-topbar-store-link">🏪 На сайт</a>
+  </div>
+</header>
 
     <main class="admin-content">
 
@@ -896,5 +916,51 @@
   document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
+<script src="js/app.js"></script>
+
+<!-- ═══ ПАНЕЛЬ ДЛЯ СЛАБОВИДЯЩИХ ═══ -->
+<div class="accessibility-panel" id="a11y-panel" role="dialog" aria-label="Настройки для слабовидящих" aria-hidden="true">
+  <h3 class="accessibility-panel-title">Версия для слабовидящих</h3>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Размер шрифта</div>
+    <div class="accessibility-btns" role="group" aria-label="Размер шрифта">
+      <button class="accessibility-btn" type="button" data-a11y="fontSize" data-val="small" style="font-size:11px;" aria-label="Маленький">А</button>
+      <button class="accessibility-btn active" type="button" data-a11y="fontSize" data-val="normal" style="font-size:14px;" aria-label="Обычный">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="fontSize" data-val="large" style="font-size:18px;" aria-label="Большой">А</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Цветовая схема</div>
+    <div class="accessibility-btns" role="group" aria-label="Цветовая схема">
+      <button class="accessibility-btn active" type="button" data-a11y="scheme" data-val="default" style="background:#fff;color:#000;border:1px solid #ddd;" aria-label="По умолчанию">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="black-white" style="background:#000;color:#fff;" aria-label="Чёрный фон">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="black-green" style="background:#000;color:#0f0;" aria-label="Зелёный текст">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="beige-brown" style="background:#f5f0e8;color:#5c3d11;" aria-label="Бежевый фон">А</button>
+      <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="blue-navy" style="background:#cce4f7;color:#003366;" aria-label="Голубой фон">А</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Изображения</div>
+    <div class="accessibility-btns" role="group" aria-label="Изображения">
+      <button class="accessibility-btn active" type="button" data-a11y="images" data-val="show" aria-pressed="true">Показать</button>
+      <button class="accessibility-btn" type="button" data-a11y="images" data-val="hide" aria-pressed="false">Скрыть</button>
+    </div>
+  </div>
+  <div class="accessibility-option">
+    <div class="accessibility-option-label">Выбор шрифта</div>
+    <div class="accessibility-btns">
+      <select class="accessibility-select" data-a11y="fontFamily" aria-label="Шрифт">
+        <option value="default">Roboto (по умолчанию)</option>
+        <option value="arial">Arial</option>
+        <option value="times">Times New Roman</option>
+        <option value="verdana">Verdana</option>
+      </select>
+    </div>
+  </div>
+  <button class="accessibility-close" type="button" id="a11y-close">Закрыть</button>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
