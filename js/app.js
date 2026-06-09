@@ -171,13 +171,33 @@
   /* --- fetch --- */
   async function fetchJson(url) { const r=await fetch(url,{headers:{Accept:'application/json'}}); if(!r.ok) throw new Error(r.status); return r.json(); }
   async function loadDb() {
+    let categories, products, brands, banners;
     try {
-      const [categories,products,brands,banners] = await Promise.all([fetchJson(`${API_BASE}/categories`),fetchJson(`${API_BASE}/products`),fetchJson(`${API_BASE}/brands`),fetchJson(`${API_BASE}/banners`)]);
-      return {categories,products,brands,banners};
+      ([categories, products, brands, banners] = await Promise.all([
+        fetchJson(`${API_BASE}/categories`),
+        fetchJson(`${API_BASE}/products`),
+        fetchJson(`${API_BASE}/brands`),
+        fetchJson(`${API_BASE}/banners`),
+      ]));
     } catch {
       const db = await fetchJson('data/db.json');
-      return {categories:db.categories||[],products:db.products||[],brands:db.brands||[],banners:db.banners||[]};
+      categories = db.categories || [];
+      products   = db.products   || [];
+      brands     = db.brands     || [];
+      banners    = db.banners    || [];
     }
+    // Применить правки администратора из localStorage
+    const localProds = getAdminProducts();
+    if (localProds) products = localProds;
+    return { categories, products, brands, banners };
+  }
+
+  /** Вернуть список товаров с учётом правок администратора */
+  function getAdminProducts() {
+    try {
+      const raw = localStorage.getItem('teleoptics.admin_products');
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
   }
 
   /* --- format --- */

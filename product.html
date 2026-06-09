@@ -354,50 +354,223 @@
 </main>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-  // Product tabs
+  /* ─────────────────────────────────────────────
+     1. Загрузка данных с учётом правок администратора
+     ───────────────────────────────────────────── */
+  async function loadProducts() {
+    // Правки администратора перекрывают db.json
+    const local = localStorage.getItem('teleoptics.admin_products');
+    if (local) {
+      try { return JSON.parse(local); } catch {}
+    }
+    try {
+      const db = window._db || await fetch('data/db.json').then(r => r.json());
+      return db.products || [];
+    } catch { return []; }
+  }
+
+  const fmt = n => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
+  const SPEC_LABELS = {
+    magnification:'Увеличение', diameter:'Диаметр объектива, мм',
+    prism:'Тип призмы', coating:'Просветление', minFocus:'Мин. фокус, м',
+    fieldOfView:'Поле зрения, °', viewAngle:'Угол зрения, °',
+    weight:'Вес, г', waterproof:'Водозащита', country:'Страна',
+    warranty:'Гарантия', type:'Тип', aperture:'Апертура, мм',
+    focalLength:'Фокусное расстояние, мм', maxMagnification:'Макс. увеличение',
+    mount:'Монтировка', maxRange:'Макс. дальность, м', accuracy:'Точность, м',
+    angleComp:'Компенсация угла', eyeRelief:'Вынос зрачка, мм',
+    reticle:'Сетка прицела', tube:'Диаметр трубки', range:'Дальность, м',
+    battery:'Время работы', resolution:'Разрешение матрицы',
+    sensorSize:'Размер пикселя', frameRate:'Частота кадров',
+    lensDiameter:'Диаметр линзы, мм', light:'Подсветка', foldable:'Складная',
+    objectives:'Объективы', illumination:'Подсветка',
+    bodyMaterial:'Материал корпуса', coverMaterial:'Покрытие корпуса',
+    nightVision:'Ночное видение',
+  };
+
+  /* ─────────────────────────────────────────────
+     2. Найти товар по ?id=
+     ───────────────────────────────────────────── */
+  const urlId = Number(new URLSearchParams(location.search).get('id'));
+  const allProducts = await loadProducts();
+  const p = urlId ? allProducts.find(x => x.id === urlId) : allProducts[0];
+
+  if (p) {
+    /* Заголовок и мета-данные */
+    document.title = p.name + ' — TELE-OPTICS';
+    const titleEl = document.querySelector('.product-title');
+    if (titleEl) titleEl.textContent = p.name;
+
+    /* Главное изображение */
+    const mainImg = document.getElementById('product-main-img');
+    if (mainImg && p.image) {
+      mainImg.src = p.image;
+      mainImg.alt = p.name;
+    }
+
+    /* Бейджи */
+    const badgesWrap = document.querySelector('.product-badges-big');
+    if (badgesWrap) {
+      const disc = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+      badgesWrap.innerHTML = [
+        p.isHit  ? '<span class="badge badge-hit">ХИТ</span>'         : '',
+        p.isNew  ? '<span class="badge badge-new">НОВИНКА</span>'      : '',
+        disc > 0 ? `<span class="badge badge-sale">-${disc}%</span>`   : '',
+      ].join('');
+    }
+
+    /* Рейтинг */
+    const starsEl = document.querySelector('.product-meta .stars');
+    if (starsEl && p.rating) {
+      starsEl.innerHTML = [1,2,3,4,5].map(i =>
+        `<span style="color:${i<=Math.round(p.rating)?'#ffd600':'#d0d6dd'}">★</span>`
+      ).join('');
+    }
+    const ratingVal = document.querySelector('.product-meta .rating-value');
+    if (ratingVal) ratingVal.textContent = p.rating ? p.rating.toFixed(2) : '';
+    const ratingCnt = document.querySelector('.product-meta .rating-count');
+    if (ratingCnt) ratingCnt.textContent = p.reviews ? `(${p.reviews} отзывов)` : '';
+
+    /* Наличие */
+    const stockEl = document.querySelector('.product-meta .product-stock');
+    if (stockEl) {
+      stockEl.className = 'product-stock' + (p.inStock ? '' : ' product-stock--out');
+      stockEl.innerHTML = `<span class="product-stock-dot"></span> ${p.inStock ? 'В наличии' : 'Нет в наличии'}`;
+    }
+
+    /* Производитель */
+    const articleEl = document.querySelector('.product-article');
+    if (articleEl && p.brand) articleEl.textContent = 'Бренд: ' + p.brand;
+
+    /* ЦЕНА — главный блок */
+    const priceBlock = document.querySelector('.product-price-block');
+    if (priceBlock) {
+      const priceBig = priceBlock.querySelector('.product-price-big');
+      const oldBig   = priceBlock.querySelector('.product-price-old-big');
+      if (priceBig) priceBig.textContent = fmt(p.price);
+      if (oldBig) {
+        if (p.oldPrice && p.oldPrice > p.price) {
+          oldBig.style.display = '';
+          // сохранить ссылку "Получить скидку" если есть
+          const discLink = oldBig.querySelector('.price-discount-link');
+          oldBig.innerHTML = fmt(p.oldPrice);
+          if (discLink) oldBig.appendChild(discLink);
+        } else {
+          oldBig.style.display = 'none';
+        }
+      }
+    }
+
+    /* Кнопки «В корзину» / «Сравнить» / «Избранное» — ставим data-product-id */
+    document.querySelectorAll('[data-action="add-to-cart"], [data-action="compare"], [data-action="favorite"]').forEach(btn => {
+      if (!btn.dataset.productId) btn.dataset.productId = p.id;
+    });
+
+    /* Мини-характеристики (быстрый обзор) */
+    const specsMini = document.querySelector('.product-specs-mini');
+    if (specsMini && p.specs) {
+      const sp = p.specs;
+      const rows = Object.entries(sp).slice(0, 4).map(([k, v]) =>
+        `<div class="spec-row"><span class="spec-key">${SPEC_LABELS[k] || k}</span><span class="spec-val">${v}</span></div>`
+      ).join('');
+      specsMini.innerHTML = `<div class="spec-row"><span class="spec-key">Характеристики</span></div>${rows}<a href="#tab-specs" class="spec-more-link">Все характеристики</a>`;
+    }
+
+    /* Полная таблица характеристик в табе */
+    const specsTable = document.querySelector('#tab-specs tbody');
+    if (specsTable && p.specs) {
+      specsTable.innerHTML = Object.entries(p.specs).map(([k, v]) =>
+        `<tr><th>${SPEC_LABELS[k] || k}</th><td>${v}</td></tr>`
+      ).join('');
+    }
+
+    /* Описание */
+    const descPanel = document.getElementById('tab-desc');
+    if (descPanel && !descPanel.querySelector('p')?.textContent.trim() && p.name) {
+      descPanel.querySelector('p')?.remove();
+      const pr = document.createElement('p');
+      pr.textContent = `${p.name}${p.brand ? ' от ' + p.brand : ''}. ${p.specs?.country ? 'Произведено: ' + p.specs.country + '.' : ''}`;
+      descPanel.prepend(pr);
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+     3. Табы
+     ───────────────────────────────────────────── */
   document.querySelectorAll('.product-tabs .tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.product-tabs .tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
-      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-      document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=true);
+      document.querySelectorAll('.product-tabs .tab-btn').forEach(b => {
+        b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.hidden = true);
       const target = btn.dataset.target;
-      if(target){const panel=document.getElementById(target);if(panel)panel.hidden=false;}
+      if (target) { const panel = document.getElementById(target); if (panel) panel.hidden = false; }
     });
   });
-  // Product thumbs
-  document.querySelectorAll('.product-thumb').forEach(t=>{
-    t.addEventListener('click',()=>{
-      document.querySelectorAll('.product-thumb').forEach(x=>x.classList.remove('active'));
+
+  /* ─────────────────────────────────────────────
+     4. Миниатюры
+     ───────────────────────────────────────────── */
+  document.querySelectorAll('.product-thumb').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.product-thumb').forEach(x => x.classList.remove('active'));
       t.classList.add('active');
-      const main=document.getElementById('product-main-img');
-      if(main)main.src=t.dataset.src||t.querySelector('img').src;
+      const main = document.getElementById('product-main-img');
+      if (main) main.src = t.dataset.src || t.querySelector('img')?.src;
     });
   });
-  // Load related products
+
+  /* ─────────────────────────────────────────────
+     5. Похожие товары (с учётом admin-правок)
+     ───────────────────────────────────────────── */
   try {
-    const r=await fetch('data/db.json'); const d=await r.json();
-    const ps=d.products||[];
-    const makeRow=(id)=>{
-      const row=document.getElementById(id); if(!row)return;
-      row.innerHTML=ps.slice(0,4).map(p=>`<article class="product-card" data-product-id="${p.id}">
-        <div class="product-card-top">
-          <div class="product-stock"><span class="product-stock-dot"></span>В наличии</div>
-          <a class="product-image-wrap" href="product.html?id=${p.id}"><img src="${p.image||'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy" width="200" height="160"></a>
-          <div class="product-actions-overlay">
-            <button class="product-action-icon fav-btn" type="button" data-action="favorite"><img class="ui-icon ui-icon-sm" data-icon="favorite" alt="" aria-hidden="true"></button>
-            <button class="product-action-icon" type="button" data-action="compare"><img class="ui-icon ui-icon-sm" data-icon="compare" alt="" aria-hidden="true"></button>
+    const ps = allProducts.filter(x => x.id !== (p?.id)).slice(0, 8);
+    const makeRow = (id) => {
+      const row = document.getElementById(id); if (!row) return;
+      row.innerHTML = ps.slice(0, 4).map(pr => {
+        const disc = pr.oldPrice ? Math.round((1 - pr.price / pr.oldPrice) * 100) : 0;
+        const strs = [1,2,3,4,5].map(i =>
+          `<span style="color:${i<=Math.round(pr.rating||0)?'#ffd600':'#d0d6dd'}">★</span>`).join('');
+        return `<article class="product-card" data-product-id="${pr.id}">
+          <div class="product-card-top">
+            <div class="product-badges">${disc>0?`<span class="badge badge-sale">-${disc}%</span>`:''}</div>
+            <div class="product-stock"><span class="product-stock-dot"></span>${pr.inStock?'В наличии':'Нет в наличии'}</div>
+            <a class="product-image-wrap" href="product.html?id=${pr.id}">
+              <img src="${pr.image||'assets/images/MainBannerBig.png'}" alt="${pr.name}" loading="lazy" width="200" height="160">
+            </a>
+            <div class="product-actions-overlay">
+              <button class="product-action-icon fav-btn" type="button" data-action="favorite" data-product-id="${pr.id}">
+                <img class="ui-icon ui-icon-sm" src="assets/icons/heart.svg" alt="" aria-hidden="true">
+              </button>
+              <button class="product-action-icon" type="button" data-action="compare" data-product-id="${pr.id}">
+                <img class="ui-icon ui-icon-sm" src="assets/icons/scales.svg" alt="" aria-hidden="true">
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="product-card-body">
-          <div class="product-rating"><span class="stars">${[1,2,3,4,5].map(i=>`<span style="color:${i<=4?'#ffd600':'#d0d6dd'}">★</span>`).join('')}</span><span class="rating-value">4.67</span><span class="rating-count">(12 отзывов)</span></div>
-          <a href="product.html?id=${p.id}" class="product-name">${p.name}</a>
-          <div class="product-price-row"><div class="product-prices"><span class="product-price">${new Intl.NumberFormat('ru-RU').format(p.price)} ₽</span>${p.oldPrice?`<span class="product-price-old">${new Intl.NumberFormat('ru-RU').format(p.oldPrice)} ₽</span>`:''}</div><button class="add-to-cart-btn" type="button" data-action="add-to-cart"><img class="ui-icon ui-icon-sm" data-icon="plus" alt="" aria-hidden="true"></button></div>
-        </div>
-      </article>`).join('');
-      if(window.applyIcons)window.applyIcons(row);
+          <div class="product-card-body">
+            <div class="product-rating"><span class="stars">${strs}</span>
+              <span class="rating-value">${pr.rating?pr.rating.toFixed(2):''}</span>
+              <span class="rating-count">${pr.reviews?`(${pr.reviews} отзывов)`:''}</span>
+            </div>
+            <a href="product.html?id=${pr.id}" class="product-name">${pr.name}</a>
+            <div class="product-price-row">
+              <div class="product-prices">
+                <span class="product-price">${fmt(pr.price)}</span>
+                ${pr.oldPrice?`<span class="product-price-old">${fmt(pr.oldPrice)}</span>`:''}
+              </div>
+              <button class="add-to-cart-btn" type="button" data-action="add-to-cart" data-product-id="${pr.id}">
+                <img class="ui-icon ui-icon-sm" src="assets/icons/plus.svg" alt="" aria-hidden="true">
+              </button>
+            </div>
+          </div>
+        </article>`;
+      }).join('');
     };
-    makeRow('product-rec'); makeRow('product-similar'); makeRow('product-bought');
-  } catch(e){console.warn(e);}
+    makeRow('product-rec');
+    makeRow('product-similar');
+    makeRow('product-bought');
+  } catch(e) { console.warn(e); }
 });
 </script>
 <footer class="footer">
