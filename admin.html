@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель администратора — TELE-OPTICS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Admin Layout ─── */
+    body { background: var(--clr-bg-alt, #f4f5f7); }
+
+    .admin-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--clr-primary, #1565c0);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      position: fixed;
+      top: 0; left: 0;
+      bottom: 0;
+      z-index: 100;
+    }
+    .admin-sidebar-logo {
+      padding: 20px 20px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-sidebar-logo span { opacity: .7; font-size: 13px; font-weight: 400; }
+    .admin-nav { flex: 1; padding: 12px 0; }
+    .admin-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,.85);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      text-decoration: none;
+      transition: background .15s;
+      border-radius: 0;
+    }
+    .admin-nav-item:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .admin-nav-item.active { background: rgba(255,255,255,.2); color: #fff; font-weight: 700; }
+    .admin-nav-item .nav-icon { font-size: 18px; width: 22px; text-align: center; }
+    .admin-sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,.15);
+    }
+    .admin-logout-btn {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.75); font-size: 13px;
+      background: none; border: none; cursor: pointer; padding: 8px 0;
+      transition: color .15s;
+    }
+    .admin-logout-btn:hover { color: #fff; }
+
+    /* Main area */
+    .admin-main {
+      margin-left: 240px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .admin-topbar {
+      background: var(--clr-bg, #fff);
+      border-bottom: 1px solid var(--clr-border, #e8eaf0);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-topbar-title { font-size: 18px; font-weight: 700; color: var(--clr-text, #1a1a2e); }
+    .admin-topbar-user { font-size: 13px; color: var(--clr-text-secondary, #6b7280); display: flex; align-items: center; gap: 8px; }
+    .admin-topbar-user strong { color: var(--clr-text); }
+    .admin-topbar-store-link {
+      font-size: 13px;
+      color: var(--clr-primary);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      padding: 6px 12px;
+      border: 1px solid var(--clr-primary);
+      border-radius: 6px;
+      transition: background .15s;
+    }
+    .admin-topbar-store-link:hover { background: var(--clr-primary); color: #fff; }
+
+    .admin-content { padding: 28px; flex: 1; }
+
+    /* Sections */
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* Stats cards */
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .admin-stat-card {
+      background: var(--clr-bg, #fff);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--clr-border, #e8eaf0);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .admin-stat-card .stat-label { font-size: 12px; color: var(--clr-text-secondary); text-transform: uppercase; letter-spacing: .05em; }
+    .admin-stat-card .stat-value { font-size: 28px; font-weight: 700; color: var(--clr-primary); }
+    .admin-stat-card .stat-sub { font-size: 12px; color: var(--clr-text-muted); }
+
+    /* Panel card */
+    .admin-card {
+      background: var(--clr-bg, #fff);
+      border-radius: 12px;
+      border: 1px solid var(--clr-border, #e8eaf0);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .admin-card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--clr-border, #e8eaf0);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .admin-card-header h2 { font-size: 16px; font-weight: 700; margin: 0; }
+    .admin-card-body { padding: 20px; }
+
+    /* Product table */
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .admin-table th {
+      padding: 10px 14px;
+      background: var(--clr-surface, #f7f8fa);
+      border-bottom: 2px solid var(--clr-border);
+      text-align: left;
+      font-weight: 600;
+      color: var(--clr-text-secondary);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--clr-border);
+      vertical-align: middle;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: var(--clr-surface, #f7f8fa); }
+    .admin-table img { width: 48px; height: 40px; object-fit: contain; border-radius: 4px; }
+    .admin-table .product-name-cell { max-width: 260px; font-weight: 500; }
+    .admin-table .product-name-cell a { color: inherit; text-decoration: none; }
+    .admin-table .product-name-cell a:hover { color: var(--clr-primary); }
+
+    /* Badges in table */
+    .badge-hit  { background: #fef9c3; color: #854d0e; }
+    .badge-new  { background: #dcfce7; color: #166534; }
+    .badge-sale { background: #fee2e2; color: #991b1b; }
+    .admin-table .badge { font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+
+    .stock-yes { color: #16a34a; font-weight: 600; }
+    .stock-no  { color: #dc2626; font-weight: 600; }
+
+    /* Action buttons */
+    .btn-icon-edit, .btn-icon-del {
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      border: 1px solid;
+      background: none;
+      cursor: pointer;
+      font-size: 15px;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .btn-icon-edit { border-color: var(--clr-primary); color: var(--clr-primary); }
+    .btn-icon-edit:hover { background: var(--clr-primary); color: #fff; }
+    .btn-icon-del  { border-color: #dc2626; color: #dc2626; }
+    .btn-icon-del:hover  { background: #dc2626; color: #fff; }
+
+    /* Table toolbar */
+    .admin-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .admin-search-input {
+      padding: 8px 12px;
+      border: 1px solid var(--clr-border);
+      border-radius: 8px;
+      font-size: 13px;
+      min-width: 220px;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+    }
+    .admin-search-input:focus { outline: none; border-color: var(--clr-primary); }
+    .admin-filter-select {
+      padding: 8px 12px;
+      border: 1px solid var(--clr-border);
+      border-radius: 8px;
+      font-size: 13px;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      cursor: pointer;
+    }
+
+    /* Product Form (modal-like panel) */
+    .admin-form-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .admin-form-overlay.open { display: flex; }
+    .admin-form-panel {
+      background: var(--clr-bg, #fff);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+    }
+    .admin-form-panel h2 { font-size: 18px; margin: 0 0 20px; }
+    .admin-form-close {
+      position: absolute; top: 16px; right: 18px;
+      background: none; border: none; font-size: 22px;
+      cursor: pointer; color: var(--clr-text-secondary);
+      line-height: 1;
+    }
+    .admin-form-close:hover { color: var(--clr-text); }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--clr-text-secondary); }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; box-sizing: border-box;
+      padding: 9px 12px;
+      border: 1px solid var(--clr-border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      outline: none; border-color: var(--clr-primary);
+    }
+    .form-row textarea { resize: vertical; min-height: 70px; }
+    .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .form-checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+    .form-checkbox-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
+
+    /* Confirm delete */
+    .admin-confirm-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 300;
+      align-items: center; justify-content: center;
+    }
+    .admin-confirm-overlay.open { display: flex; }
+    .admin-confirm-box {
+      background: var(--clr-bg); border-radius: 14px;
+      padding: 28px; max-width: 360px; width: 100%; text-align: center;
+      margin: 20px;
+    }
+    .admin-confirm-box h3 { margin: 0 0 10px; }
+    .admin-confirm-box p { color: var(--clr-text-secondary); font-size: 14px; margin: 0 0 22px; }
+    .admin-confirm-actions { display: flex; gap: 12px; justify-content: center; }
+
+    /* Users table */
+    .role-admin { color: #7c3aed; font-weight: 700; }
+    .role-user  { color: #0891b2; font-weight: 600; }
+
+    /* Pagination in admin */
+    .admin-pagination { display: flex; gap: 6px; align-items: center; padding: 12px 0 4px; }
+    .admin-pagination button {
+      min-width: 32px; height: 32px; padding: 0 8px;
+      border: 1px solid var(--clr-border); border-radius: 6px;
+      background: var(--clr-bg); font-size: 13px; cursor: pointer;
+      transition: all .15s;
+    }
+    .admin-pagination button.active { background: var(--clr-primary); color: #fff; border-color: var(--clr-primary); font-weight: 700; }
+    .admin-pagination button:hover:not(.active):not(:disabled) { border-color: var(--clr-primary); color: var(--clr-primary); }
+    .admin-pagination button:disabled { opacity: .4; cursor: default; }
+
+    @media (max-width: 768px) {
+      .admin-sidebar { width: 200px; }
+      .admin-main { margin-left: 200px; }
+      .admin-content { padding: 16px; }
+      .form-2col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .admin-sidebar { display: none; }
+      .admin-main { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-shell">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-logo">
+      <span style="font-size:22px">🔭</span>
+      <div>TELE-OPTICS<br><span>Панель управления</span></div>
+    </div>
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-section="dashboard">
+        <span class="nav-icon">📊</span> Дашборд
+      </button>
+      <button class="admin-nav-item" data-section="products">
+        <span class="nav-icon">📦</span> Товары
+      </button>
+      <button class="admin-nav-item" data-section="users">
+        <span class="nav-icon">👥</span> Пользователи
+      </button>
+      <button class="admin-nav-item" data-section="orders">
+        <span class="nav-icon">🛒</span> Заказы
+      </button>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <button class="admin-logout-btn" id="admin-logout">
+        <span>🚪</span> Выйти
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="admin-topbar-title" id="admin-page-title">Дашборд</div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="admin-topbar-user">
+          Вы вошли как: <strong id="admin-user-name">Администратор</strong>
+        </div>
+        <a href="index.html" class="admin-topbar-store-link">🏪 На сайт</a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+
+      <!-- ── ДАШБОРД ── -->
+      <section class="admin-section active" id="section-dashboard">
+        <div class="admin-stats" id="dash-stats">
+          <div class="admin-stat-card">
+            <span class="stat-label">Всего товаров</span>
+            <span class="stat-value" id="stat-products">—</span>
+            <span class="stat-sub">в каталоге</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-label">В наличии</span>
+            <span class="stat-value" id="stat-instock" style="color:#16a34a">—</span>
+            <span class="stat-sub">доступны к заказу</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-label">Со скидкой</span>
+            <span class="stat-value" id="stat-sale" style="color:#dc2626">—</span>
+            <span class="stat-sub">товаров в распродаже</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-label">Пользователи</span>
+            <span class="stat-value" id="stat-users">—</span>
+            <span class="stat-sub">зарегистрировано</span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header"><h2>Последние добавленные товары</h2></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="dash-recent-table">
+                <thead><tr>
+                  <th>Фото</th><th>Название</th><th>Цена</th><th>Наличие</th>
+                </tr></thead>
+                <tbody id="dash-recent-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ТОВАРЫ ── -->
+      <section class="admin-section" id="section-products">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2>Управление товарами</h2>
+            <button class="btn btn-primary" id="add-product-btn" style="padding:8px 18px;font-size:13px">
+              + Добавить товар
+            </button>
+          </div>
+          <div class="admin-card-body">
+            <div class="admin-toolbar" style="margin-bottom:16px">
+              <input type="search" class="admin-search-input" id="product-search" placeholder="🔍 Поиск по названию...">
+              <select class="admin-filter-select" id="product-cat-filter">
+                <option value="">Все категории</option>
+              </select>
+              <select class="admin-filter-select" id="product-stock-filter">
+                <option value="">Любое наличие</option>
+                <option value="1">В наличии</option>
+                <option value="0">Нет в наличии</option>
+              </select>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="products-table">
+                <thead><tr>
+                  <th>ID</th><th>Фото</th><th class="product-name-cell">Название</th>
+                  <th>Категория</th><th>Цена</th><th>Статус</th><th>Теги</th><th>Действия</th>
+                </tr></thead>
+                <tbody id="products-tbody"></tbody>
+              </table>
+            </div>
+            <div class="admin-pagination" id="products-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ПОЛЬЗОВАТЕЛИ ── -->
+      <section class="admin-section" id="section-users">
+        <div class="admin-card">
+          <div class="admin-card-header"><h2>Пользователи</h2></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="users-table">
+                <thead><tr>
+                  <th>ID</th><th>Имя</th><th>Email</th><th>Телефон</th><th>Роль</th>
+                </tr></thead>
+                <tbody id="users-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ЗАКАЗЫ ── -->
+      <section class="admin-section" id="section-orders">
+        <div class="admin-card">
+          <div class="admin-card-header"><h2>Заказы пользователей</h2></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr>
+                  <th>ID</th><th>Покупатель</th><th>Дата</th><th>Сумма</th><th>Статус</th>
+                </tr></thead>
+                <tbody id="orders-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══ ФОРМА ТОВАРА ═══ -->
+<div class="admin-form-overlay" id="product-form-overlay">
+  <div class="admin-form-panel">
+    <button class="admin-form-close" id="product-form-close" type="button">×</button>
+    <h2 id="product-form-title">Добавить товар</h2>
+    <form id="product-form" novalidate>
+      <input type="hidden" id="pf-id">
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Название (рус) *</label>
+          <input type="text" id="pf-name" required placeholder="Бинокль ...">
+        </div>
+        <div class="form-row">
+          <label>Название (EN)</label>
+          <input type="text" id="pf-name-en" placeholder="Binoculars ...">
+        </div>
+      </div>
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Цена (₽) *</label>
+          <input type="number" id="pf-price" required min="0" placeholder="10000">
+        </div>
+        <div class="form-row">
+          <label>Старая цена (₽)</label>
+          <input type="number" id="pf-old-price" min="0" placeholder="оставьте пустым">
+        </div>
+      </div>
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Категория *</label>
+          <select id="pf-category" required></select>
+        </div>
+        <div class="form-row">
+          <label>Бренд</label>
+          <input type="text" id="pf-brand" placeholder="Veber, Nikon ...">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Путь к изображению</label>
+        <input type="text" id="pf-image" placeholder="/assets/images/...">
+      </div>
+      <div class="form-2col" style="margin-bottom:14px">
+        <label class="form-checkbox-row">
+          <input type="checkbox" id="pf-instock" checked> В наличии
+        </label>
+        <label class="form-checkbox-row">
+          <input type="checkbox" id="pf-hit"> Хит продаж
+        </label>
+        <label class="form-checkbox-row">
+          <input type="checkbox" id="pf-new"> Новинка
+        </label>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" style="flex:1">💾 Сохранить</button>
+        <button type="button" class="btn btn-outline" id="product-form-cancel">Отмена</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ═══ -->
+<div class="admin-confirm-overlay" id="confirm-overlay">
+  <div class="admin-confirm-box">
+    <h3>Удалить товар?</h3>
+    <p id="confirm-text">Это действие нельзя отменить.</p>
+    <div class="admin-confirm-actions">
+      <button class="btn btn-primary" id="confirm-yes" style="background:#dc2626;border-color:#dc2626">Удалить</button>
+      <button class="btn btn-outline" id="confirm-no">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══ ADMIN PANEL SCRIPT ═══ */
+(function () {
+  'use strict';
+
+  const USER_KEY    = 'teleoptics.user';
+  const PROD_KEY    = 'teleoptics.admin_products'; // locally modified products
+  const PER_PAGE    = 10;
+
+  let db            = null;
+  let products      = [];   // working copy (merged db + local edits)
+  let categories    = [];
+  let filteredProds = [];
+  let currentPage   = 1;
+  let editingId     = null;
+  let deleteId      = null;
+
+  /* ── Guard: only admin in admin mode ── */
+  function checkAuth() {
+    const u = JSON.parse(localStorage.getItem(USER_KEY) || 'null');
+    if (!u || u.role !== 'admin' || u.mode !== 'admin') {
+      alert('Доступ запрещён. Необходима авторизация как администратор.');
+      window.location.href = 'index.html';
+      return null;
+    }
+    return u;
+  }
+
+  /* ── Load DB ── */
+  async function loadData() {
+    const r = await fetch('data/db.json');
+    db = await r.json();
+    categories = db.categories || [];
+    // Merge: local edits override db
+    const local = JSON.parse(localStorage.getItem(PROD_KEY) || 'null');
+    products = local ? local : JSON.parse(JSON.stringify(db.products || []));
+  }
+
+  /* ── Save products locally ── */
+  function saveProducts() {
+    localStorage.setItem(PROD_KEY, JSON.stringify(products));
+  }
+
+  /* ── Format price ── */
+  const fmt = n => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
+
+  /* ── Section navigation ── */
+  function initNav() {
+    document.querySelectorAll('.admin-nav-item[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const sec = btn.dataset.section;
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('section-' + sec)?.classList.add('active');
+        document.getElementById('admin-page-title').textContent = btn.textContent.trim();
+        if (sec === 'products') renderProducts();
+        if (sec === 'users')    renderUsers();
+        if (sec === 'orders')   renderOrders();
+      });
+    });
+  }
+
+  /* ── Dashboard ── */
+  function renderDashboard() {
+    document.getElementById('stat-products').textContent = products.length;
+    document.getElementById('stat-instock').textContent  = products.filter(p => p.inStock).length;
+    document.getElementById('stat-sale').textContent     = products.filter(p => p.oldPrice).length;
+    const users = db?.users || [];
+    document.getElementById('stat-users').textContent   = users.length;
+
+    const recent = products.slice(-5).reverse();
+    document.getElementById('dash-recent-tbody').innerHTML = recent.map(p => `
+      <tr>
+        <td><img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}"></td>
+        <td>${p.name}</td>
+        <td>${fmt(p.price)}</td>
+        <td class="${p.inStock ? 'stock-yes' : 'stock-no'}">${p.inStock ? '✓ Есть' : '✗ Нет'}</td>
+      </tr>`).join('');
+  }
+
+  /* ── Products table ── */
+  function getCatName(id) {
+    return categories.find(c => c.id === id)?.name || '—';
+  }
+
+  function applyProductFilters() {
+    const q    = document.getElementById('product-search')?.value?.toLowerCase() || '';
+    const cat  = document.getElementById('product-cat-filter')?.value || '';
+    const stk  = document.getElementById('product-stock-filter')?.value;
+    filteredProds = products.filter(p => {
+      if (q   && !p.name.toLowerCase().includes(q)) return false;
+      if (cat && String(p.categoryId) !== cat)       return false;
+      if (stk === '1' && !p.inStock)  return false;
+      if (stk === '0' && p.inStock)   return false;
+      return true;
+    });
+    currentPage = 1;
+    renderProductsPage();
+  }
+
+  function renderProducts() {
+    // Fill category filter
+    const sel = document.getElementById('product-cat-filter');
+    if (sel && sel.options.length <= 1) {
+      categories.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.id; o.textContent = c.name;
+        sel.appendChild(o);
+      });
+    }
+    filteredProds = [...products];
+    renderProductsPage();
+  }
+
+  function renderProductsPage() {
+    const tbody = document.getElementById('products-tbody');
+    const total = Math.max(1, Math.ceil(filteredProds.length / PER_PAGE));
+    currentPage = Math.max(1, Math.min(currentPage, total));
+    const slice = filteredProds.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+
+    tbody.innerHTML = slice.map(p => {
+      const tags = [
+        p.isHit  ? '<span class="badge badge-hit">Хит</span>'   : '',
+        p.isNew  ? '<span class="badge badge-new">Новинка</span>' : '',
+        p.oldPrice ? '<span class="badge badge-sale">Скидка</span>' : '',
+      ].filter(Boolean).join(' ');
+      return `<tr data-id="${p.id}">
+        <td>${p.id}</td>
+        <td><img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}"></td>
+        <td class="product-name-cell"><a href="product.html?id=${p.id}" target="_blank">${p.name}</a></td>
+        <td>${getCatName(p.categoryId)}</td>
+        <td><strong>${fmt(p.price)}</strong>${p.oldPrice ? `<br><small style="text-decoration:line-through;color:#9ca3af">${fmt(p.oldPrice)}</small>` : ''}</td>
+        <td class="${p.inStock ? 'stock-yes' : 'stock-no'}">${p.inStock ? '✓ В наличии' : '✗ Нет'}</td>
+        <td>${tags || '—'}</td>
+        <td style="white-space:nowrap">
+          <button class="btn-icon-edit" data-edit="${p.id}" title="Редактировать">✏️</button>
+          <button class="btn-icon-del"  data-del="${p.id}"  title="Удалить" style="margin-left:4px">🗑️</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    // Bind edit/delete
+    tbody.querySelectorAll('[data-edit]').forEach(btn =>
+      btn.addEventListener('click', () => openProductForm(Number(btn.dataset.edit))));
+    tbody.querySelectorAll('[data-del]').forEach(btn =>
+      btn.addEventListener('click', () => openConfirm(Number(btn.dataset.del))));
+
+    renderProductsPagination(total);
+  }
+
+  function renderProductsPagination(total) {
+    const pg = document.getElementById('products-pagination');
+    if (total <= 1) { pg.innerHTML = ''; return; }
+    let html = `<button ${currentPage===1?'disabled':''} data-pg="prev">‹</button>`;
+    for (let i = 1; i <= total; i++)
+      html += `<button class="${i===currentPage?'active':''}" data-pg="${i}">${i}</button>`;
+    html += `<button ${currentPage===total?'disabled':''} data-pg="next">›</button>`;
+    pg.innerHTML = html;
+    pg.querySelectorAll('[data-pg]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const v = btn.dataset.pg;
+        if (v === 'prev') currentPage--;
+        else if (v === 'next') currentPage++;
+        else currentPage = Number(v);
+        renderProductsPage();
+      });
+    });
+  }
+
+  /* ── Product Form ── */
+  function fillCategorySelect() {
+    const sel = document.getElementById('pf-category');
+    sel.innerHTML = categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  }
+
+  function openProductForm(id = null) {
+    editingId = id;
+    fillCategorySelect();
+    const overlay = document.getElementById('product-form-overlay');
+    overlay.classList.add('open');
+    document.getElementById('product-form-title').textContent = id ? 'Редактировать товар' : 'Добавить товар';
+
+    if (id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('pf-id').value        = p.id;
+      document.getElementById('pf-name').value      = p.name;
+      document.getElementById('pf-name-en').value   = p.nameEn || '';
+      document.getElementById('pf-price').value     = p.price;
+      document.getElementById('pf-old-price').value = p.oldPrice || '';
+      document.getElementById('pf-category').value  = p.categoryId;
+      document.getElementById('pf-brand').value     = p.brand || '';
+      document.getElementById('pf-image').value     = p.image || '';
+      document.getElementById('pf-instock').checked = !!p.inStock;
+      document.getElementById('pf-hit').checked     = !!p.isHit;
+      document.getElementById('pf-new').checked     = !!p.isNew;
+    } else {
+      document.getElementById('product-form').reset();
+      document.getElementById('pf-instock').checked = true;
+    }
+  }
+
+  function closeProductForm() {
+    document.getElementById('product-form-overlay').classList.remove('open');
+    editingId = null;
+  }
+
+  function saveProduct(e) {
+    e.preventDefault();
+    const name = document.getElementById('pf-name').value.trim();
+    const price = parseFloat(document.getElementById('pf-price').value);
+    if (!name || isNaN(price)) { alert('Заполните обязательные поля'); return; }
+
+    const data = {
+      name,
+      nameEn:     document.getElementById('pf-name-en').value.trim(),
+      price,
+      oldPrice:   parseFloat(document.getElementById('pf-old-price').value) || null,
+      categoryId: Number(document.getElementById('pf-category').value),
+      brand:      document.getElementById('pf-brand').value.trim(),
+      image:      document.getElementById('pf-image').value.trim() || null,
+      inStock:    document.getElementById('pf-instock').checked,
+      isHit:      document.getElementById('pf-hit').checked,
+      isNew:      document.getElementById('pf-new').checked,
+      rating:     0, reviews: 0,
+    };
+
+    if (editingId) {
+      const idx = products.findIndex(p => p.id === editingId);
+      if (idx !== -1) products[idx] = { ...products[idx], ...data };
+    } else {
+      data.id = Date.now();
+      products.push(data);
+    }
+    saveProducts();
+    closeProductForm();
+    renderDashboard();
+    applyProductFilters();
+    alert(editingId ? 'Товар обновлён!' : 'Товар добавлен!');
+  }
+
+  /* ── Confirm delete ── */
+  function openConfirm(id) {
+    deleteId = id;
+    const p = products.find(x => x.id === id);
+    document.getElementById('confirm-text').textContent =
+      `Вы уверены, что хотите удалить "${p?.name || 'товар'}"? Это действие нельзя отменить.`;
+    document.getElementById('confirm-overlay').classList.add('open');
+  }
+  function closeConfirm() {
+    deleteId = null;
+    document.getElementById('confirm-overlay').classList.remove('open');
+  }
+  function confirmDelete() {
+    if (!deleteId) return;
+    products = products.filter(p => p.id !== deleteId);
+    saveProducts();
+    closeConfirm();
+    renderDashboard();
+    applyProductFilters();
+  }
+
+  /* ── Users table ── */
+  function renderUsers() {
+    const users = db?.users || [];
+    const local = JSON.parse(localStorage.getItem('teleoptics.reg_users') || '[]');
+    const all   = [...users, ...local];
+    document.getElementById('users-tbody').innerHTML = all.map(u => `
+      <tr>
+        <td>${u.id}</td>
+        <td>${u.name}</td>
+        <td>${u.email}</td>
+        <td>${u.phone || '—'}</td>
+        <td class="${u.role === 'admin' ? 'role-admin' : 'role-user'}">${u.role === 'admin' ? '⚙ Администратор' : '👤 Пользователь'}</td>
+      </tr>`).join('');
+  }
+
+  /* ── Orders table ── */
+  function renderOrders() {
+    const orders = db?.orders || [];
+    const users  = db?.users || [];
+    if (!orders.length) {
+      document.getElementById('orders-tbody').innerHTML =
+        '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--clr-text-secondary)">Заказов пока нет</td></tr>';
+      return;
+    }
+    document.getElementById('orders-tbody').innerHTML = orders.map(o => {
+      const u = users.find(x => x.id === o.customerId || x.id === o.userId);
+      return `<tr>
+        <td>${o.id}</td>
+        <td>${u?.name || '—'}</td>
+        <td>${o.orderDate || '—'}</td>
+        <td>${fmt(o.totalPrice || 0)}</td>
+        <td>${o.status || '—'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* ── Init ── */
+  async function init() {
+    const u = checkAuth();
+    if (!u) return;
+    document.getElementById('admin-user-name').textContent = u.name;
+
+    await loadData();
+    initNav();
+    renderDashboard();
+
+    // Filters
+    document.getElementById('product-search')?.addEventListener('input', applyProductFilters);
+    document.getElementById('product-cat-filter')?.addEventListener('change', applyProductFilters);
+    document.getElementById('product-stock-filter')?.addEventListener('change', applyProductFilters);
+
+    // Product form
+    document.getElementById('add-product-btn')?.addEventListener('click', () => openProductForm());
+    document.getElementById('product-form-close')?.addEventListener('click', closeProductForm);
+    document.getElementById('product-form-cancel')?.addEventListener('click', closeProductForm);
+    document.getElementById('product-form')?.addEventListener('submit', saveProduct);
+    document.getElementById('product-form-overlay')?.addEventListener('click', e => {
+      if (e.target.id === 'product-form-overlay') closeProductForm();
+    });
+
+    // Confirm delete
+    document.getElementById('confirm-yes')?.addEventListener('click', confirmDelete);
+    document.getElementById('confirm-no')?.addEventListener('click',  closeConfirm);
+    document.getElementById('confirm-overlay')?.addEventListener('click', e => {
+      if (e.target.id === 'confirm-overlay') closeConfirm();
+    });
+
+    // Logout
+    document.getElementById('admin-logout')?.addEventListener('click', () => {
+      localStorage.removeItem('teleoptics.user');
+      window.location.href = 'index.html';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>

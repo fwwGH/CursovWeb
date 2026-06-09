@@ -461,42 +461,194 @@ const CAT_ICONS={
     subForm('newsletter-form','Вы подписались на рассылку!');
     subForm('callback-form','Мы скоро перезвоним!','callback-modal');
 
-    document.getElementById('login-form')?.addEventListener('submit',async e=>{
+    document.getElementById('login-form')?.addEventListener('submit', async e => {
       e.preventDefault();
-      const email=document.getElementById('login-email')?.value;
-      const pass=document.getElementById('login-password')?.value;
-      if(!email||!pass){showToast('Заполните все поля','error');return;}
-      try{
-        const db=await fetchJson('data/db.json');
-        const u=(db.users||[]).find(u=>u.email===email&&u.password===pass);
-        if(u){
-          const userData={id:u.id,name:u.name,role:u.role,email:u.email};
-          store(STORAGE.user, userData);
-          showToast('Добро пожаловать, '+u.name+'!','success');
+      const email = document.getElementById('login-email')?.value?.trim();
+      const pass  = document.getElementById('login-password')?.value;
+      if (!email || !pass) { showToast('Заполните все поля', 'error'); return; }
+      try {
+        const db = await fetchJson('data/db.json');
+        const u  = (db.users || []).find(u => u.email === email && u.password === pass);
+        if (u) {
           closeModal(document.getElementById('login-modal'));
-          updateAuthUI(u.name);
-          if(u.role==='admin') showAdminPanel(u);
+          if (u.role === 'admin') {
+            showAdminRoleModal(u);
+          } else {
+            finishLogin({ id: u.id, name: u.name, role: u.role, email: u.email, mode: 'user' });
+          }
         } else {
-          showToast('Неверный email или пароль','error');
+          showToast('Неверный email или пароль', 'error');
         }
-      } catch(err) {
-        console.error('Login error:',err);
-        showToast('Ошибка входа','error');
+      } catch (err) {
+        console.error('Login error:', err);
+        showToast('Не удалось связаться с сервером данных', 'error');
       }
     });
 
-    document.getElementById('register-form')?.addEventListener('submit',e=>{
+    document.getElementById('register-form')?.addEventListener('submit', async e => {
       e.preventDefault();
-      const p=document.getElementById('reg-password')?.value;
-      const c=document.getElementById('reg-confirm')?.value;
-      if(p!==c){showToast('Пароли не совпадают','error');return;}
-      if((p||'').length<8){showToast('Пароль: минимум 8 символов','error');return;}
-      showToast('Регистрация успешна!','success');closeModal(document.getElementById('register-modal'));
+      const name   = e.target.querySelector('[name="name"]')?.value?.trim();
+      const phone  = e.target.querySelector('[name="phone"]')?.value?.trim();
+      const email  = e.target.querySelector('[name="email"]')?.value?.trim();
+      const p      = document.getElementById('reg-password')?.value;
+      const c      = document.getElementById('reg-confirm')?.value;
+      if (!name || !phone || !email) { showToast('Заполните все обязательные поля', 'error'); return; }
+      if (p !== c)        { showToast('Пароли не совпадают', 'error'); return; }
+      if ((p || '').length < 8) { showToast('Пароль: минимум 8 символов', 'error'); return; }
+      // Check email uniqueness in localStorage-registered users
+      const localUsers = JSON.parse(localStorage.getItem('teleoptics.reg_users') || '[]');
+      if (localUsers.some(u => u.email === email)) {
+        showToast('Пользователь с таким email уже существует', 'error'); return;
+      }
+      const newUser = { id: Date.now(), name, phone, email, role: 'user', mode: 'user' };
+      localUsers.push(newUser);
+      localStorage.setItem('teleoptics.reg_users', JSON.stringify(localUsers));
+      closeModal(document.getElementById('register-modal'));
+      finishLogin(newUser);
     });
 
-    document.querySelectorAll('.password-toggle').forEach(btn=>btn.addEventListener('click',()=>{
-      const inp=btn.previousElementSibling;if(!inp)return;inp.type=inp.type==='password'?'text':'password';
+    document.querySelectorAll('.password-toggle').forEach(btn => btn.addEventListener('click', () => {
+      const inp = btn.previousElementSibling; if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
     }));
+  }
+
+  /* ── Завершить логин (сохранить + обновить UI) ── */
+  function finishLogin(userData) {
+    store(STORAGE.user, userData);
+    updateAuthUI(userData);
+    showToast('Добро пожаловать, ' + userData.name.split(' ')[0] + '!', 'success');
+    if (userData.mode === 'admin') {
+      setTimeout(() => { window.location.href = 'admin.html'; }, 800);
+    }
+  }
+
+  /* ── Модал выбора роли для администратора ── */
+  function showAdminRoleModal(rawUser) {
+    let modal = document.getElementById('admin-role-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'admin-role-modal';
+      modal.className = 'modal-overlay';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', 'Выбор режима входа');
+      modal.innerHTML = `
+        <div class="modal" style="max-width:440px;text-align:center">
+          <h2 class="modal-title" style="font-size:20px">Выберите режим входа</h2>
+          <p class="modal-subtitle" id="admin-role-greeting"></p>
+          <div style="display:flex;gap:14px;margin-top:28px">
+            <button id="admin-role-admin-btn" class="btn btn-primary" style="flex:1;padding:18px 12px;flex-direction:column;display:flex;align-items:center;gap:6px;line-height:1.3">
+              <span style="font-size:28px">⚙️</span>
+              <strong>Администратор</strong>
+              <small style="font-weight:400;opacity:.85">Управление товарами и каталогом</small>
+            </button>
+            <button id="admin-role-user-btn" class="btn btn-outline" style="flex:1;padding:18px 12px;flex-direction:column;display:flex;align-items:center;gap:6px;line-height:1.3">
+              <span style="font-size:28px">🛒</span>
+              <strong>Покупатель</strong>
+              <small style="font-weight:400;opacity:.85">Просмотр и покупка товаров</small>
+            </button>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+    }
+    document.getElementById('admin-role-greeting').textContent =
+      rawUser.name + ', вы входите с правами администратора.';
+    modal.removeAttribute('hidden');
+    modal.classList.add('open');
+
+    document.getElementById('admin-role-admin-btn').onclick = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('hidden', '');
+      finishLogin({ id: rawUser.id, name: rawUser.name, role: 'admin', email: rawUser.email, mode: 'admin' });
+    };
+    document.getElementById('admin-role-user-btn').onclick = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('hidden', '');
+      finishLogin({ id: rawUser.id, name: rawUser.name, role: 'admin', email: rawUser.email, mode: 'user' });
+    };
+    modal.addEventListener('click', e => {
+      if (e.target === modal) { modal.classList.remove('open'); modal.setAttribute('hidden', ''); }
+    }, { once: true });
+  }
+
+  /* ── Выход ── */
+  function logout() {
+    localStorage.removeItem(STORAGE.user);
+    // Перезагрузить страницу на главную или текущую
+    if (window.location.pathname.includes('admin.html')) {
+      window.location.href = 'index.html';
+    } else {
+      window.location.reload();
+    }
+  }
+
+  /* ── Обновить UI (имя + выпадающее меню) ── */
+  function updateAuthUI(userData) {
+    const short   = userData.name.split(' ')[0];
+    const isAdmin = userData.role === 'admin' && userData.mode === 'admin';
+
+    document.querySelectorAll('.header-top-auth').forEach(el => {
+      // Уже обёрнут?
+      if (el.parentElement.classList.contains('user-dd-wrap')) {
+        el.textContent = short + (isAdmin ? ' ⚙' : '');
+        if (isAdmin) el.style.color = '#ffd600'; else el.style.color = '';
+        // Пересобрать меню
+        const oldMenu = el.parentElement.querySelector('.user-dd-menu');
+        if (oldMenu) oldMenu.remove();
+        el.parentElement.appendChild(buildUserMenu(isAdmin));
+        return;
+      }
+      // Первый раз — обернуть
+      el.textContent = short + (isAdmin ? ' ⚙' : '');
+      if (isAdmin) el.style.color = '#ffd600'; else el.style.color = '';
+      el.removeAttribute('data-open');
+      el.href = '#';
+      el.setAttribute('aria-haspopup', 'true');
+      el.setAttribute('aria-expanded', 'false');
+
+      const wrap = document.createElement('div');
+      wrap.className = 'user-dd-wrap';
+      el.replaceWith(wrap);
+      wrap.appendChild(el);
+      wrap.appendChild(buildUserMenu(isAdmin));
+
+      el.addEventListener('click', ev => {
+        ev.preventDefault();
+        const menu = wrap.querySelector('.user-dd-menu');
+        const open = !menu.classList.contains('open');
+        // Закрыть все открытые
+        document.querySelectorAll('.user-dd-menu.open').forEach(m => m.classList.remove('open'));
+        menu.classList.toggle('open', open);
+        el.setAttribute('aria-expanded', open);
+      });
+      document.addEventListener('click', ev => {
+        if (!wrap.contains(ev.target)) {
+          wrap.querySelector('.user-dd-menu')?.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Кнопка в header-main
+    document.querySelectorAll('#auth-label').forEach(el => { el.textContent = short; });
+    document.querySelectorAll('[data-auth-name]').forEach(el => { el.textContent = short; });
+  }
+
+  function buildUserMenu(isAdmin) {
+    const menu = document.createElement('div');
+    menu.className = 'user-dd-menu';
+    menu.innerHTML = `
+      ${isAdmin
+        ? `<a class="user-dd-item" href="admin.html"><span>⚙</span> Панель администратора</a>
+           <div class="user-dd-divider"></div>`
+        : ''}
+      <a class="user-dd-item" href="#"><span>👤</span> Личный кабинет</a>
+      <a class="user-dd-item" href="cart.html"><span>🛒</span> Мои заказы</a>
+      <div class="user-dd-divider"></div>
+      <button class="user-dd-item user-dd-logout" type="button"><span>🚪</span> Выйти</button>`;
+    menu.querySelector('.user-dd-logout')?.addEventListener('click', logout);
+    return menu;
   }
 
   /* --- accordion --- */
@@ -554,36 +706,11 @@ const CAT_ICONS={
      INIT
      ============================================================ */
 
-  // Update all auth-related UI elements with user name
-  function updateAuthUI(name) {
-    const short = name.split(' ')[0];
-    // header-top auth link
-    document.querySelectorAll('.header-top-auth').forEach(el => {
-      el.textContent = short;
-      el.removeAttribute('data-open');
-      el.href = '#';
-    });
-    // header-main auth button span
-    document.querySelectorAll('#auth-label').forEach(el => {
-      el.textContent = short;
-    });
-    // Any other auth labels
-    document.querySelectorAll('[data-auth-name]').forEach(el => {
-      el.textContent = short;
-    });
-  }
-
-  // Restore session on page load
+  /* ── Восстановить сессию при загрузке страницы ── */
   function restoreSession() {
     const u = store(STORAGE.user);
     if (!u) return;
-    updateAuthUI(u.name);
-    if (u.role === 'admin') {
-      // Show admin indicator subtly
-      document.querySelectorAll('.header-top-auth').forEach(el => {
-        el.style.color = '#ffd600';
-      });
-    }
+    updateAuthUI(u);
   }
 
   async function init() {
@@ -606,38 +733,26 @@ const CAT_ICONS={
     initGallery();
     initQty();
     bindProductActions();
-
-  // ── Track viewed on card click ──
-  document.addEventListener('click', e => {
-    const link = e.target.closest('a.product-image-wrap, a.product-name');
-    if (!link) return;
-    const card = link.closest('[data-product-id]');
-    if (card) addViewed(Number(card.dataset.productId));
-  });
-
-
-  // Track viewed products on card click
-  document.addEventListener('click', e => {
-    const link = e.target.closest('a.product-image-wrap, a.product-name, .product-card a');
-    if (!link) return;
-    const card = link.closest('[data-product-id]');
-    if (card) addViewed(Number(card.dataset.productId));
-  });
-
     initPagination();
+    restoreSession();
 
-    const u=store(STORAGE.user);
-    if(u){const l=document.getElementById('auth-label');if(l)l.textContent=u.name.split(' ')[0];}
+    // Track viewed products on card click
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a.product-image-wrap, a.product-name');
+      if (!link) return;
+      const card = link.closest('[data-product-id]');
+      if (card) addViewed(Number(card.dataset.productId));
+    });
 
     try {
-      const db=await loadDb(); window._db=db;
+      const db = await loadDb(); window._db = db;
       renderCategories(db.categories);
       renderBrands(db.brands);
-      renderBanner(db.banners,db.products);
+      renderBanner(db.banners, db.products);
       renderHits(db.products);
       renderRecommended(db.products);
       applyIcons();
-    } catch(err){console.warn('DB load error:',err);}
+    } catch(err) { console.warn('DB load error:', err); }
   }
 
   document.addEventListener('DOMContentLoaded', init);
