@@ -69,7 +69,10 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     store(STORAGE.theme, theme);
-    document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = theme === 'dark' ? 'Светлая тема' : 'Тёмная тема');
+    const lang = store(STORAGE.lang) || 'ru';
+    const labelKey = theme === 'dark' ? 'theme_light' : 'theme_dark';
+    const label = TR && TR[lang] ? (TR[lang][labelKey] || (theme === 'dark' ? 'Светлая тема' : 'Тёмная тема')) : (theme === 'dark' ? 'Светлая тема' : 'Тёмная тема');
+    document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = label);
     document.querySelectorAll('.theme-toggle').forEach(b => b.setAttribute('aria-pressed', theme === 'dark'));
   }
   function initTheme() {
@@ -79,19 +82,144 @@
 
   /* --- translations --- */
   const TR = {
-    ru:{ popular_categories:'Популярные категории',go_to_catalog:'Перейти в каталог',hits:'Хиты продаж',view_catalog:'Смотреть весь каталог',brands:'Бренды',all_brands:'Все Бренды',recommended:'Рекомендуемые',new:'Новинки',most_viewed:'Самые просматриваемые',discounts:'Скидки',our_goods:'Наши товары',in_stock:'В наличии',out_of_stock:'Нет в наличии',to_cart:'В корзину',to_fav:'В избранное',compare_btn:'Сравнить',items:'товаров',reviews:'отзывов' },
-    en:{ popular_categories:'Popular categories',go_to_catalog:'Go to catalog',hits:'Best sellers',view_catalog:'View all',brands:'Brands',all_brands:'All Brands',recommended:'Recommended',new:'New arrivals',most_viewed:'Most viewed',discounts:'Discounts',our_goods:'Our products',in_stock:'In stock',out_of_stock:'Out of stock',to_cart:'Add to cart',to_fav:'To favorites',compare_btn:'Compare',items:'items',reviews:'reviews' },
+    ru:{
+      // Navigation
+      nav_about:'О компании', nav_delivery:'Доставка', nav_payment:'Оплата',
+      nav_promos:'Акции', nav_sales:'Распродажа', nav_more:'Еще',
+      nav_guarantee:'Гарантии', nav_blog:'Блог', nav_reviews:'Отзывы',
+      nav_vacancies:'Вакансии', nav_contacts:'Контакты', nav_catalog:'Каталог',
+      // Auth
+      login_reg:'Вход / Регистрация', logout:'Выйти',
+      // Action buttons / modals
+      action_compare:'Сравнение товаров', action_fav:'Избранное', action_cart:'Корзина',
+      modal_cart:'Корзина', modal_compare:'Сравнение', modal_fav:'Избранное',
+      modal_login:'Авторизация', modal_reg:'Регистрация',
+      modal_callback:'Заказать звонок', modal_request:'Оставить заявку', modal_city:'Укажите свой город',
+      viewed_title:'Вы просмотрели эти товары', continue_shop:'Продолжить покупки →',
+      // Buttons
+      btn_login:'Войти', btn_register:'Зарегистрироваться', btn_buy:'Купить',
+      btn_cart:'В корзину', btn_fav:'В избранное', btn_compare:'Сравнить',
+      btn_subscribe:'Подписаться', btn_callback:'Оставить заявку',
+      btn_clear_cart:'Очистить все', btn_checkout:'Купить', btn_continue:'Продолжить покупки',
+      btn_continue2:'Продолжить выбор →', btn_reset:'Сбросить настройки',
+      btn_close:'Закрыть', btn_search:'Найти', btn_all_brands:'Все Бренды',
+      btn_all_cities:'Все города', btn_login_soc:'Войти через соцсети',
+      btn_reg_soc:'Зарегистрироваться через соцсети', btn_vk:'ВКонтакте',
+      btn_forgot:'Забыли пароль?',
+      // Cart
+      cart_total:'Итого:', cart_empty:'Корзина пуста',
+      fav_empty:'Список избранного пуст', compare_empty:'Нет товаров для сравнения',
+      remember_me:'Запомнить меня', no_account:'Зарегистрируйтесь',
+      // Sections
+      popular_categories:'Популярные категории', go_to_catalog:'Перейти в каталог',
+      hits:'Хиты продаж', view_catalog:'Смотреть весь каталог',
+      brands:'Бренды', all_brands:'Все Бренды',
+      recommended:'Рекомендуемые', new:'Новинки',
+      most_viewed:'Самые просматриваемые', discounts:'Скидки',
+      our_goods:'Наши товары', show_all:'Показать все →', more_link:'Подробнее →',
+      in_stock:'В наличии', out_of_stock:'Нет в наличии',
+      items:'товаров', reviews:'отзывов', reviews_word:'отзывов',
+      to_cart:'В корзину', to_fav:'В избранное', compare_btn:'Сравнить',
+      // A11y
+      a11y_title:'Версия для слабовидящих', a11y_fontsize:'Размер шрифта',
+      a11y_scheme:'Цветовая схема', a11y_images:'Изображения',
+      a11y_font:'Выбор шрифта', a11y_show:'Показать', a11y_hide:'Скрыть',
+      // Footer
+      footer_catalog:'Каталог', footer_info:'Полезная информация',
+      footer_return:'Возврат', footer_makers:'Производители',
+      footer_warranty:'Гарантия', footer_articles:'Статьи', footer_world:'МИР',
+      footer_us:'О нас', footer_wholesale:'Оптовые продажи', footer_account:'Личный кабинет',
+      footer_news:'Подписаться на новости', footer_price:'Скачать прайс-лист',
+      footer_privacy:'Политика конфиденциальности', footer_terms:'Условия соглашения',
+      footer_sitemap:'Карта сайта', footer_rating:'Рейтинг магазина',
+      // Newsletter
+      newsletter_title:'Магазин оптических приборов Tele-Optics.Ru',
+      newsletter_sub:'Акции, скидки, распродажи ждут!',
+      newsletter_consultation:'Вам нужна консультация?',
+      // Theme / accessibility btn
+      theme_dark:'Тёмная тема', theme_light:'Светлая тема', accessibility:'Для слабовидящих',
+      // Admin
+      admin_dashboard:'Дашборд', admin_products:'Товары', admin_users:'Пользователи',
+      admin_orders:'Заказы', admin_logout:'Выйти', admin_on_site:'На сайт',
+      admin_logged_as:'Вы вошли как:', admin_total_products:'Всего товаров',
+      admin_in_catalog:'в каталоге', admin_total_users:'Пользователей',
+      admin_total_orders:'Заказов', admin_revenue:'Оборот',
+      admin_last_added:'Последние добавленные товары', admin_add_product:'Добавить товар',
+      admin_search_placeholder:'Поиск товара...',
+    },
+    en:{
+      nav_about:'About us', nav_delivery:'Delivery', nav_payment:'Payment',
+      nav_promos:'Promotions', nav_sales:'Sale', nav_more:'More',
+      nav_guarantee:'Warranty', nav_blog:'Blog', nav_reviews:'Reviews',
+      nav_vacancies:'Vacancies', nav_contacts:'Contacts', nav_catalog:'Catalog',
+      login_reg:'Sign in / Register', logout:'Log out',
+      action_compare:'Compare', action_fav:'Wishlist', action_cart:'Cart',
+      modal_cart:'Cart', modal_compare:'Compare', modal_fav:'Wishlist',
+      modal_login:'Sign in', modal_reg:'Register',
+      modal_callback:'Request a call', modal_request:'Send request', modal_city:'Select your city',
+      viewed_title:'Recently viewed', continue_shop:'Continue shopping →',
+      btn_login:'Sign in', btn_register:'Create account', btn_buy:'Buy now',
+      btn_cart:'Add to cart', btn_fav:'Wishlist', btn_compare:'Compare',
+      btn_subscribe:'Subscribe', btn_callback:'Send request',
+      btn_clear_cart:'Clear all', btn_checkout:'Checkout', btn_continue:'Continue shopping',
+      btn_continue2:'Continue →', btn_reset:'Reset settings',
+      btn_close:'Close', btn_search:'Search', btn_all_brands:'All Brands',
+      btn_all_cities:'All cities', btn_login_soc:'Sign in with social',
+      btn_reg_soc:'Register with social', btn_vk:'VKontakte', btn_forgot:'Forgot password?',
+      cart_total:'Total:', cart_empty:'Your cart is empty',
+      fav_empty:'Wishlist is empty', compare_empty:'No products to compare',
+      remember_me:'Remember me', no_account:'Register',
+      popular_categories:'Popular categories', go_to_catalog:'Go to catalog',
+      hits:'Best sellers', view_catalog:'View all',
+      brands:'Brands', all_brands:'All Brands',
+      recommended:'Recommended', new:'New arrivals',
+      most_viewed:'Most viewed', discounts:'Discounts',
+      our_goods:'Our products', show_all:'Show all →', more_link:'Learn more →',
+      in_stock:'In stock', out_of_stock:'Out of stock',
+      items:'items', reviews:'reviews', reviews_word:'reviews',
+      to_cart:'Add to cart', to_fav:'To favorites', compare_btn:'Compare',
+      a11y_title:'Accessibility', a11y_fontsize:'Font size',
+      a11y_scheme:'Color scheme', a11y_images:'Images',
+      a11y_font:'Font family', a11y_show:'Show', a11y_hide:'Hide',
+      footer_catalog:'Catalog', footer_info:'Useful info',
+      footer_return:'Returns', footer_makers:'Brands',
+      footer_warranty:'Warranty', footer_articles:'Articles', footer_world:'WORLD',
+      footer_us:'About us', footer_wholesale:'Wholesale', footer_account:'My account',
+      footer_news:'Subscribe to news', footer_price:'Download price list',
+      footer_privacy:'Privacy policy', footer_terms:'Terms of use',
+      footer_sitemap:'Sitemap', footer_rating:'Store rating',
+      newsletter_title:'Tele-Optics.Ru — Optical instruments store',
+      newsletter_sub:'Deals, discounts and sales await!',
+      newsletter_consultation:'Need a consultation?',
+      theme_dark:'Dark theme', theme_light:'Light theme', accessibility:'Accessibility',
+      admin_dashboard:'Dashboard', admin_products:'Products', admin_users:'Users',
+      admin_orders:'Orders', admin_logout:'Log out', admin_on_site:'To store',
+      admin_logged_as:'Logged in as:', admin_total_products:'Total products',
+      admin_in_catalog:'in catalog', admin_total_users:'Users',
+      admin_total_orders:'Orders', admin_revenue:'Revenue',
+      admin_last_added:'Recently added products', admin_add_product:'Add product',
+      admin_search_placeholder:'Search product...',
+    },
   };
   function getLang() { return store(STORAGE.lang) || 'ru'; }
   function t(key) { return (TR[getLang()] || TR.ru)[key] || key; }
   function applyLang(lang) {
     store(STORAGE.lang, lang);
     document.documentElement.lang = lang;
+    // Update lang-toggle button label
     document.querySelectorAll('.lang-toggle span').forEach(el => el.textContent = lang === 'ru' ? 'EN' : 'RU');
+    // Update all data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const v = t(el.getAttribute('data-i18n'));
+      const key = el.getAttribute('data-i18n');
+      // Skip theme_dark/theme_light — handled by applyTheme
+      if (key === 'theme_dark' || key === 'theme_light') return;
+      const v = (TR[lang] || TR.ru)[key] || key;
       if (el.tagName === 'INPUT') el.placeholder = v; else el.textContent = v;
     });
+    // Re-sync theme button label after lang change
+    const theme = getTheme();
+    const themeKey = theme === 'dark' ? 'theme_light' : 'theme_dark';
+    document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = (TR[lang] || TR.ru)[themeKey] || themeKey);
   }
   function initLang() {
     applyLang(getLang());

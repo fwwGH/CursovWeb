@@ -26,19 +26,19 @@
         <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true">
       </button>
       <nav class="header-top-links" aria-label="Верхнее меню">
-        <a href="about.html">О компании</a>
-        <a href="delivery.html">Доставка</a>
-        <a href="payment.html">Оплата</a>
-        <a href="promotions.html" class="header-top-accent">Акции</a>
-        <a href="sales.html">Распродажа</a>
+        <a href="about.html" data-i18n="nav_about">О компании</a>
+        <a href="delivery.html" data-i18n="nav_delivery">Доставка</a>
+        <a href="payment.html" data-i18n="nav_payment">Оплата</a>
+        <a href="promotions.html" class="header-top-accent" data-i18n="nav_promos">Акции</a>
+        <a href="sales.html" data-i18n="nav_sales">Распродажа</a>
         <div class="top-more">
           <button class="top-more-btn" type="button" aria-expanded="false">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></button>
           <div class="top-more-dropdown" role="menu" hidden>
-            <a href="guarantee.html" role="menuitem">Гарантии</a>
-            <a href="blog.html" role="menuitem">Блог</a>
-            <a href="reviews.html" role="menuitem">Отзывы</a>
-            <a href="vacancies.html" role="menuitem">Вакансии</a>
-            <a href="contacts.html" role="menuitem">Контакты</a>
+            <a href="guarantee.html" role="menuitem" data-i18n="nav_guarantee">Гарантии</a>
+            <a href="blog.html" role="menuitem" data-i18n="nav_blog">Блог</a>
+            <a href="reviews.html" role="menuitem" data-i18n="nav_reviews">Отзывы</a>
+            <a href="vacancies.html" role="menuitem" data-i18n="nav_vacancies">Вакансии</a>
+            <a href="contacts.html" role="menuitem" data-i18n="nav_contacts">Контакты</a>
           </div>
         </div>
       </nav>
@@ -55,7 +55,7 @@
       <a class="header-top-email" href="mailto:sales@tele-optics.ru">
         <img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true"> sales@tele-optics.ru
       </a>
-      <a class="header-top-auth" href="#" data-open="login">Вход / Регистрация</a>
+      <a class="header-top-auth" href="#" data-open="login" data-i18n="login_reg">Вход / Регистрация</a>
     </div>
   </div>
 </header>
@@ -84,7 +84,7 @@
         </button>
         <div class="viewed-popup" id="viewed-popup" hidden role="dialog" aria-label="Просмотренные товары">
           <div class="viewed-popup-header">
-            <span class="viewed-popup-title">Вы просмотрели эти товары</span>
+            <span class="viewed-popup-title" data-i18n="viewed_title">Вы просмотрели эти товары</span>
             <button class="viewed-popup-close" type="button" aria-label="Закрыть">×</button>
           </div>
           <div class="viewed-popup-list" id="viewed-popup-list">
@@ -120,9 +120,9 @@
       <li class="nav-item">
         <a href="#" class="nav-link nav-link-more">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></a>
         <div class="nav-dropdown">
-          <a href="promotions.html">Акции</a><a href="sales.html">Распродажа</a>
-          <a href="blog.html">Блог</a><a href="reviews.html">Отзывы</a>
-          <a href="contacts.html">Контакты</a><a href="about.html">О компании</a>
+          <a href="promotions.html" data-i18n="nav_promos">Акции</a><a href="sales.html" data-i18n="nav_sales">Распродажа</a>
+          <a href="blog.html" data-i18n="nav_blog">Блог</a><a href="reviews.html" data-i18n="nav_reviews">Отзывы</a>
+          <a href="contacts.html" data-i18n="nav_contacts">Контакты</a><a href="about.html" data-i18n="nav_about">О компании</a>
         </div>
       </li>
     </ul>
@@ -140,9 +140,9 @@
     <a class="mobile-nav-item" href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы</a><a class="mobile-nav-item" href="kategoriya.html?cat=monokulary">Монокуляры</a>
     <a class="mobile-nav-item" href="kategoriya.html?cat=pritsely">Прицелы</a><a class="mobile-nav-item" href="kategoriya.html?cat=dalnomery">Дальномеры</a>
     <a class="mobile-nav-item" href="kategoriya.html?cat=teplovizory">Тепловизоры</a>
-    <a class="mobile-nav-item" href="about.html">О компании</a><a class="mobile-nav-item" href="delivery.html">Доставка</a>
-    <a class="mobile-nav-item" href="promotions.html">Акции</a><a class="mobile-nav-item" href="guarantee.html">Гарантии</a>
-    <a class="mobile-nav-item" href="blog.html">Блог</a><a class="mobile-nav-item" href="contacts.html">Контакты</a>
+    <a class="mobile-nav-item" href="about.html" data-i18n="nav_about">О компании</a><a class="mobile-nav-item" href="delivery.html" data-i18n="nav_delivery">Доставка</a>
+    <a class="mobile-nav-item" href="promotions.html" data-i18n="nav_promos">Акции</a><a class="mobile-nav-item" href="guarantee.html" data-i18n="nav_guarantee">Гарантии</a>
+    <a class="mobile-nav-item" href="blog.html" data-i18n="nav_blog">Блог</a><a class="mobile-nav-item" href="contacts.html" data-i18n="nav_contacts">Контакты</a>
   </nav>
   <div class="mobile-menu-footer">
     <div class="mobile-menu-phone"><a href="tel:+74952150744">+7 495 215 0744</a></div>
@@ -242,7 +242,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
     <div class="container">
       <div class="newsletter-text">
         <img src="assets/icons/tg.svg" alt="" aria-hidden="true" width="36" height="36">
-        <div><div class="newsletter-title">Подпишитесь и будьте в курсе!</div><div class="newsletter-subtitle">Акции, скидки, распродажи ждут!</div></div>
+        <div><div class="newsletter-title">Подпишитесь и будьте в курсе!</div><div class="newsletter-subtitle" data-i18n="newsletter_sub">Акции, скидки, распродажи ждут!</div></div>
       </div>
       <form class="newsletter-form" id="newsletter-form" novalidate>
         <input type="email" placeholder="Введите email" required aria-label="Email">
@@ -264,7 +264,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
         <div class="footer-rating"><span>Рейтинг магазина</span><span class="stars">★★★★★</span><span>Яндекс.Маркет</span></div>
       </div>
       <div>
-        <h3 class="footer-col-title">Каталог</h3>
+        <h3 class="footer-col-title" data-i18n="footer_catalog">Каталог</h3>
         <ul class="footer-links">
           <li><a href="kategoriya.html?cat=binokli">Бинокли</a></li>
           <li><a href="catalog.html" style="color:var(--clr-primary)">Телескопы</a></li>
@@ -278,14 +278,14 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Полезная информация</h3>
+        <h3 class="footer-col-title" data-i18n="footer_info">Полезная информация</h3>
         <ul class="footer-links">
-          <li><a href="delivery.html">Доставка</a></li>
-          <li><a href="payment.html">Оплата</a></li>
-          <li><a href="#">Возврат</a></li>
-          <li><a href="#">Производители</a></li>
-          <li><a href="guarantee.html">Гарантия</a></li>
-          <li><a href="blog.html">Статьи</a></li>
+          <li><a href="delivery.html" data-i18n="nav_delivery">Доставка</a></li>
+          <li><a href="payment.html" data-i18n="nav_payment">Оплата</a></li>
+          <li><a href="#" data-i18n="footer_return">Возврат</a></li>
+          <li><a href="#" data-i18n="footer_makers">Производители</a></li>
+          <li><a href="guarantee.html" data-i18n="footer_warranty">Гарантия</a></li>
+          <li><a href="blog.html" data-i18n="footer_articles">Статьи</a></li>
         </ul>
         <div class="footer-payment" style="margin-top:16px">
           <span class="footer-payment-icon">VISA</span>
@@ -295,7 +295,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
         </div>
       </div>
       <div>
-        <h3 class="footer-col-title">Контакты</h3>
+        <h3 class="footer-col-title" data-i18n="nav_contacts">Контакты</h3>
         <a href="tel:+74952150744" class="footer-phone">+7 495 215 0744</a>
         <div class="footer-socials">
           <a href="#" class="footer-social" aria-label="VK"><img class="ui-icon" data-icon="vk" alt="VK"></a>
@@ -304,9 +304,9 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
           <a href="#" class="footer-social" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt="WA"></a>
         </div>
         <ul class="footer-links" style="margin-top:12px">
-          <li><a href="about.html">О нас</a></li>
-          <li><a href="#">Оптовые продажи</a></li>
-          <li><a href="#">Личный кабинет</a></li>
+          <li><a href="about.html" data-i18n="footer_us">О нас</a></li>
+          <li><a href="#" data-i18n="footer_wholesale">Оптовые продажи</a></li>
+          <li><a href="#" data-i18n="footer_account">Личный кабинет</a></li>
         </ul>
         <div class="footer-cta-btns">
           <a href="#" class="btn btn-outline btn-sm">Подписаться на новости</a>
@@ -317,28 +317,28 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
     <div class="footer-bottom">
       <div class="footer-copyright">© 2022 Бинокль.Все права защищены.</div>
       <div class="footer-bottom-links">
-        <a href="#">Политика конфиденциальности</a>
-        <a href="#">Условия соглашения</a>
-        <a href="#">Карта сайта</a>
+        <a href="#" data-i18n="footer_privacy">Политика конфиденциальности</a>
+        <a href="#" data-i18n="footer_terms">Условия соглашения</a>
+        <a href="#" data-i18n="footer_sitemap">Карта сайта</a>
       </div>
     </div>
   </div>
 </footer><nav class="sticky-bar" aria-label="Нижнее меню">
   <div class="container">
     <a class="sticky-bar-item" href="viewed.html"><img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true"><span>Просмотренные</span><span class="sticky-bar-badge" id="viewed-badge">0</span></a>
-    <a class="sticky-bar-item" href="compare.html"><img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true"><span>Сравнение товаров</span><span class="sticky-bar-badge" id="compare-badge-bottom">0</span></a>
-    <a class="sticky-bar-item" href="favorites.html"><img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true"><span>Избранное</span><span class="sticky-bar-badge" id="favorites-badge-bottom">0</span></a>
-    <a class="sticky-bar-item" href="cart.html"><img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true"><span>Корзина</span><span class="sticky-bar-badge sticky-bar-badge-yellow" id="cart-badge-bottom">0</span></a>
+    <a class="sticky-bar-item" href="compare.html"><img class="ui-icon ui-icon-lg" data-icon="compare" alt="" aria-hidden="true"><span data-i18n="action_compare">Сравнение товаров</span><span class="sticky-bar-badge" id="compare-badge-bottom">0</span></a>
+    <a class="sticky-bar-item" href="favorites.html"><img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true"><span data-i18n="action_fav">Избранное</span><span class="sticky-bar-badge" id="favorites-badge-bottom">0</span></a>
+    <a class="sticky-bar-item" href="cart.html"><img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true"><span data-i18n="action_cart">Корзина</span><span class="sticky-bar-badge sticky-bar-badge-yellow" id="cart-badge-bottom">0</span></a>
   </div>
 </nav><div class="settings-bar">
-  <button class="theme-toggle" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true"><span>Тёмная тема</span></button>
+  <button class="theme-toggle" data-i18n-btn="theme" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true"><span>Тёмная тема</span></button>
   <button class="lang-toggle" type="button" data-lang="ru"><img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true"><span>RU</span></button>
-  <button class="visually-impaired-btn" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true"><span>Слабовидящим</span></button>
-  <button class="reset-settings-btn" type="button">Сбросить</button>
+  <button class="visually-impaired-btn" data-i18n-btn="a11y" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true"><span>Слабовидящим</span></button>
+  <button class="reset-settings-btn" data-i18n-btn="reset" type="button">Сбросить</button>
 </div><div class="modal-overlay" id="login-modal" role="dialog" aria-modal="true" aria-label="Авторизация">
   <div class="modal">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
-    <h2 class="modal-title">Авторизация</h2>
+    <h2 class="modal-title" data-i18n="modal_login">Авторизация</h2>
     <p class="modal-subtitle">Чтобы авторизоваться, войти в профиль, введите свои логин и пароль</p>
     <form id="login-form" novalidate>
       <div class="form-group"><input type="email" id="login-email" placeholder="Ваш email" required></div>
@@ -349,23 +349,23 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
         </div>
       </div>
       <div class="form-row-inline">
-        <label class="checkbox-group"><input type="checkbox" id="remember-me"><span>Запомнить меня</span></label>
-        <a href="#" class="forgot-link">Забыли пароль?</a>
+        <label class="checkbox-group"><input type="checkbox" id="remember-me"><span data-i18n="remember_me">Запомнить меня</span></label>
+        <a href="#" class="forgot-link" data-i18n="btn_forgot">Забыли пароль?</a>
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px">Войти</button>
     </form>
-    <div class="modal-divider"><span>Войти через соцсети</span></div>
+    <div class="modal-divider"><span data-i18n="btn_login_soc">Войти через соцсети</span></div>
     <div class="social-login-btns">
       <button type="button" class="social-login-btn"><img class="ui-icon ui-icon-sm" data-icon="vk" alt="" aria-hidden="true"> ВКонтакте</button>
       <button type="button" class="social-login-btn"><img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true"> Google</button>
     </div>
-    <div class="modal-footer-link">Нет аккаунта? <a href="#" data-switch-modal="register-modal">Зарегистрируйтесь</a></div>
+    <div class="modal-footer-link">Нет аккаунта? <a href="#" data-switch-modal="register-modal" data-i18n="no_account">Зарегистрируйтесь</a></div>
   </div>
 </div>
 <div class="modal-overlay" id="register-modal" role="dialog" aria-modal="true" aria-label="Регистрация">
   <div class="modal">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
-    <h2 class="modal-title">Регистрация</h2>
+    <h2 class="modal-title" data-i18n="modal_reg">Регистрация</h2>
     <p class="modal-subtitle">Зарегистрируйтесь, чтобы использовать все возможности личного кабинета.</p>
     <form id="register-form" novalidate>
       <div class="form-row">
@@ -388,7 +388,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
       <label class="checkbox-group" style="margin-bottom:12px"><input type="checkbox" required><span>Согласен с <a href="#">Политикой конфиденциальности</a></span></label>
       <button type="submit" class="btn btn-primary" style="width:100%">Регистрация</button>
     </form>
-    <div class="modal-divider"><span>Зарегистрироваться через соцсети</span></div>
+    <div class="modal-divider"><span data-i18n="btn_reg_soc">Зарегистрироваться через соцсети</span></div>
     <div class="social-login-btns">
       <button type="button" class="social-login-btn"><img class="ui-icon ui-icon-sm" data-icon="vk" alt="" aria-hidden="true"> ВКонтакте</button>
       <button type="button" class="social-login-btn"><img class="ui-icon ui-icon-sm" data-icon="google" alt="" aria-hidden="true"> Google</button>
@@ -411,13 +411,13 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
         <span>&#x2715;</span> Очистить все
       </button>
       <div class="cart-modal-total-row">
-        <span class="cart-modal-total-label">Итого:</span>
+        <span class="cart-modal-total-label" data-i18n="cart_total">Итого:</span>
         <span class="cart-modal-total-sum" id="cart-modal-total">0 ₽</span>
       </div>
     </div>
     <div class="cart-modal-footer-btns">
-      <a href="cart.html" class="btn-cart-continue">Продолжить покупки</a>
-      <button class="btn-cart-buy" type="button">Купить</button>
+      <a href="cart.html" class="btn-cart-continue" data-i18n="btn_continue">Продолжить покупки</a>
+      <button class="btn-cart-buy" type="button" data-i18n="btn_checkout">Купить</button>
     </div>
   </div>
 </div>
@@ -432,7 +432,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
       <div class="popup-modal-empty" id="compare-modal-empty">Вы ещё не добавили товары к сравнению</div>
     </div>
     <div class="popup-modal-footer">
-      <a href="compare.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Продолжить выбор →</a>
+      <a href="compare.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px" data-i18n="btn_continue2">Продолжить выбор →</a>
     </div>
   </div>
 </div>
@@ -447,7 +447,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
       <div class="popup-modal-empty" id="favorites-modal-empty">Вы ещё ничего не добавили в избранное</div>
     </div>
     <div class="popup-modal-footer">
-      <a href="favorites.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Продолжить выбор →</a>
+      <a href="favorites.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px" data-i18n="btn_continue2">Продолжить выбор →</a>
     </div>
   </div>
 </div>
@@ -455,7 +455,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
 <div class="modal-overlay" id="callback-modal" role="dialog" aria-modal="true" aria-label="Заказать звонок">
   <div class="modal">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
-    <h2 class="modal-title">Заказать звонок</h2>
+    <h2 class="modal-title" data-i18n="modal_callback">Заказать звонок</h2>
     <p class="modal-subtitle">Оставьте контактные данные и мы перезвоним вам в течение 15 минут</p>
     <form id="callback-form" novalidate>
       <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
@@ -467,7 +467,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
 <div class="modal-overlay" id="city-modal" role="dialog" aria-modal="true" aria-label="Выбор города">
   <div class="modal modal-city">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
-    <h2 class="modal-title">Укажите свой город</h2>
+    <h2 class="modal-title" data-i18n="modal_city">Укажите свой город</h2>
     <div class="city-search-wrap"><input type="search" id="city-search" placeholder="Поиск населённого пункта"></div>
     <div class="city-list" id="city-list">
       <div class="city-cols">
@@ -500,9 +500,9 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
     </div>
   </div>
 </div><div class="accessibility-panel" id="a11y-panel" role="dialog" aria-label="Настройки для слабовидящих" aria-hidden="true">
-  <h3 class="accessibility-panel-title">Версия для слабовидящих</h3>
+  <h3 class="accessibility-panel-title" data-i18n="a11y_title">Версия для слабовидящих</h3>
   <div class="accessibility-option">
-    <div class="accessibility-option-label">Размер шрифта</div>
+    <div class="accessibility-option-label" data-i18n="a11y_fontsize">Размер шрифта</div>
     <div class="accessibility-btns">
       <button class="accessibility-btn" type="button" data-a11y="fontSize" data-val="small" style="font-size:11px">А</button>
       <button class="accessibility-btn active" type="button" data-a11y="fontSize" data-val="normal" style="font-size:14px">А</button>
@@ -510,7 +510,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
     </div>
   </div>
   <div class="accessibility-option">
-    <div class="accessibility-option-label">Цветовая схема</div>
+    <div class="accessibility-option-label" data-i18n="a11y_scheme">Цветовая схема</div>
     <div class="accessibility-btns">
       <button class="accessibility-btn active" type="button" data-a11y="scheme" data-val="default" style="background:#fff;color:#000;border:1px solid #ddd">А</button>
       <button class="accessibility-btn" type="button" data-a11y="scheme" data-val="black-white" style="background:#000;color:#fff">А</button>
@@ -520,7 +520,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
     </div>
   </div>
   <div class="accessibility-option">
-    <div class="accessibility-option-label">Изображения</div>
+    <div class="accessibility-option-label" data-i18n="a11y_images">Изображения</div>
     <div class="accessibility-btns">
       <button class="accessibility-btn active" type="button" data-a11y="images" data-val="show">Показать</button>
       <button class="accessibility-btn" type="button" data-a11y="images" data-val="hide">Скрыть</button>
@@ -537,7 +537,7 @@ document.getElementById('contacts-form')?.addEventListener('submit', async e => 
       </select>
     </div>
   </div>
-  <button class="accessibility-close" type="button" id="a11y-close">Закрыть</button>
+  <button class="accessibility-close" data-i18n="btn_close" type="button" id="a11y-close">Закрыть</button>
 </div>
 <div class="toast-container" id="toast-container" aria-live="polite"></div><script src="js/app.js" defer></script>
 </body>

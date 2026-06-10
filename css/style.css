@@ -12,6 +12,7 @@
 
   /* Neutrals */
   --clr-bg: #f5f7fa;
+  --clr-bg-alt: #f0f1f5;
   --clr-surface: #ffffff;
   --clr-border: #e0e6ed;
   --clr-border-light: #f0f4f8;
@@ -62,6 +63,7 @@
 /* Dark Theme */
 [data-theme="dark"] {
   --clr-bg: #0f1923;
+  --clr-bg-alt: #111d2b;
   --clr-surface: #1a2332;
   --clr-border: #2c3a4e;
   --clr-border-light: #243041;
