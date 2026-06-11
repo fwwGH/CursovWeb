@@ -242,13 +242,15 @@
           <p class="form-note">Нажимая «Оставить заявку», я соглашаюсь с <a href="#">обработкой персональных данных</a>.</p>
         </form>
       </div>
-      <div class="map-container" id="yandex-map">
-        <div class="map-placeholder">
-          <div class="map-address-pin">
-            <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="32" height="32"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <div><div class="map-address-title">г. Москва, ул. Никольская, д. 15</div><div class="map-address-sub">Офис находится недалеко от Площади Революции</div></div>
-          </div>
-        </div>
+      <div class="map-container" id="yandex-map" aria-label="Карта офиса">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=37.622044%2C55.757082&z=17&l=map&pt=37.622044%2C55.757082~pm2rdl"
+          width="100%" height="100%"
+          frameborder="0" allowfullscreen
+          style="border:0; display:block;"
+          title="Карта офиса Tele-Optics"
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </div>

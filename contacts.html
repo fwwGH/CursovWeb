@@ -222,11 +222,14 @@
 
   <!-- Full-width map -->
   <div class="contacts-map-full" id="yandex-map" aria-label="Карта офиса">
-    <div class="map-placeholder" style="height:480px;background:linear-gradient(135deg,#e8f0fe,#c8d8f8);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px">
-      <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="48" height="48"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      <div style="font-size:16px;font-weight:700;color:var(--clr-text)">г. Москва, ул. Никольская, д. 15</div>
-      <div style="font-size:13px;color:var(--clr-text-secondary)">Офис находится недалеко от Площади Революции</div>
-    </div>
+    <iframe
+      src="https://yandex.ru/map-widget/v1/?ll=37.622044%2C55.757082&z=17&l=map&pt=37.622044%2C55.757082~pm2rdl"
+      width="100%" height="480"
+      frameborder="0" allowfullscreen
+      style="border:0; display:block;"
+      title="Карта офиса Tele-Optics"
+      loading="lazy">
+    </iframe>
   </div>
 </main>
 <script>

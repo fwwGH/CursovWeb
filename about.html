@@ -295,13 +295,30 @@
         </form>
       </div>
       <div class="map-container" id="yandex-map">
-        <div class="map-placeholder">
-          <div class="map-address-pin">
-            <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="32" height="32"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <div><div class="map-address-title">г. Москва, ул. Никольская, д. 15</div><div class="map-address-sub">Офис находится недалеко от Площади Революции</div></div>
-          </div>
-        </div>
+  <iframe 
+    src="https://yandex.ru/map-widget/v1/?ll=37.622044%2C55.757082&amp;z=18&amp;pt=37.622044%2C55.757082~pm2rdl&amp;lang=ru_RU" 
+    width="100%" 
+    height="380" 
+    frameborder="0" 
+    allowfullscreen="true"
+    style="border: 0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: block;">
+  </iframe>
+
+  <!-- Адресная плашка (можно оставить или убрать) -->
+  <div class="map-address-pin" style="margin-top: 12px; display: flex; align-items: flex-start; gap: 12px;">
+    <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="28" height="28">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>
+    <div>
+      <div class="map-address-title" style="font-weight: 600; font-size: 15px; line-height: 1.3;">
+        г. Москва, ул. Никольская, д. 15
       </div>
+      <div class="map-address-sub" style="color: #666; font-size: 13px; margin-top: 2px;">
+        Офис находится недалеко от Площади Революции
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </section>

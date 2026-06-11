@@ -899,8 +899,240 @@ const CAT_ICONS={
       renderBanner(db.banners, db.products);
       renderHits(db.products);
       renderRecommended(db.products);
+      initKategoriyaPage(db);
       applyIcons();
     } catch(err) { console.warn('DB load error:', err); }
+  }
+
+  /* =============================================
+     KATEGORIYA PAGE — фильтрация по категории
+     ============================================= */
+  function initKategoriyaPage(db) {
+    const grid = document.getElementById('kategoriya-grid');
+    if (!grid) return; // не страница категории
+
+    const params      = new URLSearchParams(window.location.search);
+    const catSlug     = params.get('cat') || 'binokli';
+    const categories  = db.categories || [];
+    const allProducts = db.products   || [];
+
+    // Найти категорию по slug
+    const cat = categories.find(c => c.slug === catSlug) || categories[0];
+    if (!cat) { grid.innerHTML = '<div class="kategoriya-empty">Категория не найдена</div>'; return; }
+
+    // Обновить <title>
+    document.title = cat.name + ' — TELE-OPTICS';
+
+    // Обновить «хлебные крошки»
+    const crumbCurrent = document.querySelector('.breadcrumbs .current');
+    if (crumbCurrent) crumbCurrent.textContent = cat.name;
+
+    // Подсветить активный пункт навигации
+    document.querySelectorAll('.nav-link, .mobile-nav-item').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      const isActive = href.includes('cat=' + catSlug);
+      a.classList.toggle('active', isActive);
+      if (isActive) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+
+    // Продукты данной категории
+    const catProducts = allProducts.filter(p => p.categoryId === cat.id);
+
+    // --- Состояние ---
+    let sortVal      = 'popular';
+    let perPage      = 24;
+    let currentPage  = 1;
+    let priceMin     = 0;
+    let priceMax     = Infinity;
+    let checkedBrands = new Set();
+
+    // Актуальные цены для слайдера
+    const prices  = catProducts.map(p => p.price || 0);
+    const maxPriceAll = prices.length ? Math.max(...prices) : 19500;
+
+    // Настроить ползунки цен
+    const minSlider = document.getElementById('price-min');
+    const maxSlider = document.getElementById('price-max');
+    if (minSlider && maxSlider) {
+      minSlider.max   = maxPriceAll;
+      maxSlider.max   = maxPriceAll;
+      maxSlider.value = maxPriceAll;
+      const priceInputs = document.querySelectorAll('.price-input');
+      if (priceInputs[0]) priceInputs[0].value = 0;
+      if (priceInputs[1]) priceInputs[1].value = maxPriceAll;
+      const minValLbl = document.getElementById('price-min-val');
+      const maxValLbl = document.getElementById('price-max-val');
+      if (minValLbl) minValLbl.textContent = '0';
+      if (maxValLbl) maxValLbl.textContent = new Intl.NumberFormat('ru-RU').format(maxPriceAll);
+
+      const onPriceChange = () => {
+        if (+minSlider.value > +maxSlider.value) minSlider.value = maxSlider.value;
+        priceMin = +minSlider.value;
+        priceMax = +maxSlider.value;
+        if (minValLbl) minValLbl.textContent = new Intl.NumberFormat('ru-RU').format(priceMin);
+        if (maxValLbl) maxValLbl.textContent = new Intl.NumberFormat('ru-RU').format(priceMax);
+        if (priceInputs[0]) priceInputs[0].value = priceMin;
+        if (priceInputs[1]) priceInputs[1].value = priceMax;
+        currentPage = 1; renderPage();
+      };
+      minSlider.addEventListener('input', onPriceChange);
+      maxSlider.addEventListener('input', onPriceChange);
+    }
+
+    // Числовые инпуты цены
+    const priceInputEls = document.querySelectorAll('.price-input');
+    if (priceInputEls[0] && priceInputEls[1]) {
+      priceInputEls[0].addEventListener('change', () => {
+        priceMin = Math.max(0, +priceInputEls[0].value || 0);
+        if (minSlider) minSlider.value = priceMin;
+        currentPage = 1; renderPage();
+      });
+      priceInputEls[1].addEventListener('change', () => {
+        priceMax = +priceInputEls[1].value || Infinity;
+        if (maxSlider) maxSlider.value = Math.min(priceMax, maxPriceAll);
+        currentPage = 1; renderPage();
+      });
+    }
+
+    // Чекбоксы брендов
+    document.querySelectorAll('.filter-sidebar .filter-checkbox input[type=checkbox]').forEach(cb => {
+      cb.checked = false;
+      cb.addEventListener('change', () => {
+        checkedBrands = new Set(
+          [...document.querySelectorAll('.filter-sidebar .filter-checkbox input:checked')].map(x => x.value)
+        );
+        currentPage = 1; renderPage();
+      });
+    });
+
+    // Сброс фильтров
+    document.querySelector('.filter-sidebar .btn-outline')?.addEventListener('click', () => {
+      checkedBrands.clear();
+      priceMin = 0; priceMax = Infinity;
+      if (minSlider) { minSlider.value = 0; }
+      if (maxSlider) { maxSlider.value = maxPriceAll; }
+      if (priceInputEls[0]) priceInputEls[0].value = 0;
+      if (priceInputEls[1]) priceInputEls[1].value = maxPriceAll;
+      const minValLbl = document.getElementById('price-min-val');
+      const maxValLbl = document.getElementById('price-max-val');
+      if (minValLbl) minValLbl.textContent = '0';
+      if (maxValLbl) maxValLbl.textContent = new Intl.NumberFormat('ru-RU').format(maxPriceAll);
+      document.querySelectorAll('.filter-sidebar .filter-checkbox input').forEach(cb => cb.checked = false);
+      currentPage = 1; renderPage();
+    });
+
+    // Сортировка
+    const sortSel = document.querySelector('.sort-dropdown');
+    if (sortSel) sortSel.addEventListener('change', () => { sortVal = sortSel.value; currentPage = 1; renderPage(); });
+
+    // Количество на странице
+    const perPageSel = document.querySelector('.per-page select');
+    if (perPageSel) perPageSel.addEventListener('change', () => { perPage = +perPageSel.value; currentPage = 1; renderPage(); });
+
+    // Переключатель вид (сетка / список)
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        grid.classList.toggle('products-grid--list', btn.dataset.view === 'list');
+      });
+    });
+
+    // --- Хиты и Новинки в сайдбаре ---
+    const sidebarHits = document.getElementById('sidebar-hits');
+    const sidebarNew  = document.getElementById('sidebar-new');
+    const miniCard = p => `
+      <div class="sidebar-mini-card" data-product-id="${p.id}">
+        <a href="product.html?id=${p.id}" class="sidebar-mini-img-wrap">
+          <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+        </a>
+        <div class="sidebar-mini-info">
+          <a href="product.html?id=${p.id}" class="sidebar-mini-name">${p.name}</a>
+          <div class="sidebar-mini-price">${new Intl.NumberFormat('ru-RU').format(p.price)} ₽</div>
+        </div>
+      </div>`;
+    const empty = '<div style="color:var(--clr-muted);font-size:13px;padding:4px 0">Нет товаров</div>';
+    if (sidebarHits) sidebarHits.innerHTML = catProducts.filter(p => p.isHit || p.inStock).slice(0,3).map(miniCard).join('') || empty;
+    if (sidebarNew)  sidebarNew.innerHTML  = catProducts.filter(p => p.isNew).slice(0,3).map(miniCard).join('') || empty;
+
+    // --- Главный рендер ---
+    function getFiltered() {
+      return catProducts.filter(p => {
+        const price = p.price || 0;
+        if (price < priceMin) return false;
+        if (priceMax !== Infinity && price > priceMax) return false;
+        if (checkedBrands.size > 0 && !checkedBrands.has((p.brand || '').toLowerCase())) return false;
+        return true;
+      });
+    }
+
+    function renderPage() {
+      let items = getFiltered();
+
+      if (sortVal === 'price-asc')  items.sort((a,b) => a.price - b.price);
+      else if (sortVal === 'price-desc') items.sort((a,b) => b.price - a.price);
+      else if (sortVal === 'rating')     items.sort((a,b) => (b.rating||0) - (a.rating||0));
+      else if (sortVal === 'name')       items.sort((a,b) => (a.name||'').localeCompare(b.name||'','ru'));
+      else if (sortVal === 'date')       items.sort((a,b) => (b.id||0) - (a.id||0));
+
+      const total      = items.length;
+      const totalPages = Math.max(1, Math.ceil(total / perPage));
+      currentPage      = Math.min(currentPage, totalPages);
+      const start      = (currentPage - 1) * perPage;
+      const pageItems  = items.slice(start, start + perPage);
+
+      grid.innerHTML = pageItems.length
+        ? pageItems.map(p => productCard(p)).join('')
+        : '<div class="kategoriya-empty" style="padding:40px;text-align:center;color:var(--clr-muted)">По данным фильтрам товары не найдены</div>';
+
+      applyIcons();
+      renderPagination(totalPages);
+      updateCountBtn(total);
+    }
+
+    function updateCountBtn(total) {
+      const btn = document.querySelector('.filter-sidebar .btn-primary');
+      if (btn) btn.textContent = 'Показать товары ' + total;
+    }
+
+    function renderPagination(totalPages) {
+      const nav = document.querySelector('.pagination');
+      if (!nav) return;
+      const parts = [];
+
+      parts.push(`<button class="pagination-btn" type="button" id="pag-prev"${currentPage===1?' disabled':''}>‹ Назад</button>`);
+
+      const range = buildRange(currentPage, totalPages);
+      let lastN = 0;
+      range.forEach(n => {
+        if (n - lastN > 1) parts.push('<span class="pagination-dots">…</span>');
+        parts.push(`<button class="pagination-btn${n===currentPage?' active':''}" type="button" data-page="${n}"${n===currentPage?' aria-current="page"':''}>${n}</button>`);
+        lastN = n;
+      });
+      if (lastN < totalPages) {
+        if (totalPages - lastN > 1) parts.push('<span class="pagination-dots">…</span>');
+        parts.push(`<button class="pagination-btn${totalPages===currentPage?' active':''}" type="button" data-page="${totalPages}">${totalPages}</button>`);
+      }
+      parts.push(`<button class="pagination-btn" type="button" id="pag-next"${currentPage===totalPages?' disabled':''}>Далее ›</button>`);
+
+      nav.innerHTML = parts.join('');
+      nav.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => { currentPage = +btn.dataset.page; renderPage(); nav.scrollIntoView({behavior:'smooth',block:'nearest'}); });
+      });
+      nav.querySelector('#pag-prev')?.addEventListener('click', () => { if(currentPage>1){currentPage--;renderPage();} });
+      nav.querySelector('#pag-next')?.addEventListener('click', () => { if(currentPage<totalPages){currentPage++;renderPage();} });
+    }
+
+    function buildRange(cur, total, delta=2) {
+      const r = [];
+      for (let i = Math.max(1, cur-delta); i <= Math.min(total, cur+delta); i++) r.push(i);
+      if (!r.includes(1)) r.unshift(1);
+      return r;
+    }
+
+    // Первый рендер
+    renderPage();
   }
 
   document.addEventListener('DOMContentLoaded', init);
