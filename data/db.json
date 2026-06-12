@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Анна Смирнова",
       "email": "admin@tele-optics.ru",
-      "phone": "+7 999 100-00-01",
+      "phone": "+375 (29) 100-00-01",
       "role": "admin",
       "password": "Admin123!"
     },
@@ -12,7 +12,7 @@
       "id": 2,
       "name": "Иван Петров",
       "email": "ivan@mail.ru",
-      "phone": "+7 999 200-00-02",
+      "phone": "+375 (29) 200-00-02",
       "role": "user",
       "password": "User1234!"
     },
@@ -20,7 +20,7 @@
       "id": 3,
       "name": "Мария Козлова",
       "email": "maria@mail.ru",
-      "phone": "+7 999 300-00-03",
+      "phone": "+375 (29) 300-00-03",
       "role": "user",
       "password": "Maria99!"
     },
@@ -28,7 +28,7 @@
       "id": 4,
       "name": "Алексей Новиков",
       "email": "alex@mail.ru",
-      "phone": "+7 999 400-00-04",
+      "phone": "+375 (29) 400-00-04",
       "role": "user",
       "password": "Alex5678!"
     },
@@ -36,7 +36,7 @@
       "id": 5,
       "name": "Ольга Федорова",
       "email": "olga@mail.ru",
-      "phone": "+7 999 500-00-05",
+      "phone": "+375 (29) 500-00-05",
       "role": "user",
       "password": "Olga123!"
     },
@@ -44,7 +44,7 @@
       "id": 6,
       "name": "Дмитрий Соколов",
       "email": "dmitry@mail.ru",
-      "phone": "+7 999 600-00-06",
+      "phone": "+375 (29) 600-00-06",
       "role": "user",
       "password": "Dmit567!"
     },
@@ -52,7 +52,7 @@
       "id": 7,
       "name": "Елена Морозова",
       "email": "elena@mail.ru",
-      "phone": "+7 999 700-00-07",
+      "phone": "+375 (29) 700-00-07",
       "role": "user",
       "password": "Elena12!"
     },
@@ -60,7 +60,7 @@
       "id": 8,
       "name": "Сергей Волков",
       "email": "sergey@mail.ru",
-      "phone": "+7 999 800-00-08",
+      "phone": "+375 (29) 800-00-08",
       "role": "user",
       "password": "Serg567!"
     },
@@ -68,7 +68,7 @@
       "id": 9,
       "name": "Татьяна Лебедева",
       "email": "tatyana@mail.ru",
-      "phone": "+7 999 900-00-09",
+      "phone": "+375 (29) 900-00-09",
       "role": "user",
       "password": "Taty12!"
     },
@@ -76,7 +76,7 @@
       "id": 10,
       "name": "Николай Семенов",
       "email": "nikolay@mail.ru",
-      "phone": "+7 999 010-00-10",
+      "phone": "+375 (29) 010-00-10",
       "role": "user",
       "password": "Nik1234!"
     }

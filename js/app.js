@@ -146,6 +146,12 @@
       admin_total_orders:'Заказов', admin_revenue:'Оборот',
       admin_last_added:'Последние добавленные товары', admin_add_product:'Добавить товар',
       admin_search_placeholder:'Поиск товара...',
+      // Settings widget
+      swp_settings:'Настройки', swp_theme:'Тема',
+      swp_theme_light:'Светлая', swp_theme_dark:'Тёмная',
+      swp_lang_label:'Язык / Language',
+      swp_a11y_label:'Доступность', swp_a11y_btn:'Версия для слабовидящих',
+      footer_news_sub:'Подписаться на новости', footer_price_dl:'Скачать прайс-лист',
     },
     en:{
       nav_about:'About us', nav_delivery:'Delivery', nav_payment:'Payment',
@@ -199,6 +205,12 @@
       admin_total_orders:'Orders', admin_revenue:'Revenue',
       admin_last_added:'Recently added products', admin_add_product:'Add product',
       admin_search_placeholder:'Search product...',
+      // Settings widget
+      swp_settings:'Settings', swp_theme:'Theme',
+      swp_theme_light:'Light', swp_theme_dark:'Dark',
+      swp_lang_label:'Language / Язык',
+      swp_a11y_label:'Accessibility', swp_a11y_btn:'Accessibility mode',
+      footer_news_sub:'Subscribe to news', footer_price_dl:'Download price list',
     },
   };
   function getLang() { return store(STORAGE.lang) || 'ru'; }
@@ -234,7 +246,12 @@
   function applyA11y(state) {
     store(STORAGE.a11y, state);
     const fsSizes = { small:'13px', normal:'15px', large:'18px' };
-    document.documentElement.style.fontSize = fsSizes[state.fontSize] || '15px';
+    const fsVal = fsSizes[state.fontSize] || '15px';
+    // Применяем только к контентной зоне, НЕ к html/root — иначе ломается header/footer/sticky-bar
+    document.documentElement.style.fontSize = '';   // сбрасываем root
+    document.body.style.setProperty('--a11y-font-size', fsVal);
+    document.querySelectorAll('.main-content, .section, .catalog-main, .product-detail, .page-content, .container > *:not(.header-top):not(.sticky-bar)')
+      .forEach(el => { if (!el.closest('header') && !el.closest('footer') && !el.closest('.sticky-bar')) el.style.fontSize = fsVal; });
     const b = document.body;
     if (state.on) { b.style.lineHeight='1.8'; b.style.letterSpacing='0.12em'; b.style.wordSpacing='0.16em'; }
     else { b.style.lineHeight=''; b.style.letterSpacing=''; b.style.wordSpacing=''; }
@@ -249,7 +266,7 @@
     const r = document.documentElement;
     if (sc.bg) { r.style.setProperty('--clr-bg',sc.bg); r.style.setProperty('--clr-surface',sc.surface); r.style.setProperty('--clr-text',sc.text); }
     else { r.style.removeProperty('--clr-bg'); r.style.removeProperty('--clr-surface'); r.style.removeProperty('--clr-text'); }
-    const fonts = { default:"'Roboto','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
+    const fonts = { default:"'PT Root UI','Inter','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
     r.style.setProperty('--font-main', fonts[state.fontFamily] || fonts.default);
     document.querySelectorAll('img:not([data-icon]):not([src*="icon"]):not([src*="logo"])').forEach(img => { img.style.display = state.images==='hide'?'none':''; });
     document.querySelectorAll('[data-a11y]').forEach(btn => {
@@ -266,6 +283,15 @@
     applyA11y(getA11y());
     document.querySelectorAll('.visually-impaired-btn').forEach(btn => btn.addEventListener('click', () => {
       if (!panel) return;
+      /* Close settings widget panel if open */
+      const swPanel = document.getElementById('settings-widget-panel');
+      const swTrigger = document.getElementById('settings-widget-trigger');
+      if (swPanel && swPanel.classList.contains('open')) {
+        swPanel.classList.remove('open');
+        swTrigger?.classList.remove('open');
+        swTrigger?.setAttribute('aria-expanded', 'false');
+        swPanel.setAttribute('aria-hidden', 'true');
+      }
       const open = panel.classList.toggle('open');
       panel.setAttribute('aria-hidden', !open);
       btn.setAttribute('aria-pressed', open);
@@ -343,6 +369,7 @@
     if(it) it.quantity=(it.quantity||1)+1; else c.push({productId:id,quantity:1});
     store(STORAGE.cart,c); updateBadges(); showToast('Товар добавлен в корзину','success');
   }
+  window.addToCart = addToCart;
   function toggleFav(id) {
     const f=getFavs(); const i=f.indexOf(id);
     if(i===-1){f.push(id);showToast('Добавлено в избранное','success');}else{f.splice(i,1);}
@@ -364,7 +391,17 @@
     set('favorites-badge',fc);set('favorites-badge-bottom',fc);
     set('compare-badge',cp);set('compare-badge-bottom',cp);
     set('viewed-badge',vw);
+    // Toggle has-items class on header action buttons
+    document.querySelectorAll('.header-action-btn[data-open]').forEach(btn => {
+      const target = btn.getAttribute('data-open');
+      let count = 0;
+      if (target === 'cart') count = cc;
+      else if (target === 'favorites') count = fc;
+      else if (target === 'compare') count = cp;
+      btn.classList.toggle('has-items', count > 0);
+    });
   }
+  window.updateBadges = updateBadges;
 
   /* --- product card --- */
   function productCard(p) {
@@ -409,7 +446,7 @@
         ${old?`<span class="product-price-old">${old}</span>`:''}
       </div>
       <button class="add-to-cart-btn" type="button" data-action="add-to-cart" aria-label="${t('to_cart')}">
-        <img class="ui-icon ui-icon-sm" data-icon="plus" alt="" aria-hidden="true">
+        <img class="ui-icon ui-icon-sm" data-icon="cart" alt="" aria-hidden="true">
       </button>
     </div>
   </div>
@@ -438,7 +475,7 @@ const CAT_ICONS={
     7: 'assets/icons/monoculars.svg',
     8: 'assets/icons/microscope.svg',
     9: 'assets/icons/teplovisor.svg',
-    10: 'assets/icons/digitalcamera.svg',};  const CAT_BG=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
+    10: 'assets/icons/digitalcamera.svg',};
   function renderCategories(cats) {
     const g=document.getElementById('categories-grid'); if(!g) return;
     const lang=getLang();
@@ -446,7 +483,7 @@ const CAT_ICONS={
       const name=lang==='en'?(c.nameEn||c.name):c.name;
       const icon=CAT_ICONS[c.id]||'assets/icons/category-binokli.svg';
       return `<a href="catalog.html#${c.slug}" class="category-card" aria-label="${name}">
-  <div class="category-icon" style="background:${CAT_BG[i%CAT_BG.length]}">
+  <div class="category-icon">
     <img src="${icon}" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
   </div>
   <div class="category-name">${name}</div>
@@ -528,12 +565,18 @@ const CAT_ICONS={
   function initMobileMenu() {
     const menu=document.getElementById('mobile-menu'); const burger=document.querySelector('.burger-btn');
     if(!menu||!burger) return;
-    const open=()=>{menu.classList.add('open');menu.setAttribute('aria-hidden','false');burger.classList.add('open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';};
-    const shut=()=>{menu.classList.remove('open');menu.setAttribute('aria-hidden','true');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';};
+    const viewMain=menu.querySelector('.mobile-menu-view-main');
+    const viewCat=menu.querySelector('.mobile-menu-view-catalog');
+    const open=()=>{menu.classList.add('open');menu.setAttribute('aria-hidden','false');burger.classList.add('open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';resetMenuView();};
+    const shut=()=>{menu.classList.remove('open');menu.setAttribute('aria-hidden','true');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';resetMenuView();};
+    const resetMenuView=()=>{if(viewMain)viewMain.hidden=false;if(viewCat)viewCat.hidden=true;};
     burger.addEventListener('click',()=>menu.classList.contains('open')?shut():open());
     document.querySelector('.mobile-menu-close')?.addEventListener('click',shut);
     menu.addEventListener('click',e=>{if(e.target===menu)shut();});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')shut();});
+    /* Catalog submenu toggle */
+    document.getElementById('mobile-catalog-btn')?.addEventListener('click',()=>{if(viewMain)viewMain.hidden=true;if(viewCat)viewCat.hidden=false;});
+    document.getElementById('mobile-catalog-back')?.addEventListener('click',()=>{resetMenuView();});
   }
 
   /* --- modals --- */
@@ -597,7 +640,13 @@ const CAT_ICONS={
   function initForms(){
     const subForm=(id,msg,close_id)=>{
       document.getElementById(id)?.addEventListener('submit',async e=>{
-        e.preventDefault();const btn=e.target.querySelector('[type=submit]');
+        e.preventDefault();
+        const phoneInput = e.target.querySelector('[name="phone"]');
+        if (phoneInput && phoneInput.value.trim()) {
+          const pc = phoneInput.value.replace(/\D/g, '');
+          if (!pc.startsWith('375')) { showToast('Номер телефона должен начинаться с +375', 'error'); return; }
+        }
+        const btn=e.target.querySelector('[type=submit]');
         if(btn){btn.disabled=true;const orig=btn.textContent;btn.textContent='…';}
         await new Promise(r=>setTimeout(r,700));
         showToast(msg,'success',5000); e.target.reset();
@@ -641,6 +690,8 @@ const CAT_ICONS={
       const p      = document.getElementById('reg-password')?.value;
       const c      = document.getElementById('reg-confirm')?.value;
       if (!name || !phone || !email) { showToast('Заполните все обязательные поля', 'error'); return; }
+      const phoneClean = phone.replace(/\D/g, '');
+      if (!phoneClean.startsWith('375')) { showToast('Номер телефона должен начинаться с +375', 'error'); return; }
       if (p !== c)        { showToast('Пароли не совпадают', 'error'); return; }
       if ((p || '').length < 8) { showToast('Пароль: минимум 8 символов', 'error'); return; }
       // Check email uniqueness in localStorage-registered users
@@ -1137,11 +1188,23 @@ const CAT_ICONS={
 
   document.addEventListener('DOMContentLoaded', init);
 
+  // Scroll-to-top button (index.html only)
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('scroll-top-btn');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  });
+
   // Expose utility functions globally so out-of-IIFE code can use them
   window.applyIcons   = applyIcons;
   window.addToCart    = addToCart;
   window.updateBadges = updateBadges;
   window.showToast    = showToast;
+  window.applyTheme   = applyTheme;
+  window.applyLang    = applyLang;
 })();
 
 /* =============================================
@@ -1322,6 +1385,13 @@ async function openCartModal() {
   document.body.style.overflow = 'hidden';
   await renderCartModal();
 }
+
+// Buy button — attach ONCE, outside renderCartModal
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.btn-cart-buy')?.addEventListener('click', () => {
+    window.location.href = 'checkout.html';
+  });
+});
 
 async function renderCartModal() {
   const list     = document.getElementById('cart-modal-list');
@@ -1608,3 +1678,119 @@ document.addEventListener('DOMContentLoaded', () => {
   initPopupModals();
   initHeroSlider();
 });
+
+/* =============================================
+   SETTINGS WIDGET — FAB (bottom-left)
+   ============================================= */
+function initSettingsWidget() {
+  const widget  = document.getElementById('settings-widget');
+  const trigger = document.getElementById('settings-widget-trigger');
+  const panel   = document.getElementById('settings-widget-panel');
+  const closeBtn= document.getElementById('settings-widget-close');
+  if (!widget || !trigger || !panel) return;
+
+  /* ── open / close ── */
+  function openPanel() {
+    panel.classList.add('open');
+    trigger.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+    panel.setAttribute('aria-hidden', 'false');
+    syncWidgetState();
+  }
+  function closePanel() {
+    panel.classList.remove('open');
+    trigger.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+  function togglePanel() {
+    panel.classList.contains('open') ? closePanel() : openPanel();
+  }
+
+  trigger.addEventListener('click', e => { e.stopPropagation(); togglePanel(); });
+  closeBtn?.addEventListener('click', closePanel);
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (panel.classList.contains('open') && !widget.contains(e.target)) closePanel();
+  });
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+  });
+
+  /* ── Theme buttons ── */
+  panel.querySelectorAll('[data-theme-set]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeSet;
+      // applyTheme is inside the IIFE, exposed via initTheme setup — call global setter
+      if (typeof applyTheme === 'function') {
+        applyTheme(theme);
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('teleoptics.theme', theme);
+      }
+      syncWidgetState();
+    });
+  });
+
+  /* ── Lang buttons ── */
+  panel.querySelectorAll('[data-lang-set]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.langSet;
+      if (typeof applyLang === 'function') {
+        applyLang(lang);
+      } else {
+        localStorage.setItem('teleoptics.lang', lang);
+        location.reload();
+      }
+      syncWidgetState();
+    });
+  });
+
+  /* ── Sync active state of theme/lang buttons ── */
+  function syncWidgetState() {
+    const theme = document.documentElement.getAttribute('data-theme') ||
+                  localStorage.getItem('teleoptics.theme') || 'light';
+    const lang  = localStorage.getItem('teleoptics.lang') || 'ru';
+
+    panel.querySelectorAll('[data-theme-set]').forEach(b => {
+      b.classList.toggle('active', b.dataset.themeSet === theme);
+    });
+    panel.querySelectorAll('[data-lang-set]').forEach(b => {
+      b.classList.toggle('active', b.dataset.langSet === lang);
+    });
+  }
+
+  // Sync on page load
+  syncWidgetState();
+
+  // Keep old lang-toggle / theme-toggle handlers working too (header buttons etc.)
+  // Re-expose applyLang so it's accessible outside the IIFE
+  window._syncSettingsWidget = syncWidgetState;
+}
+
+document.addEventListener('DOMContentLoaded', initSettingsWidget);
+
+// Patch applyLang & applyTheme to keep widget in sync after external calls
+(function patchGlobals() {
+  const _orig = document.addEventListener.bind(document);
+  const whenReady = cb => {
+    if (document.readyState !== 'loading') cb();
+    else _orig('DOMContentLoaded', cb);
+  };
+  whenReady(() => {
+    // Patch lang-toggle clicks (header) to also sync widget
+    document.querySelectorAll('.lang-toggle').forEach(b => {
+      b.addEventListener('click', () => {
+        setTimeout(() => { if (window._syncSettingsWidget) window._syncSettingsWidget(); }, 50);
+      });
+    });
+    // Patch theme-toggle clicks (header) to also sync widget
+    document.querySelectorAll('.theme-toggle').forEach(b => {
+      b.addEventListener('click', () => {
+        setTimeout(() => { if (window._syncSettingsWidget) window._syncSettingsWidget(); }, 50);
+      });
+    });
+  });
+})();

@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Избранное — TELE-OPTICS</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="preloader" id="preloader">
   <div class="preloader-logo">
-    <div class="preloader-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="Logo"></div>
-    <div class="preloader-name">TELE-OPTICS</div>
+    <div class="preloader-icon"><img src="assets/icons/logovector.svg" alt="TELE-OPTICS"></div>
   </div>
   <div class="preloader-bar"><div class="preloader-bar-inner"></div></div>
 </div>
@@ -130,22 +129,36 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Меню">
-  <div class="mobile-menu-header">
-    <a href="index.html" class="logo"><div class="logo-icon"><img class="ui-icon ui-icon-xxl" data-icon="logo" alt="TELE-OPTICS"></div><div class="logo-text"><div class="logo-name">TELE-OPTICS</div></div></a>
-    <button class="mobile-menu-close" type="button" aria-label="Закрыть">&times;</button>
+  <div class="mobile-menu-view mobile-menu-view-main">
+    <div class="mobile-menu-header"><a href="index.html" class="logo"><div class="logo-icon"><img src="assets/icons/logovector.svg" alt="TELE-OPTICS" width="152" height="48"></div></a><button class="mobile-menu-close" type="button" aria-label="Закрыть">&times;</button></div>
+    <div class="mobile-menu-city"><img class="ui-icon ui-icon-sm" data-icon="pin" alt="" aria-hidden="true"><span id="mobile-city-label">Москва</span></div>
+    <nav class="mobile-nav">
+      <button class="mobile-nav-item mobile-nav-catalog" type="button" id="mobile-catalog-btn"><img class="ui-icon ui-icon-sm" data-icon="logo" alt="" aria-hidden="true"><span data-i18n="nav_catalog">Каталог</span><span class="mobile-nav-arrow" aria-hidden="true">›</span></button>
+      <a class="mobile-nav-item" href="about.html" data-i18n="nav_about">О компании</a><a class="mobile-nav-item" href="delivery.html" data-i18n="nav_delivery">Доставка</a><a class="mobile-nav-item" href="payment.html" data-i18n="nav_payment">Оплата</a>
+      <a class="mobile-nav-item mobile-nav-accent" href="promotions.html" data-i18n="nav_promos">Акции</a><a class="mobile-nav-item" href="sales.html" data-i18n="nav_sales">Распродажа</a><a class="mobile-nav-item" href="vacancies.html" data-i18n="nav_vacancies">Вакансии</a>
+      <a class="mobile-nav-item mobile-nav-blue" href="guarantee.html" data-i18n="nav_guarantee">Гарантии</a><a class="mobile-nav-item" href="blog.html" data-i18n="nav_blog">Блог</a><a class="mobile-nav-item" href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-socials"><a href="#" aria-label="Telegram"><img class="ui-icon" data-icon="telegram" alt="TG"></a><a href="#" aria-label="Viber"><img class="ui-icon" data-icon="viber" alt="Viber"></a><a href="#" aria-label="WhatsApp"><img class="ui-icon" data-icon="whatsapp" alt="WA"></a></div>
+      <div class="mobile-menu-phone"><img class="ui-icon ui-icon-sm" data-icon="phone" alt="" aria-hidden="true"><a href="tel:+74952150744">+7 495 215 0744</a></div>
+      <div class="mobile-menu-email"><img class="ui-icon ui-icon-sm" data-icon="email" alt="" aria-hidden="true"><a href="mailto:sales@tele-optics.ru">sales@tele-optics.ru</a></div>
+      <a class="mobile-menu-auth" href="#" data-open="login"><img class="ui-icon ui-icon-sm" data-icon="user" alt="" aria-hidden="true"><span data-i18n="login_reg">Вход / Регистрация</span></a>
+    </div>
   </div>
-  <nav class="mobile-nav">
-    <a class="mobile-nav-item" href="kategoriya.html?cat=teleskopy">Телескопы</a><a class="mobile-nav-item" href="kategoriya.html?cat=binokli">Бинокли</a>
-    <a class="mobile-nav-item" href="kategoriya.html?cat=lupy">Лупы</a><a class="mobile-nav-item" href="kategoriya.html?cat=mikroskopy">Микроскопы</a>
-    <a class="mobile-nav-item" href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы</a><a class="mobile-nav-item" href="kategoriya.html?cat=monokulary">Монокуляры</a>
-    <a class="mobile-nav-item" href="kategoriya.html?cat=pritsely">Прицелы</a><a class="mobile-nav-item" href="kategoriya.html?cat=dalnomery">Дальномеры</a>
-    <a class="mobile-nav-item" href="kategoriya.html?cat=teplovizory">Тепловизоры</a>
-    <a class="mobile-nav-item" href="about.html" data-i18n="nav_about">О компании</a><a class="mobile-nav-item" href="delivery.html" data-i18n="nav_delivery">Доставка</a>
-    <a class="mobile-nav-item" href="promotions.html" data-i18n="nav_promos">Акции</a><a class="mobile-nav-item" href="guarantee.html" data-i18n="nav_guarantee">Гарантии</a>
-    <a class="mobile-nav-item" href="blog.html" data-i18n="nav_blog">Блог</a><a class="mobile-nav-item" href="contacts.html" data-i18n="nav_contacts">Контакты</a>
-  </nav>
-  <div class="mobile-menu-footer">
-    <div class="mobile-menu-phone"><a href="tel:+74952150744">+7 495 215 0744</a></div>
+  <div class="mobile-menu-view mobile-menu-view-catalog" hidden>
+    <div class="mobile-menu-header"><button class="mobile-menu-back" type="button" id="mobile-catalog-back" aria-label="Назад"><span aria-hidden="true">‹</span> Назад</button></div>
+    <div class="mobile-menu-catalog-title"><img class="ui-icon ui-icon-sm" data-icon="logo" alt="" aria-hidden="true"><span data-i18n="nav_catalog">Каталог</span><span class="mobile-nav-arrow" aria-hidden="true">›</span></div>
+    <nav class="mobile-nav mobile-nav-catalog-list">
+      <a class="mobile-nav-item" href="kategoriya.html?cat=teleskopy">Телескопы <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item mobile-nav-blue" href="kategoriya.html?cat=binokli">Бинокли <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=lupy">Лупы <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=mikroskopy">Микроскопы <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=monokulary">Монокуляры <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=pritsely">Прицелы <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=dalnomery">Дальномеры <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+      <a class="mobile-nav-item" href="kategoriya.html?cat=teplovizory">Тепловизоры <span class="mobile-nav-arrow" aria-hidden="true">›</span></a>
+    </nav>
   </div>
 </div>
 <div class="breadcrumbs container"><a href="index.html">Главная</a><span class="sep">/</span><span class="current">Избранное</span></div>
@@ -189,7 +202,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
         <div class="product-card-body">
           <a href="product.html?id=${p.id}" class="product-name">${p.name}</a>
-          <div class="product-price-row"><div class="product-prices"><span class="product-price">${price}</span>${old?`<span class="product-price-old">${old}</span>`:''}</div><button class="add-to-cart-btn" type="button" data-action="add-to-cart"><img class="ui-icon ui-icon-sm" data-icon="plus" alt="" aria-hidden="true"></button></div>
+          <div class="product-price-row"><div class="product-prices"><span class="product-price">${price}</span>${old?`<span class="product-price-old">${old}</span>`:''}</div><button class="add-to-cart-btn" type="button" data-action="add-to-cart"><img class="ui-icon ui-icon-sm" data-icon="cart" alt="" aria-hidden="true"></button></div>
         </div>
       </article>`;
     }).join('');
@@ -269,8 +282,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           <li><a href="#" data-i18n="footer_account">Личный кабинет</a></li>
         </ul>
         <div class="footer-cta-btns">
-          <a href="#" class="btn btn-outline btn-sm">Подписаться на новости</a>
-          <a href="#" class="btn btn-yellow btn-sm">Скачать прайс-лист</a>
+          <a href="#" class="btn btn-outline btn-sm" data-i18n="footer_news_sub">Подписаться на новости</a>
+          <a href="#" class="btn btn-yellow btn-sm" data-i18n="footer_price_dl">Скачать прайс-лист</a>
         </div>
       </div>
     </div>
@@ -290,12 +303,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <a class="sticky-bar-item" href="favorites.html"><img class="ui-icon ui-icon-lg" data-icon="favorite" alt="" aria-hidden="true"><span data-i18n="action_fav">Избранное</span><span class="sticky-bar-badge" id="favorites-badge-bottom">0</span></a>
     <a class="sticky-bar-item" href="cart.html"><img class="ui-icon ui-icon-lg" data-icon="cart" alt="" aria-hidden="true"><span data-i18n="action_cart">Корзина</span><span class="sticky-bar-badge sticky-bar-badge-yellow" id="cart-badge-bottom">0</span></a>
   </div>
-</nav><div class="settings-bar">
-  <button class="theme-toggle" data-i18n-btn="theme" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="theme" alt="" aria-hidden="true"><span>Тёмная тема</span></button>
-  <button class="lang-toggle" type="button" data-lang="ru"><img class="ui-icon ui-icon-sm" data-icon="lang" alt="" aria-hidden="true"><span>RU</span></button>
-  <button class="visually-impaired-btn" data-i18n-btn="a11y" type="button" aria-pressed="false"><img class="ui-icon ui-icon-sm" data-icon="accessibility" alt="" aria-hidden="true"><span>Слабовидящим</span></button>
-  <button class="reset-settings-btn" data-i18n-btn="reset" type="button">Сбросить</button>
-</div><div class="modal-overlay" id="login-modal" role="dialog" aria-modal="true" aria-label="Авторизация">
+</nav><button class="scroll-top-btn" id="scroll-top-btn" type="button" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg></button><div class="modal-overlay" id="login-modal" role="dialog" aria-modal="true" aria-label="Авторизация">
   <div class="modal">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
     <h2 class="modal-title" data-i18n="modal_login">Авторизация</h2>
@@ -330,7 +338,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <form id="register-form" novalidate>
       <div class="form-row">
         <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
-        <div class="form-group"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
+        <div class="form-group"><input type="tel" name="phone" placeholder="+375 (__) ___-__-__" required></div>
       </div>
       <div class="form-group"><input type="email" name="email" placeholder="Ваш email" required></div>
       <div class="form-group">
@@ -419,7 +427,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <p class="modal-subtitle">Оставьте контактные данные и мы перезвоним вам в течение 15 минут</p>
     <form id="callback-form" novalidate>
       <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
-      <div class="form-group"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
+      <div class="form-group"><input type="tel" name="phone" placeholder="+375 (__) ___-__-__" required></div>
       <button type="submit" class="btn btn-primary" style="width:100%;margin-top:4px">Оставить заявку</button>
     </form>
   </div>
@@ -490,7 +498,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <div class="accessibility-option-label">Шрифт</div>
     <div class="accessibility-btns">
       <select class="accessibility-select" data-a11y="fontFamily">
-        <option value="default">Roboto</option>
+        <option value="default">PT Root UI (по умолчанию)</option>
         <option value="arial">Arial</option>
         <option value="times">Times New Roman</option>
         <option value="verdana">Verdana</option>
@@ -500,5 +508,75 @@ document.addEventListener('DOMContentLoaded', async () => {
   <button class="accessibility-close" data-i18n="btn_close" type="button" id="a11y-close">Закрыть</button>
 </div>
 <div class="toast-container" id="toast-container" aria-live="polite"></div><script src="js/app.js" defer></script>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║  SETTINGS WIDGET (floating) ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<div class="settings-widget" id="settings-widget" role="complementary" aria-label="Настройки">
+  <!-- Trigger button -->
+  <button class="settings-widget-trigger" id="settings-widget-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="settings-widget-panel" aria-label="Настройки">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+  <!-- Panel -->
+  <div class="settings-widget-panel" id="settings-widget-panel" role="dialog" aria-label="Панель настроек" aria-hidden="true">
+    <div class="swp-header">
+      <span class="swp-title">
+        <span class="swp-title-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </span>
+        <span data-i18n="swp_settings">Настройки</span>
+      </span>
+      <button class="swp-close" id="settings-widget-close" type="button" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Тема -->
+    <div class="swp-section">
+      <div class="swp-label" data-i18n="swp_theme">Тема</div>
+      <div class="swp-row">
+        <button class="swp-btn swp-btn-light-theme" type="button" data-theme-set="light">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span data-i18n="swp_theme_light">Светлая</span>
+        </button>
+        <button class="swp-btn swp-btn-dark-theme" type="button" data-theme-set="dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span data-i18n="swp_theme_dark">Тёмная</span>
+        </button>
+      </div>
+    </div>
+    <!-- Язык -->
+    <div class="swp-section">
+      <div class="swp-label" data-i18n="swp_lang_label">Язык / Language</div>
+      <div class="swp-row">
+        <button class="swp-btn swp-btn-lang" type="button" data-lang-set="ru">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Рус</span>
+        </button>
+        <button class="swp-btn swp-btn-lang" type="button" data-lang-set="en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Eng</span>
+        </button>
+      </div>
+    </div>
+    <!-- Слабовидящие -->
+    <div class="swp-section">
+      <div class="swp-label" data-i18n="swp_a11y_label">Доступность</div>
+      <div class="swp-row">
+        <button class="swp-btn swp-btn-full visually-impaired-btn" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span data-i18n="swp_a11y_btn">Версия для слабовидящих</span>
+        </button>
+      </div>
+    </div>
+    <!-- Сброс -->
+    <div class="swp-footer">
+      <button class="swp-reset reset-settings-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        <span data-i18n="btn_reset">Сбросить настройки</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
