@@ -152,6 +152,13 @@
       swp_lang_label:'Язык / Language',
       swp_a11y_label:'Доступность', swp_a11y_btn:'Версия для слабовидящих',
       footer_news_sub:'Подписаться на новости', footer_price_dl:'Скачать прайс-лист',
+      settings_reset:'Настройки сброшены', max_compare:'Максимум 4 товара',
+      phone_must_375:'Номер телефона должен начинаться с +375',
+      fill_all_fields:'Заполните все поля', wrong_email_pass:'Неверный email или пароль',
+      server_error:'Не удалось связаться с сервером данных',
+      fill_required:'Заполните все обязательные поля', passwords_mismatch:'Пароли не совпадают',
+      password_min8:'Пароль: минимум 8 символов', email_exists:'Пользователь с таким email уже существует',
+      welcome:'Добро пожаловать',
     },
     en:{
       nav_about:'About us', nav_delivery:'Delivery', nav_payment:'Payment',
@@ -211,6 +218,13 @@
       swp_lang_label:'Language / Язык',
       swp_a11y_label:'Accessibility', swp_a11y_btn:'Accessibility mode',
       footer_news_sub:'Subscribe to news', footer_price_dl:'Download price list',
+      settings_reset:'Settings reset', max_compare:'Maximum 4 items',
+      phone_must_375:'Phone number must start with +375',
+      fill_all_fields:'Fill in all fields', wrong_email_pass:'Wrong email or password',
+      server_error:'Failed to connect to server',
+      fill_required:'Fill in all required fields', passwords_mismatch:'Passwords do not match',
+      password_min8:'Password: minimum 8 characters', email_exists:'User with this email already exists',
+      welcome:'Welcome',
     },
   };
   function getLang() { return store(STORAGE.lang) || 'ru'; }
@@ -309,7 +323,7 @@
   function initReset() {
     document.querySelectorAll('.reset-settings-btn').forEach(b => b.addEventListener('click', () => {
       Object.values(STORAGE).forEach(k => localStorage.removeItem(k));
-      showToast('Настройки сброшены','success');
+      showToast(t('settings_reset'),'success');
       setTimeout(() => location.reload(), 600);
     }));
   }
@@ -367,17 +381,17 @@
   function addToCart(id) {
     const c=getCart(); const it=c.find(i=>i.productId===id);
     if(it) it.quantity=(it.quantity||1)+1; else c.push({productId:id,quantity:1});
-    store(STORAGE.cart,c); updateBadges(); showToast('Товар добавлен в корзину','success');
+    store(STORAGE.cart,c); updateBadges(); showToast(t('to_cart'),'success');
   }
   window.addToCart = addToCart;
   function toggleFav(id) {
     const f=getFavs(); const i=f.indexOf(id);
-    if(i===-1){f.push(id);showToast('Добавлено в избранное','success');}else{f.splice(i,1);}
+    if(i===-1){f.push(id);showToast(t('to_fav'),'success');}else{f.splice(i,1);}
     store(STORAGE.favorites,f); updateBadges(); return i===-1;
   }
   function toggleCompare(id) {
     const l=getCompare(); const i=l.indexOf(id);
-    if(i===-1){if(l.length>=4){showToast('Максимум 4 товара','error');return false;}l.push(id);showToast('Добавлено к сравнению','success');}else{l.splice(i,1);}
+    if(i===-1){if(l.length>=4){showToast(t('max_compare'),'error');return false;}l.push(id);showToast(t('compare_btn'),'success');}else{l.splice(i,1);}
     store(STORAGE.compare,l); updateBadges(); return i===-1;
   }
   function addViewed(id) {
@@ -644,7 +658,7 @@ const CAT_ICONS={
         const phoneInput = e.target.querySelector('[name="phone"]');
         if (phoneInput && phoneInput.value.trim()) {
           const pc = phoneInput.value.replace(/\D/g, '');
-          if (!pc.startsWith('375')) { showToast('Номер телефона должен начинаться с +375', 'error'); return; }
+          if (!pc.startsWith('375')) { showToast(t('phone_must_375'), 'error'); return; }
         }
         const btn=e.target.querySelector('[type=submit]');
         if(btn){btn.disabled=true;const orig=btn.textContent;btn.textContent='…';}
@@ -662,7 +676,7 @@ const CAT_ICONS={
       e.preventDefault();
       const email = document.getElementById('login-email')?.value?.trim();
       const pass  = document.getElementById('login-password')?.value;
-      if (!email || !pass) { showToast('Заполните все поля', 'error'); return; }
+      if (!email || !pass) { showToast(t('fill_all_fields'), 'error'); return; }
       try {
         const db = await fetchJson('data/db.json');
         const u  = (db.users || []).find(u => u.email === email && u.password === pass);
@@ -674,11 +688,11 @@ const CAT_ICONS={
             finishLogin({ id: u.id, name: u.name, role: u.role, email: u.email, mode: 'user' });
           }
         } else {
-          showToast('Неверный email или пароль', 'error');
+          showToast(t('wrong_email_pass'), 'error');
         }
       } catch (err) {
         console.error('Login error:', err);
-        showToast('Не удалось связаться с сервером данных', 'error');
+        showToast(t('server_error'), 'error');
       }
     });
 
@@ -689,15 +703,15 @@ const CAT_ICONS={
       const email  = e.target.querySelector('[name="email"]')?.value?.trim();
       const p      = document.getElementById('reg-password')?.value;
       const c      = document.getElementById('reg-confirm')?.value;
-      if (!name || !phone || !email) { showToast('Заполните все обязательные поля', 'error'); return; }
+      if (!name || !phone || !email) { showToast(t('fill_required'), 'error'); return; }
       const phoneClean = phone.replace(/\D/g, '');
-      if (!phoneClean.startsWith('375')) { showToast('Номер телефона должен начинаться с +375', 'error'); return; }
-      if (p !== c)        { showToast('Пароли не совпадают', 'error'); return; }
-      if ((p || '').length < 8) { showToast('Пароль: минимум 8 символов', 'error'); return; }
+      if (!phoneClean.startsWith('375')) { showToast(t('phone_must_375'), 'error'); return; }
+      if (p !== c)        { showToast(t('passwords_mismatch'), 'error'); return; }
+      if ((p || '').length < 8) { showToast(t('password_min8'), 'error'); return; }
       // Check email uniqueness in localStorage-registered users
       const localUsers = JSON.parse(localStorage.getItem('teleoptics.reg_users') || '[]');
       if (localUsers.some(u => u.email === email)) {
-        showToast('Пользователь с таким email уже существует', 'error'); return;
+        showToast(t('email_exists'), 'error'); return;
       }
       const newUser = { id: Date.now(), name, phone, email, role: 'user', mode: 'user' };
       localUsers.push(newUser);
@@ -716,7 +730,7 @@ const CAT_ICONS={
   function finishLogin(userData) {
     store(STORAGE.user, userData);
     updateAuthUI(userData);
-    showToast('Добро пожаловать, ' + userData.name.split(' ')[0] + '!', 'success');
+    showToast(t('welcome') + ', ' + userData.name.split(' ')[0] + '!', 'success');
     if (userData.mode === 'admin') {
       setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     }
