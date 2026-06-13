@@ -250,10 +250,10 @@
         <a href="catalog.html" class="section-link">Показать все <img class="ui-icon ui-icon-xs" data-icon="chevron-right" alt="" aria-hidden="true"></a>
       </div>
       <div class="categories-horizontal">
-        <a href="kategoriya.html" class="cat-horizontal-item"><img src="assets/icons/category-binokli.svg" alt="" width="28" aria-hidden="true"> Бинокли</a>
-        <a href="kategoriya.html" class="cat-horizontal-item cat-horizontal-item--active"><img src="assets/icons/category-teleskopy.svg" alt="" width="28" aria-hidden="true"> Микроскопы</a>
-        <a href="kategoriya.html" class="cat-horizontal-item"><img src="assets/icons/category-dalnomery.svg" alt="" width="28" aria-hidden="true"> Телескопы</a>
-        <a href="kategoriya.html" class="cat-horizontal-item"><img src="assets/icons/category-binokli.svg" alt="" width="28" aria-hidden="true"> Лупы</a>
+        <a href="kategoriya.html?cat=binokli" class="cat-horizontal-item"><img src="assets/icons/binokl.svg" alt="" width="32" height="32" loading="lazy" aria-hidden="true"> Бинокли</a>
+        <a href="kategoriya.html?cat=mikroskopy" class="cat-horizontal-item cat-horizontal-item--active"><img src="assets/icons/microscoope.svg" alt="" width="32" height="32" loading="lazy" aria-hidden="true"> Микроскопы</a>
+        <a href="kategoriya.html?cat=teleskopy" class="cat-horizontal-item"><img src="assets/icons/telescopik.svg" alt="" width="32" height="32" loading="lazy" aria-hidden="true"> Телескопы</a>
+        <a href="kategoriya.html?cat=lupy" class="cat-horizontal-item"><img src="assets/icons/loopa.svg" alt="" width="32" height="32" loading="lazy" aria-hidden="true"> Лупы</a>
         <button class="cat-horizontal-arrow" type="button"><img class="ui-icon" data-icon="chevron-right" alt="" aria-hidden="true"></button>
       </div>
     </section>
@@ -276,11 +276,15 @@
         </form>
       </div>
       <div class="map-container" id="yandex-map">
-        <div class="map-placeholder">
-          <div class="map-address-pin">
-            <svg viewBox="0 0 24 24" fill="var(--clr-primary)" width="32" height="32"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <div><div class="map-address-title">г. Москва, ул. Никольская, д. 15</div><div class="map-address-sub">Офис находится недалеко от Площади Революции</div></div>
-          </div>
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=37.622044%2C55.757082&z=17&l=map&pt=37.622044%2C55.757082~pm2rdl"
+          width="100%" height="100%"
+          frameborder="0" allowfullscreen
+          style="border:0; display:block;"
+          title="Карта офиса Tele-Optics"
+          loading="lazy">
+        </iframe>
+      </div>
         </div>
       </div>
     </div>
@@ -336,9 +340,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cats
     const cg = document.getElementById('promo-cats');
     if (cg && d.categories) {
-      const bg=['#e3f0fc','#fff3e0','#f3e5f5','#e8eaf6','#fce4ec','#f1f8e9','#e0f2f1','#e8f5e9','#fbe9e7','#ede7f6'];
-      const icons={1:'assets/icons/category-binokli.svg',2:'assets/icons/category-teleskopy.svg',3:'assets/icons/category-dalnomery.svg'};
-      cg.innerHTML = d.categories.map((c,i) => `<a href="kategoriya.html" class="category-card"><div class="category-icon" style="background:${bg[i%bg.length]}"><img src="${icons[c.id]||'assets/icons/category-binokli.svg'}" alt="" width="48" height="48" loading="lazy"></div><div class="category-name">${c.name}</div><div class="category-count">${c.count||''} товаров</div></a>`).join('');
+      const icons={1:'assets/icons/binokly.svg',2:'assets/icons/telescope.svg',3:'assets/icons/dalnomeri.svg',4:'assets/icons/ZritelTrubi.svg',5:'assets/icons/crosshair.svg',6:'assets/icons/loopi.svg',7:'assets/icons/monoculars.svg',8:'assets/icons/microscope.svg',9:'assets/icons/teplovisor.svg',10:'assets/icons/digitalcamera.svg'};
+      cg.innerHTML = d.categories.map((c,i) => `<a href="kategoriya.html" class="category-card"><div class="category-icon"><img src="${icons[c.id]||'assets/icons/binokly.svg'}" alt="" width="48" height="48" loading="lazy"></div><div class="category-name">${c.name}</div><div class="category-count">${c.count||''} товаров</div></a>`).join('');
     }
   } catch(e) { console.warn(e); }
 });
