@@ -380,7 +380,9 @@
 
   function addToCart(id) {
     const c=getCart(); const it=c.find(i=>i.productId===id);
-    if(it) it.quantity=(it.quantity||1)+1; else c.push({productId:id,quantity:1});
+    const qtyInput = document.querySelector('.quantity-wrap .qty-input');
+    const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+    if(it) it.quantity=(it.quantity||1)+qty; else c.push({productId:id,quantity:qty});
     store(STORAGE.cart,c); updateBadges(); showToast(t('to_cart'),'success');
   }
   window.addToCart = addToCart;

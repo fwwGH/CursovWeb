@@ -30,10 +30,8 @@
     .blog-post-title a { color: inherit; text-decoration: none; }
     .blog-post-title a:hover { color: var(--clr-primary); }
     .blog-post-excerpt { font-size: 13px; color: var(--clr-text-secondary); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .blog-post-link { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--clr-border); color: var(--clr-text-secondary); font-size: 16px; flex-shrink: 0; align-self: flex-start; transition: all var(--transition); }
-    .blog-post-link:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
-    .blog-post-link--blue { background: var(--clr-primary); color: #fff; border-color: var(--clr-primary); }
-    .blog-post-link--blue:hover { background: var(--clr-primary-hover); }
+    .blog-post-link { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--clr-border-light); color: var(--clr-text-secondary); font-size: 16px; flex-shrink: 0; align-self: flex-start; transition: all var(--transition); text-decoration: none; }
+    .blog-post-link:hover { background: var(--clr-primary); color: #fff; }
     .blog-post-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
     @media (max-width: 768px) { .blog-layout { grid-template-columns: 1fr; } .blog-sidebar { display: none; } .blog-post-card { flex-direction: column; } .blog-post-img-wrap { width: 100%; height: 180px; } }
   </style>
@@ -277,7 +275,7 @@ function renderBlogPosts() {
             <div class="blog-post-meta"><svg viewBox="0 0 24 24" fill="var(--clr-text-secondary)" width="14" height="14"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> ${a.date}</div>
             <h2 class="blog-post-title"><a href="post.html?id=${a.id}">${a.title}</a></h2>
           </div>
-          <a href="post.html?id=${a.id}" class="blog-post-link${i === 1 ? ' blog-post-link--blue' : ''}" aria-label="Читать далее">→</a>
+          <a href="post.html?id=${a.id}" class="blog-post-link" aria-label="Читать далее">→</a>
         </div>
         <p class="blog-post-excerpt">${a.excerpt}</p>
       </div>

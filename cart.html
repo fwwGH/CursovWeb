@@ -169,14 +169,7 @@
       <!-- Empty state -->
       <div class="cart-empty" id="cart-empty-state">
         <div class="cart-empty-icon">
-          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
-            <circle cx="60" cy="60" r="58" fill="#e3f0fc" stroke="#1565c0" stroke-width="2"/>
-            <path d="M35 40h50l-6 30H41L35 40z" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="50" cy="80" r="4" fill="#1565c0"/>
-            <circle cx="70" cy="80" r="4" fill="#1565c0"/>
-            <circle cx="60" cy="55" r="8" fill="none" stroke="#e74c3c" stroke-width="2.5"/>
-            <line x1="55" y1="55" x2="65" y2="55" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
+          <img src="assets/icons/garbage.svg" alt="" width="80" height="80" aria-hidden="true">
         </div>
         <h2 class="cart-empty-title">Ваша корзина пуста</h2>
         <a href="catalog.html" class="btn btn-primary" data-i18n="btn_continue">Продолжить покупки</a>
@@ -198,53 +191,114 @@
   </div>
 </main>
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
+(async function() {
+  const content = document.getElementById('cart-page-content');
   const cart = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
   if (!cart.length) return;
+
+  let products = [];
   try {
-    const r = await fetch('data/db.json'); const d = await r.json();
-    const products = d.products || [];
-    const items = cart.map(c => ({...c, product: products.find(p => p.id === c.productId)})).filter(c => c.product);
-    if (!items.length) return;
-    document.getElementById('cart-empty-state').hidden = true;
-    document.getElementById('cart-filled-state').hidden = false;
-    const list = document.getElementById('cart-items-list');
-    list.innerHTML = items.map(item => `
-      <div class="cart-item" data-product-id="${item.productId}">
+    if (window._db && window._db.products) { products = window._db.products; }
+    else {
+      const local = localStorage.getItem('teleoptics.admin_products');
+      if (local) { products = JSON.parse(local); }
+      else {
+        const r = await fetch('data/db.json');
+        const d = await r.json();
+        products = d.products || [];
+      }
+    }
+  } catch(e) { console.warn(e); }
+
+  const items = cart.map(c => {
+    const p = products.find(x => x.id === c.productId) || products.find(x => x.id === Number(c.productId));
+    return p ? {...c, product: p} : null;
+  }).filter(Boolean);
+
+  if (!items.length) return;
+
+  const fmt = n => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
+
+  function render() {
+    const rows = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+    const currentItems = rows.map(c => {
+      const p = products.find(x => x.id === c.productId) || products.find(x => x.id === Number(c.productId));
+      return p ? {...c, product: p} : null;
+    }).filter(Boolean);
+
+    if (!currentItems.length) {
+      content.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon"><img src="assets/icons/garbage.svg" alt="" width="80" height="80"></div>
+          <h2 class="cart-empty-title">Ваша корзина пуста</h2>
+          <a href="catalog.html" class="btn btn-primary">Продолжить покупки</a>
+        </div>`;
+      return;
+    }
+
+    let total = 0, count = 0;
+    const itemsHtml = currentItems.map((item, i) => {
+      const lineTotal = item.product.price * item.quantity;
+      total += lineTotal;
+      count += item.quantity;
+      return `
+      <div class="cart-item" data-idx="${i}">
         <img src="${item.product.image||'assets/images/MainBannerBig.png'}" alt="${item.product.name}" class="cart-item-img" width="80" height="80">
         <div class="cart-item-info">
           <a href="product.html?id=${item.productId}" class="cart-item-name">${item.product.name}</a>
           <div class="quantity-wrap">
-            <button class="qty-minus" type="button">−</button>
-            <input class="qty-input" type="text" inputmode="numeric" pattern="[0-9]*" value="${item.quantity}" min="1">
-            <button class="qty-plus" type="button">+</button>
+            <button class="qty-minus" data-idx="${i}">−</button>
+            <input class="qty-input" type="text" inputmode="numeric" value="${item.quantity}" min="1" data-idx="${i}">
+            <button class="qty-plus" data-idx="${i}">+</button>
           </div>
         </div>
-        <div class="cart-item-price">${new Intl.NumberFormat('ru-RU').format(item.product.price * item.quantity)} ₽</div>
-        <button class="cart-item-remove" type="button" aria-label="Удалить">×</button>
-      </div>`).join('');
-    // Qty handlers
-    list.querySelectorAll('.qty-minus').forEach((b,i) => b.addEventListener('click', () => { const inp = list.querySelectorAll('.qty-input')[i]; inp.value = Math.max(1, +inp.value - 1); saveCartState(); updateTotal(); }));
-    list.querySelectorAll('.qty-plus').forEach((b,i) => b.addEventListener('click', () => { const inp = list.querySelectorAll('.qty-input')[i]; inp.value = +inp.value + 1; saveCartState(); updateTotal(); }));
-    list.querySelectorAll('.cart-item-remove').forEach((b,i) => b.addEventListener('click', () => { const row = list.querySelectorAll('.cart-item')[i]; const id = Number(row.dataset.productId); row.remove(); const cart = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]').filter(x => x.productId !== id); localStorage.setItem('teleoptics.cart', JSON.stringify(cart)); if(window.updateBadges) updateBadges(); updateTotal(); }));
-    function saveCartState() {
-      const rows = list.querySelectorAll('.cart-item');
-      const cart = [];
-      rows.forEach((row, i) => { const id = Number(row.dataset.productId); const qty = +list.querySelectorAll('.qty-input')[i]?.value || 1; cart.push({ productId: id, quantity: qty }); });
-      localStorage.setItem('teleoptics.cart', JSON.stringify(cart));
-    }
-    function updateTotal() {
-      const rows = list.querySelectorAll('.cart-item');
-      let total = 0; let count = 0;
-      rows.forEach((row, i) => { const qty = +list.querySelectorAll('.qty-input')[i]?.value || 1; total += (items[i]?.product.price || 0) * qty; count += qty; });
-      document.getElementById('cart-items-count').textContent = count;
-      document.getElementById('cart-subtotal').textContent = new Intl.NumberFormat('ru-RU').format(total) + ' ₽';
-      document.getElementById('cart-total').textContent = new Intl.NumberFormat('ru-RU').format(total) + ' ₽';
-    }
-    updateTotal();
-    if(window.applyIcons) window.applyIcons();
-  } catch(e) { console.warn(e); }
-});
+        <div class="cart-item-price">${fmt(lineTotal)}</div>
+        <button class="cart-item-remove" data-idx="${i}" aria-label="Удалить">×</button>
+      </div>`;
+    }).join('');
+
+    content.innerHTML = `
+      <div class="cart-filled">
+        <div class="cart-items">${itemsHtml}</div>
+        <div class="cart-summary">
+          <div class="cart-summary-box">
+            <h3 class="cart-summary-title">Итого</h3>
+            <div class="cart-summary-row"><span>Товары (${count} шт.)</span><span>${fmt(total)}</span></div>
+            <div class="cart-summary-total"><span>Итого:</span><span>${fmt(total)}</span></div>
+            <button class="btn btn-primary" style="width:100%;margin-top:16px" type="button" onclick="window.location.href='checkout.html'">Оформить заказ</button>
+            <a href="catalog.html" class="btn btn-outline" style="width:100%;margin-top:8px;display:flex;justify-content:center">Продолжить покупки</a>
+          </div>
+        </div>
+      </div>`;
+
+    content.querySelectorAll('.qty-minus').forEach(b => b.addEventListener('click', () => {
+      const idx = +b.dataset.idx;
+      const c = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+      c[idx].quantity = Math.max(1, c[idx].quantity - 1);
+      localStorage.setItem('teleoptics.cart', JSON.stringify(c));
+      render();
+      if(window.updateBadges) window.updateBadges();
+    }));
+    content.querySelectorAll('.qty-plus').forEach(b => b.addEventListener('click', () => {
+      const idx = +b.dataset.idx;
+      const c = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+      c[idx].quantity++;
+      localStorage.setItem('teleoptics.cart', JSON.stringify(c));
+      render();
+      if(window.updateBadges) window.updateBadges();
+    }));
+    content.querySelectorAll('.cart-item-remove').forEach(b => b.addEventListener('click', () => {
+      const idx = +b.dataset.idx;
+      const c = JSON.parse(localStorage.getItem('teleoptics.cart') || '[]');
+      c.splice(idx, 1);
+      localStorage.setItem('teleoptics.cart', JSON.stringify(c));
+      render();
+      if(window.updateBadges) window.updateBadges();
+    }));
+  }
+
+  render();
+})();
 </script>
 <footer class="footer">
   <div class="newsletter-bar">
