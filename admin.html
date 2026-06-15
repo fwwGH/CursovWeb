@@ -650,7 +650,7 @@
     const recent = products.slice(-5).reverse();
     document.getElementById('dash-recent-tbody').innerHTML = recent.map(p => `
       <tr>
-        <td><img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}"></td>
+        <td><img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}"></td>
         <td>${p.name}</td>
         <td>${fmt(p.price)}</td>
         <td class="${p.inStock ? 'stock-yes' : 'stock-no'}">${p.inStock ? '✓ Есть' : '✗ Нет'}</td>
@@ -705,7 +705,7 @@
       ].filter(Boolean).join(' ');
       return `<tr data-id="${p.id}">
         <td>${p.id}</td>
-        <td><img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}"></td>
+        <td><img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}"></td>
         <td class="product-name-cell"><a href="product.html?id=${p.id}" target="_blank">${p.name}</a></td>
         <td>${getCatName(p.categoryId)}</td>
         <td><strong>${fmt(p.price)}</strong>${p.oldPrice ? `<br><small style="text-decoration:line-through;color:#9ca3af">${fmt(p.oldPrice)}</small>` : ''}</td>
@@ -960,5 +960,26 @@
   <button class="accessibility-close" type="button" id="a11y-close" data-i18n="btn_close">Закрыть</button>
 </div>
 <div class="toast-container" id="toast-container" aria-live="polite"></div>
+<!-- Profile Modal -->
+<div class="modal-overlay" id="profile-modal" role="dialog" aria-modal="true" aria-label="Личный кабинет">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Личный кабинет</h2>
+    <div class="profile-data">
+      <div class="profile-field"><label>Имя</label><input type="text" id="profile-name" readonly></div>
+      <div class="profile-field"><label>Телефон</label><input type="tel" id="profile-phone" readonly></div>
+      <div class="profile-field"><label>Email</label><input type="email" id="profile-email" readonly></div>
+    </div>
+    <div class="profile-actions">
+      <button class="btn btn-outline" type="button" id="profile-edit-btn">Редактировать</button>
+      <button class="btn btn-primary" type="button" id="profile-save-btn" style="display:none;">Сохранить</button>
+      <button class="btn btn-outline" type="button" id="profile-cancel-btn" style="display:none;">Отмена</button>
+    </div>
+    <div class="profile-actions" style="margin-top:12px; border-top:1px solid var(--clr-border-light); padding-top:12px;">
+      <a href="admin.html" class="btn btn-outline" id="profile-admin-btn" style="display:none; width:100%; text-align:center;">Перейти в админ-панель</a>
+      <button class="btn btn-outline" type="button" id="profile-logout-btn" style="width:100%; text-align:center; color:var(--clr-danger);">Выйти из аккаунта</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

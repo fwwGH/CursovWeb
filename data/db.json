@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Анна Смирнова",
       "email": "admin@tele-optics.ru",
       "phone": "+375 (29) 100-00-01",
@@ -9,7 +9,7 @@
       "password": "Admin123!"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Иван Петров",
       "email": "ivan@mail.ru",
       "phone": "+375 (29) 200-00-02",
@@ -17,7 +17,7 @@
       "password": "User1234!"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Мария Козлова",
       "email": "maria@mail.ru",
       "phone": "+375 (29) 300-00-03",
@@ -25,7 +25,7 @@
       "password": "Maria99!"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Алексей Новиков",
       "email": "alex@mail.ru",
       "phone": "+375 (29) 400-00-04",
@@ -33,7 +33,7 @@
       "password": "Alex5678!"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Ольга Федорова",
       "email": "olga@mail.ru",
       "phone": "+375 (29) 500-00-05",
@@ -41,7 +41,7 @@
       "password": "Olga123!"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Дмитрий Соколов",
       "email": "dmitry@mail.ru",
       "phone": "+375 (29) 600-00-06",
@@ -49,7 +49,7 @@
       "password": "Dmit567!"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Елена Морозова",
       "email": "elena@mail.ru",
       "phone": "+375 (29) 700-00-07",
@@ -57,7 +57,7 @@
       "password": "Elena12!"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Сергей Волков",
       "email": "sergey@mail.ru",
       "phone": "+375 (29) 800-00-08",
@@ -65,25 +65,33 @@
       "password": "Serg567!"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Татьяна Лебедева",
       "email": "tatyana@mail.ru",
-      "phone": "+375 (29) 900-00-09",
+      "phone": "+375299000009",
       "role": "user",
       "password": "Taty12!"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Николай Семенов",
       "email": "nikolay@mail.ru",
-      "phone": "+375 (29) 010-00-10",
+      "phone": "+375290100010",
       "role": "user",
       "password": "Nik1234!"
+    },
+    {
+      "id": "11",
+      "name": "Тимофей",
+      "phone": "+375449012343",
+      "email": "TimohaKrut@gmail.com",
+      "role": "user",
+      "mode": "user"
     }
   ],
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Бинокли",
       "nameEn": "Binoculars",
       "slug": "binokli",
@@ -91,7 +99,7 @@
       "icon": "🔭"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Телескопы",
       "nameEn": "Telescopes",
       "slug": "teleskopy",
@@ -99,7 +107,7 @@
       "icon": "🌌"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Дальномеры",
       "nameEn": "Rangefinders",
       "slug": "dalnomery",
@@ -107,7 +115,7 @@
       "icon": "📏"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Зрительные трубы",
       "nameEn": "Spotting Scopes",
       "slug": "zritelnye-truby",
@@ -115,7 +123,7 @@
       "icon": "🔬"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Прицелы",
       "nameEn": "Scopes",
       "slug": "pritsely",
@@ -123,7 +131,7 @@
       "icon": "🎯"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Лупы",
       "nameEn": "Magnifiers",
       "slug": "lupy",
@@ -131,7 +139,7 @@
       "icon": "🔍"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Монокуляры",
       "nameEn": "Monoculars",
       "slug": "monokulary",
@@ -139,7 +147,7 @@
       "icon": "👁"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Микроскопы",
       "nameEn": "Microscopes",
       "slug": "mikroskopy",
@@ -147,7 +155,7 @@
       "icon": "🔬"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Тепловизоры",
       "nameEn": "Thermal Cameras",
       "slug": "teplovizory",
@@ -155,7 +163,7 @@
       "icon": "🌡"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Цифровые камеры",
       "nameEn": "Digital Cameras",
       "slug": "kamery",
@@ -165,7 +173,7 @@
   ],
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Бинокль БПЦ2 10×40 (обрезин., рубин)",
       "nameEn": "Binoculars BPTs2 10×40",
       "categoryId": 1,
@@ -192,7 +200,7 @@
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Бинокль Veber BPTs zoom 8-30x50",
       "nameEn": "Binoculars Veber BPTs zoom 8-30x50",
       "categoryId": 1,
@@ -219,7 +227,7 @@
       }
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Бинокль БПЦ2 10×40 (обрезин., рубин) б/у",
       "nameEn": "Binoculars BPTs2 10×40 used",
       "categoryId": 1,
@@ -246,7 +254,7 @@
       }
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Бинокль БПЦ2 10×40 (обрезин., рубин) NEW",
       "nameEn": "Binoculars BPTs2 10×40 NEW",
       "categoryId": 1,
@@ -273,7 +281,7 @@
       }
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Телескоп Veber рефрактор 60/700",
       "nameEn": "Telescope Veber 60/700",
       "categoryId": 2,
@@ -298,7 +306,7 @@
       }
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Телескоп Sky-Watcher BK 1025 AZ3",
       "nameEn": "Telescope Sky-Watcher 1025",
       "categoryId": 2,
@@ -323,7 +331,7 @@
       }
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Дальномер Nikon Forestry Pro II",
       "nameEn": "Rangefinder Nikon Forestry Pro II",
       "categoryId": 3,
@@ -349,13 +357,13 @@
       }
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Дальномер Leica Rangemaster CRF 3500",
       "nameEn": "Rangefinder Leica CRF 3500",
       "categoryId": 3,
       "price": 89000,
       "oldPrice": null,
-      "rating": 5.0,
+      "rating": 5,
       "reviews": 5,
       "inStock": true,
       "isHit": false,
@@ -375,7 +383,7 @@
       }
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Прицел Vortex Crossfire II 2-7x32",
       "nameEn": "Scope Vortex Crossfire II",
       "categoryId": 5,
@@ -401,7 +409,7 @@
       }
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Монокуляр Levenhuk Wise 8x25",
       "nameEn": "Monocular Levenhuk 8x25",
       "categoryId": 7,
@@ -428,7 +436,7 @@
       }
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Микроскоп Levenhuk Rainbow 50L",
       "nameEn": "Microscope Levenhuk Rainbow 50L",
       "categoryId": 8,
@@ -452,7 +460,7 @@
       }
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Тепловизор HIKMICRO Gryphon GQ35L",
       "nameEn": "Thermal Camera HIKMICRO Gryphon",
       "categoryId": 9,
@@ -478,7 +486,7 @@
       }
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Бинокль армейский Veber Classic БПЦ 20x50 VL черный, кожа",
       "nameEn": "Military Binoculars Veber Classic 20x50",
       "categoryId": 1,
@@ -506,7 +514,7 @@
       }
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Бинокль Celestron Nature DX 8x42",
       "nameEn": "Binoculars Celestron Nature DX",
       "categoryId": 1,
@@ -533,7 +541,7 @@
       }
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Зрительная труба Bresser Spezial 20-60x80",
       "nameEn": "Spotting Scope Bresser 20-60x80",
       "categoryId": 4,
@@ -560,7 +568,7 @@
       }
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Лупа Veber 5x складная",
       "nameEn": "Magnifier Veber 5x",
       "categoryId": 6,
@@ -584,13 +592,13 @@
       }
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Телескоп Meade LX90 8 ACF",
       "nameEn": "Telescope Meade LX90 8 ACF",
       "categoryId": 2,
       "price": 245000,
       "oldPrice": null,
-      "rating": 5.0,
+      "rating": 5,
       "reviews": 2,
       "inStock": false,
       "isHit": false,
@@ -609,7 +617,7 @@
       }
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Прицел Burris Eliminator III 4-16x50",
       "nameEn": "Scope Burris Eliminator 4-16x50",
       "categoryId": 5,
@@ -635,7 +643,7 @@
       }
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Монокуляр ночного видения Yukon NV 2x24",
       "nameEn": "Night Vision Monocular Yukon 2x24",
       "categoryId": 7,
@@ -661,7 +669,7 @@
       }
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Микроскоп Celestron CM2000CF",
       "nameEn": "Microscope Celestron CM2000CF",
       "categoryId": 8,
@@ -685,7 +693,7 @@
       }
     },
     {
-      "id": 21,
+      "id": "21",
       "name": "Бинокль Nikon Action EX 10x50 CF",
       "nameEn": "Binoculars Nikon Action EX 10x50",
       "categoryId": 1,
@@ -712,7 +720,7 @@
       }
     },
     {
-      "id": 22,
+      "id": "22",
       "name": "Бинокль Olympus 8x42 PRO",
       "nameEn": "Binoculars Olympus 8x42 PRO",
       "categoryId": 1,
@@ -739,7 +747,7 @@
       }
     },
     {
-      "id": 23,
+      "id": "23",
       "name": "Дальномер Bushnell Elite 1 Mile ARC",
       "nameEn": "Rangefinder Bushnell Elite",
       "categoryId": 3,
@@ -765,7 +773,7 @@
       }
     },
     {
-      "id": 24,
+      "id": "24",
       "name": "Тепловизор FLIR Scout TK",
       "nameEn": "Thermal Camera FLIR Scout TK",
       "categoryId": 9,
@@ -791,7 +799,7 @@
       }
     },
     {
-      "id": 25,
+      "id": "25",
       "name": "Телескоп Bresser Messier AR-102s",
       "nameEn": "Telescope Bresser Messier AR-102s",
       "categoryId": 2,
@@ -816,13 +824,13 @@
       }
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Зрительная труба Kowa TSN-883",
       "nameEn": "Spotting Scope Kowa TSN-883",
       "categoryId": 4,
       "price": 78000,
       "oldPrice": null,
-      "rating": 5.0,
+      "rating": 5,
       "reviews": 3,
       "inStock": false,
       "isHit": false,
@@ -843,7 +851,7 @@
       }
     },
     {
-      "id": 27,
+      "id": "27",
       "name": "Лупа Eschenbach mobilux LED 10x",
       "nameEn": "Magnifier Eschenbach mobilux LED",
       "categoryId": 6,
@@ -867,13 +875,13 @@
       }
     },
     {
-      "id": 28,
+      "id": "28",
       "name": "Прицел March 1-10x24 Shorty",
       "nameEn": "Scope March 1-10x24 Shorty",
       "categoryId": 5,
       "price": 185000,
       "oldPrice": null,
-      "rating": 5.0,
+      "rating": 5,
       "reviews": 1,
       "inStock": true,
       "isHit": false,
@@ -893,7 +901,7 @@
       }
     },
     {
-      "id": 29,
+      "id": "29",
       "name": "Монокуляр Leica Monovid 8x20",
       "nameEn": "Monocular Leica Monovid 8x20",
       "categoryId": 7,
@@ -920,7 +928,7 @@
       }
     },
     {
-      "id": 30,
+      "id": "30",
       "name": "Микроскоп Levenhuk MED 30T",
       "nameEn": "Microscope Levenhuk MED 30T",
       "categoryId": 8,
@@ -946,34 +954,34 @@
   ],
   "brands": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Seeland",
       "logo": "Seeland"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Celestron",
       "logo": "CELESTRON"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Allen",
       "logo": "ALLEN"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Olympus",
       "logo": "OLYMPUS"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Bresser",
       "logo": "BRESSER"
     }
   ],
   "banners": [
     {
-      "id": 1,
+      "id": "1",
       "title": "МЫ СНИЗИЛИ ЦЕНЫ! НА НОЧНУЮ ОПТИКУ",
       "titleEn": "WE LOWERED PRICES! ON NIGHT OPTICS",
       "subtitle": "Прицел ночного видения Digisight Ultra N455 LRF с дальномером",
@@ -985,7 +993,7 @@
       "productId": 12
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "БИНОКЛЬ DISCOVERY FLINT 8×40",
       "titleEn": "DISCOVERY FLINT 8×40 BINOCULARS",
       "subtitle": "Новое поколение полевых биноклей. Отличные оптические характеристики и доступная цена",
@@ -999,31 +1007,31 @@
   ],
   "cart": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 2,
       "productId": 13,
       "quantity": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "productId": 1,
       "quantity": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 3,
       "productId": 6,
       "quantity": 1
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 3,
       "productId": 12,
       "quantity": 1
     },
     {
-      "id": 5,
+      "id": "5",
       "userId": 4,
       "productId": 7,
       "quantity": 1
@@ -1031,29 +1039,29 @@
   ],
   "favorites": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 2,
       "productId": 13
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "productId": 6
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 3,
       "productId": 12
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 4,
       "productId": 7
     }
   ],
   "reviews": [
     {
-      "id": 1,
+      "id": "1",
       "productId": 13,
       "userId": 2,
       "rating": 5,
@@ -1062,7 +1070,7 @@
       "author": "Ковалёв Алексей Юрьевич"
     },
     {
-      "id": 2,
+      "id": "2",
       "productId": 1,
       "userId": 3,
       "rating": 4,
@@ -1071,7 +1079,7 @@
       "author": "Илья Чекуляев"
     },
     {
-      "id": 3,
+      "id": "3",
       "productId": 12,
       "userId": 4,
       "rating": 5,
@@ -1080,7 +1088,7 @@
       "author": "Ковалёв Алексей Юрьевич"
     },
     {
-      "id": 4,
+      "id": "4",
       "productId": 1,
       "userId": 5,
       "rating": 4,
@@ -1089,7 +1097,7 @@
       "author": "Ковалёв Алексей Юрьевич"
     },
     {
-      "id": 5,
+      "id": "5",
       "productId": 1,
       "userId": 6,
       "rating": 5,
@@ -1097,5 +1105,6 @@
       "date": "2022-09-02",
       "author": "Ковалёв Алексей Юрьевич"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

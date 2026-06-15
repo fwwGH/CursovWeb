@@ -115,7 +115,7 @@
 <nav class="header-nav" aria-label="Основная навигация">
   <div class="container">
     <ul class="nav-list">
-      <li class="nav-item"><a href="kategoriya.html?cat=teleskopy" class="nav-link">Телескопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=binokli" class="nav-link">Бинокли</a></li><li class="nav-item"><a href="kategoriya.html?cat=lupy" class="nav-link">Лупы</a></li><li class="nav-item"><a href="kategoriya.html?cat=mikroskopy" class="nav-link">Микроскопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=zritelnye-truby" class="nav-link">Зрительные трубы</a></li><li class="nav-item"><a href="kategoriya.html?cat=monokulary" class="nav-link">Монокуляры</a></li><li class="nav-item"><a href="kategoriya.html?cat=pritsely" class="nav-link">Прицелы</a></li><li class="nav-item"><a href="kategoriya.html?cat=dalnomery" class="nav-link">Дальномеры</a></li><li class="nav-item"><a href="kategoriya.html?cat=teplovizory" class="nav-link">Тепловизоры</a></li>
+      <li class="nav-item"><a href="kategoriya.html?cat=teleskopy" class="nav-link" data-i18n="cat_teleskopy">Телескопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=binokli" class="nav-link" data-i18n="cat_binokli">Бинокли</a></li><li class="nav-item"><a href="kategoriya.html?cat=lupy" class="nav-link" data-i18n="cat_lupy">Лупы</a></li><li class="nav-item"><a href="kategoriya.html?cat=mikroskopy" class="nav-link" data-i18n="cat_mikroskopy">Микроскопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=zritelnye-truby" class="nav-link" data-i18n="cat_zritelnye">Зрительные трубы</a></li><li class="nav-item"><a href="kategoriya.html?cat=monokulary" class="nav-link" data-i18n="cat_monokulary">Монокуляры</a></li><li class="nav-item"><a href="kategoriya.html?cat=pritsely" class="nav-link" data-i18n="cat_pritsely">Прицелы</a></li><li class="nav-item"><a href="kategoriya.html?cat=dalnomery" class="nav-link" data-i18n="cat_dalnomery">Дальномеры</a></li><li class="nav-item"><a href="kategoriya.html?cat=teplovizory" class="nav-link" data-i18n="cat_teplovizory">Тепловизоры</a></li>
       <li class="nav-item">
         <a href="#" class="nav-link nav-link-more">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></a>
         <div class="nav-dropdown">
@@ -369,7 +369,7 @@ async function buildCompareTable() {
     return `<th>
       <div class="compare-product-head">
         <button class="compare-remove-btn" data-remove-id="${p.id}" title="Удалить из сравнения">×</button>
-        <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+        <img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
         <a href="product.html?id=${p.id}">${p.name}</a>
         <div class="compare-product-price">${fmt(p.price)}</div>
         ${old}
@@ -481,14 +481,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <div>
         <h3 class="footer-col-title" data-i18n="footer_catalog">Каталог</h3>
         <ul class="footer-links">
-          <li><a href="kategoriya.html?cat=binokli">Бинокли</a></li>
-          <li><a href="catalog.html" style="color:var(--clr-primary)">Телескопы</a></li>
-          <li><a href="kategoriya.html?cat=monokulary">Монокуляры</a></li>
-          <li><a href="kategoriya.html?cat=lupy">Лупы</a></li>
-          <li><a href="kategoriya.html?cat=mikroskopy">Микроскопы</a></li>
+          <li><a href="kategoriya.html?cat=binokli" data-i18n="cat_binokli">Бинокли</a></li>
+          <li><a href="catalog.html" style="color:var(--clr-primary)" data-i18n="cat_teleskopy">Телескопы</a></li>
+          <li><a href="kategoriya.html?cat=monokulary" data-i18n="cat_monokulary">Монокуляры</a></li>
+          <li><a href="kategoriya.html?cat=lupy" data-i18n="cat_lupy">Лупы</a></li>
+          <li><a href="kategoriya.html?cat=mikroskopy" data-i18n="cat_mikroskopy">Микроскопы</a></li>
           <li><a href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы</a></li>
-          <li><a href="kategoriya.html?cat=dalnomery">Дальномеры</a></li>
-          <li><a href="kategoriya.html?cat=teplovizory">Тепловизоры</a></li>
+          <li><a href="kategoriya.html?cat=dalnomery" data-i18n="cat_dalnomery">Дальномеры</a></li>
+          <li><a href="kategoriya.html?cat=teplovizory" data-i18n="cat_teplovizory">Тепловизоры</a></li>
           <li><a href="catalog.html">Приборы ночного видения</a></li>
         </ul>
       </div>
@@ -579,8 +579,8 @@ document.addEventListener('DOMContentLoaded', () => {
     <p class="modal-subtitle">Зарегистрируйтесь, чтобы использовать все возможности личного кабинета.</p>
     <form id="register-form" novalidate>
       <div class="form-row">
-        <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
-        <div class="form-group"><input type="tel" name="phone" placeholder="+375 (__) ___-__-__" required></div>
+        <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required aria-label="Имя"></div>
+        <div class="form-group"><div class="phone-wrap"><span class="phone-prefix">+375</span><input type="tel" name="phone" placeholder="(___) ___-__-__" required aria-label="Телефон" maxlength="15"></div></div>
       </div>
       <div class="form-group"><input type="email" name="email" placeholder="Ваш email" required></div>
       <div class="form-group">
@@ -669,11 +669,50 @@ document.addEventListener('DOMContentLoaded', () => {
     <p class="modal-subtitle">Оставьте контактные данные и мы перезвоним вам в течение 15 минут</p>
     <form id="callback-form" novalidate>
       <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
-      <div class="form-group"><input type="tel" name="phone" placeholder="+375 (__) ___-__-__" required></div>
+      <div class="form-group"><div class="phone-wrap"><span class="phone-prefix">+375</span><input type="tel" name="phone" placeholder="(___) ___-__-__" required maxlength="15"></div></div>
       <button type="submit" class="btn btn-primary" style="width:100%;margin-top:4px">Оставить заявку</button>
     </form>
   </div>
 </div>
+<!-- Profile Modal -->
+<div class="modal-overlay" id="profile-modal" role="dialog" aria-modal="true" aria-label="Личный кабинет">
+  <div class="modal modal-profile">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="profile-header">
+      <div class="profile-avatar" id="profile-avatar">АП</div>
+      <div class="profile-header-info">
+        <div class="profile-name-display" id="profile-name-display">—</div>
+        <div class="profile-role-display" id="profile-role-display">Покупатель</div>
+      </div>
+    </div>
+    <div class="profile-section">
+      <h3 class="profile-section-title">Личные данные</h3>
+      <div class="profile-data" id="profile-data">
+        <div class="profile-field"><label>Имя</label><input type="text" id="profile-name" readonly></div>
+        <div class="profile-field"><label>Телефон</label><input type="tel" id="profile-phone" readonly></div>
+        <div class="profile-field"><label>Email</label><input type="email" id="profile-email" readonly></div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-outline" type="button" id="profile-edit-btn">Редактировать</button>
+        <button class="btn btn-primary" type="button" id="profile-save-btn" style="display:none;">Сохранить</button>
+        <button class="btn btn-outline" type="button" id="profile-cancel-btn" style="display:none;">Отмена</button>
+      </div>
+    </div>
+    <div class="profile-section">
+      <h3 class="profile-section-title">Активность</h3>
+      <a href="checkout.html" class="profile-menu-item"><span class="profile-menu-icon">📦</span><span>Мои заказы</span><span class="profile-menu-arrow">›</span></a>
+      <a href="favorites.html" class="profile-menu-item"><span class="profile-menu-icon">❤️</span><span>Избранное</span><span class="profile-menu-arrow">›</span></a>
+      <a href="viewed.html" class="profile-menu-item"><span class="profile-menu-icon">👁️</span><span>Просмотренные</span><span class="profile-menu-arrow">›</span></a>
+      <a href="compare.html" class="profile-menu-item"><span class="profile-menu-icon">⚖️</span><span>Сравнение</span><span class="profile-menu-arrow">›</span></a>
+    </div>
+    <div class="profile-section">
+      <a href="admin.html" class="btn btn-outline" id="profile-admin-btn" style="display:none; width:100%; text-align:center;">⚙ Перейти в админ-панель</a>
+      <button class="btn btn-outline" type="button" id="profile-logout-btn" style="width:100%; text-align:center; color:var(--clr-danger);">Выйти из аккаунта</button>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal-overlay" id="city-modal" role="dialog" aria-modal="true" aria-label="Выбор города">
   <div class="modal modal-city">
     <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>

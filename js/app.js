@@ -120,6 +120,31 @@
       in_stock:'В наличии', out_of_stock:'Нет в наличии',
       items:'товаров', reviews:'отзывов', reviews_word:'отзывов',
       to_cart:'В корзину', to_fav:'В избранное', compare_btn:'Сравнить',
+      consultation_title:'Вам нужна консультация?', consultation_desc:'Задайте их по телефону или оставьте свои координаты и наш менеджер перезвонит вам.',
+      form_name:'Ваше имя', form_phone:'Ваш телефон', form_email:'Ваш email', form_question:'Ваш вопрос',
+      btn_submit:'Оставить заявку', form_agree:'Нажимая «Оставить заявку», я соглашаюсь с обработкой персональных данных',
+      about_title:'О компании TeleOptics', cat_binokli:'Бинокли', cat_teleskopy:'Телескопы',
+      cat_dalnomery:'Дальномеры', cat_zritelnye:'Зрительные трубы', cat_pritsely:'Прицелы',
+      cat_lupy:'Лупы', cat_monokulary:'Монокуляры', cat_mikroskopy:'Микроскопы',
+      cat_teplovizory:'Тепловизоры', cat_kamery:'Цифровые камеры', cat_nightview:'Приборы ночного видения',
+      subcat_army:'Армейско-полевой', subcat_astro:'Астрономический', subcat_kids:'Для детей',
+      subcat_hunting:'Для охоты и рыбалки', subcat_city:'Для города', subcat_pro:'Для профессионалов',
+      subcat_amateur:'Любительский',
+      feat_delivery:'Быстрая доставка', feat_certified:'Весь товар сертифицирован',
+      feat_consult:'Бесплатная консультация', feat_payment:'Удобная оплата',
+      feat_lowprice:'Низкие цены', feat_warranty:'Гарантия на товар',
+      feat_delivery_sub:'По всей России', feat_cert_sub:'Оригинальная продукция',
+      feat_warranty_sub1:'3 года гарантии', feat_warranty_sub2:'На всю продукцию',
+      feat_market_sub:'10 лет на рынке', feat_market_sub2:'Опыт и доверие',
+      about_text:'Наша компания существует на рынке оптических приборов более 5 лет.',
+      about_subtitle:'Наша компания ставит перед собой только самые реальные цели:',
+      about_goal1:'сотрудничество с прямыми дистрибьюторами и производителями для получения исключительных условий;',
+      about_goal2:'расширение возможностей доставки в любую точку Вашего Выбора;',
+      about_goal3:'сотрудничество с ведущими производителями оптических приборов;',
+      about_goal4:'бесплатные консультации по выбору предпочитаемого ассортимента;',
+      about_goal5:'обеспечение безупречного качества постоянных поставщиков.',
+      consultation_desc:'Задайте их по телефону или оставьте свои координаты и наш менеджер перезвонит вам.',
+      blog_relevant:'Актуально на сегодня', blog_comments:'Комментарии', city_search:'Поиск населённого пункта',
       // A11y
       a11y_title:'Версия для слабовидящих', a11y_fontsize:'Размер шрифта',
       a11y_scheme:'Цветовая схема', a11y_images:'Изображения',
@@ -159,6 +184,13 @@
       fill_required:'Заполните все обязательные поля', passwords_mismatch:'Пароли не совпадают',
       password_min8:'Пароль: минимум 8 символов', email_exists:'Пользователь с таким email уже существует',
       welcome:'Добро пожаловать',
+      subcat_army:'Армейско-полевой', subcat_astro:'Астрономический', subcat_kids:'Для детей',
+      subcat_hunting:'Для охоты и рыбалки', subcat_city:'Для города', subcat_pro:'Для профессионалов',
+      subcat_amateur:'Любительский',
+      feat_delivery:'Быстрая доставка', feat_certified:'Весь товар сертифицирован',
+      feat_consult:'Бесплатная консультация', feat_payment:'Удобная оплата',
+      feat_lowprice:'Низкие цены', feat_warranty:'Гарантия на товар',
+
     },
     en:{
       nav_about:'About us', nav_delivery:'Delivery', nav_payment:'Payment',
@@ -191,6 +223,31 @@
       in_stock:'In stock', out_of_stock:'Out of stock',
       items:'items', reviews:'reviews', reviews_word:'reviews',
       to_cart:'Add to cart', to_fav:'To favorites', compare_btn:'Compare',
+      consultation_title:'Need a consultation?', consultation_desc:'Call us or leave your details and our manager will call you back.',
+      form_name:'Your name', form_phone:'Your phone', form_email:'Your email', form_question:'Your question',
+      btn_submit:'Send request', form_agree:'By clicking "Send request", I agree to the processing of personal data',
+      about_title:'About TeleOptics', cat_binokli:'Binoculars', cat_teleskopy:'Telescopes',
+      cat_dalnomery:'Rangefinders', cat_zritelnye:'Spotting scopes', cat_pritsely:'Scopes',
+      cat_lupy:'Magnifiers', cat_monokulary:'Monoculars', cat_mikroskopy:'Microscopes',
+      cat_teplovizory:'Thermal imagers', cat_kamery:'Digital cameras', cat_nightview:'Night vision',
+      subcat_army:'Field/Tactical', subcat_astro:'Astronomical', subcat_kids:'Kids',
+      subcat_hunting:'Hunting & fishing', subcat_city:'Urban', subcat_pro:'Professional',
+      subcat_amateur:'Amateur',
+      feat_delivery:'Fast delivery', feat_certified:'All products certified',
+      feat_consult:'Free consultation', feat_payment:'Easy payment',
+      feat_lowprice:'Low prices', feat_warranty:'Warranty on products',
+      feat_delivery_sub:'Across Russia', feat_cert_sub:'Original products',
+      feat_warranty_sub1:'3 year warranty', feat_warranty_sub2:'On all products',
+      feat_market_sub:'10 years on market', feat_market_sub2:'Experience and trust',
+      about_text:'Our company has been in the optical instruments market for over 5 years.',
+      about_subtitle:'Our company sets only the most realistic goals:',
+      about_goal1:'cooperation with direct distributors and manufacturers for exclusive terms;',
+      about_goal2:'expanding delivery options to any location of your choice;',
+      about_goal3:'cooperation with leading manufacturers of optical instruments;',
+      about_goal4:'free consultations on choosing the desired product range;',
+      about_goal5:'ensuring impeccable quality from our suppliers.',
+      consultation_desc:'Call us or leave your details and our manager will call you back.',
+      blog_relevant:'Trending now', blog_comments:'Comments', city_search:'Search city',
       a11y_title:'Accessibility', a11y_fontsize:'Font size',
       a11y_scheme:'Color scheme', a11y_images:'Images',
       a11y_font:'Font family', a11y_show:'Show', a11y_hide:'Hide',
@@ -225,6 +282,13 @@
       fill_required:'Fill in all required fields', passwords_mismatch:'Passwords do not match',
       password_min8:'Password: minimum 8 characters', email_exists:'User with this email already exists',
       welcome:'Welcome',
+      subcat_army:'Field/Tactical', subcat_astro:'Astronomical', subcat_kids:'Kids',
+      subcat_hunting:'Hunting & fishing', subcat_city:'Urban', subcat_pro:'Professional',
+      subcat_amateur:'Amateur',
+      feat_delivery:'Fast delivery', feat_certified:'All products certified',
+      feat_consult:'Free consultation', feat_payment:'Easy payment',
+      feat_lowprice:'Low prices', feat_warranty:'Warranty on products',
+
     },
   };
   function getLang() { return store(STORAGE.lang) || 'ru'; }
@@ -237,10 +301,15 @@
     // Update all data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      // Skip theme_dark/theme_light — handled by applyTheme
       if (key === 'theme_dark' || key === 'theme_light') return;
       const v = (TR[lang] || TR.ru)[key] || key;
-      if (el.tagName === 'INPUT') el.placeholder = v; else el.textContent = v;
+      if (el.tagName === 'INPUT') el.placeholder = v;
+      else if (el.children.length) {
+        // Preserve child elements (like <span> with numbers)
+        const firstText = el.childNodes[0];
+        if (firstText && firstText.nodeType === 3) firstText.textContent = v + ' ';
+        else { el.prepend(document.createTextNode(v + ' ')); }
+      } else el.textContent = v;
     });
     // Re-sync theme button label after lang change
     const theme = getTheme();
@@ -438,7 +507,7 @@
       <span class="product-stock-dot"></span>${inStock?t('in_stock'):t('out_of_stock')}
     </div>
     <a class="product-image-wrap" href="product.html?id=${p.id}" aria-label="${name}">
-      <img src="${p.image||'assets/images/MainBannerBig.png'}" alt="${name}" loading="lazy" width="200" height="160">
+      <img src="${p.image||'assets/images/BigBanner1.png'}" alt="${name}" loading="lazy" width="200" height="160">
     </a>
     <div class="product-actions-overlay">
       <button class="product-action-icon fav-btn${isFav?' fav-btn--active':''}" type="button" data-action="favorite" aria-label="${t('to_fav')}">
@@ -498,7 +567,7 @@ const CAT_ICONS={
     g.innerHTML=cats.map((c,i)=>{
       const name=lang==='en'?(c.nameEn||c.name):c.name;
       const icon=CAT_ICONS[c.id]||'assets/icons/category-binokli.svg';
-      return `<a href="catalog.html#${c.slug}" class="category-card" aria-label="${name}">
+      return `<a href="kategoriya.html?cat=${c.slug}" class="category-card" aria-label="${name}">
   <div class="category-icon">
     <img src="${icon}" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
   </div>
@@ -627,6 +696,26 @@ const CAT_ICONS={
     });
   }
 
+  /* --- phone mask --- */
+  function initPhoneMask(){
+    document.querySelectorAll('.phone-wrap input[name="phone"]').forEach(inp=>{
+      inp.addEventListener('input',()=>{
+        let v=inp.value.replace(/\D/g,'');
+        if(v.startsWith('375'))v=v.substring(3);
+        v=v.substring(0,9);
+        let formatted='';
+        if(v.length>0) formatted='('+v.substring(0,2);
+        if(v.length>=2) formatted+=') '+v.substring(2,5);
+        if(v.length>=5) formatted+='-'+v.substring(5,7);
+        if(v.length>=7) formatted+='-'+v.substring(7);
+        inp.value=formatted;
+      });
+      inp.addEventListener('keydown',e=>{
+        if(e.key==='Backspace' && inp.value.length<=1){e.preventDefault();inp.value='';}
+      });
+    });
+  }
+
   /* --- search --- */
   function initSearch(){
     const inp=document.getElementById('search-input'); if(!inp) return;
@@ -644,7 +733,7 @@ const CAT_ICONS={
       const opt=e.target.closest('.city-option');if(!opt)return;e.preventDefault();
       const city=opt.dataset.city; store(STORAGE.city,city);
       document.querySelectorAll('#city-label').forEach(el=>el.textContent=city);
-      closeModal(document.getElementById('city-modal')); showToast(`Город: ${city}`);
+      closeModal(document.getElementById('city-modal')); showToast(getLang()==='en'?'City: '+city:'\u0413\u043e\u0440\u043e\u0434: '+city);
     });
     document.getElementById('city-search')?.addEventListener('input',function(){
       const q=this.value.trim().toLowerCase();
@@ -660,7 +749,7 @@ const CAT_ICONS={
         const phoneInput = e.target.querySelector('[name="phone"]');
         if (phoneInput && phoneInput.value.trim()) {
           const pc = phoneInput.value.replace(/\D/g, '');
-          if (!pc.startsWith('375')) { showToast(t('phone_must_375'), 'error'); return; }
+          if (pc.length !== 9) { showToast(t('phone_must_375'), 'error'); return; }
         }
         const btn=e.target.querySelector('[type=submit]');
         if(btn){btn.disabled=true;const orig=btn.textContent;btn.textContent='…';}
@@ -707,17 +796,48 @@ const CAT_ICONS={
       const c      = document.getElementById('reg-confirm')?.value;
       if (!name || !phone || !email) { showToast(t('fill_required'), 'error'); return; }
       const phoneClean = phone.replace(/\D/g, '');
-      if (!phoneClean.startsWith('375')) { showToast(t('phone_must_375'), 'error'); return; }
+      if (phoneClean.length !== 9) { showToast(t('phone_must_375'), 'error'); return; }
+      const fullPhone = '+375' + phoneClean;
       if (p !== c)        { showToast(t('passwords_mismatch'), 'error'); return; }
       if ((p || '').length < 8) { showToast(t('password_min8'), 'error'); return; }
-      // Check email uniqueness in localStorage-registered users
       const localUsers = JSON.parse(localStorage.getItem('teleoptics.reg_users') || '[]');
       if (localUsers.some(u => u.email === email)) {
         showToast(t('email_exists'), 'error'); return;
       }
-      const newUser = { id: Date.now(), name, phone, email, role: 'user', mode: 'user' };
+      if (localUsers.some(u => u.phone === fullPhone)) {
+        showToast('\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0441 \u0442\u0430\u043a\u0438\u043c \u043d\u043e\u043c\u0435\u0440\u043e\u043c \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442', 'error'); return;
+      }
+      // Also check db.json users
+      try {
+        const dbUsers = window._db?.users || [];
+        if (dbUsers.some(u => u.email === email)) {
+          showToast(t('email_exists'), 'error'); return;
+        }
+        if (dbUsers.some(u => u.phone === fullPhone)) {
+          showToast('\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0441 \u0442\u0430\u043a\u0438\u043c \u043d\u043e\u043c\u0435\u0440\u043e\u043c \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442', 'error'); return;
+        }
+      } catch(e) {}
+      if (localUsers.some(u => u.phone === fullPhone)) {
+        showToast('Пользователь с таким номером уже существует', 'error'); return;
+      }
+      const allUsers = [...(window._db?.users || []), ...localUsers];
+      const maxId = allUsers.reduce((max, u) => Math.max(max, u.id || 0), 0);
+      const newUser = { id: maxId + 1, name, phone: fullPhone, email, role: 'user', mode: 'user' };
       localUsers.push(newUser);
       localStorage.setItem('teleoptics.reg_users', JSON.stringify(localUsers));
+      // Save to db.json via json-server
+      try {
+        const resp = await fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newUser)
+        });
+        if (resp.ok) {
+          const saved = await resp.json();
+          newUser.id = saved.id;
+          if (window._db) window._db.users.push(saved);
+        }
+      } catch(e) { console.warn('Failed to save to db.json:', e); }
       closeModal(document.getElementById('register-modal'));
       finishLogin(newUser);
     });
@@ -858,13 +978,65 @@ const CAT_ICONS={
         ? `<a class="user-dd-item" href="admin.html"><span>⚙</span> Панель администратора</a>
            <div class="user-dd-divider"></div>`
         : ''}
-      <a class="user-dd-item" href="#"><span>👤</span> Личный кабинет</a>
+      <a class="user-dd-item" href="#" id="profile-link"><span>👤</span> Личный кабинет</a>
       <a class="user-dd-item" href="cart.html"><span>🛒</span> Мои заказы</a>
       <div class="user-dd-divider"></div>
       <button class="user-dd-item user-dd-logout" type="button"><span>🚪</span> Выйти</button>`;
     menu.querySelector('.user-dd-logout')?.addEventListener('click', logout);
+    menu.querySelector('#profile-link')?.addEventListener('click', e => {
+      e.preventDefault();
+      openModal('profile-modal');
+      loadProfileData();
+    });
     return menu;
   }
+
+  function loadProfileData() {
+    const u = store(STORAGE.user);
+    if (!u) return;
+    const initials = (u.name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+    const avatarEl = document.getElementById('profile-avatar');
+    if (avatarEl) avatarEl.textContent = initials;
+    const nameDisp = document.getElementById('profile-name-display');
+    if (nameDisp) nameDisp.textContent = u.name || '—';
+    const roleDisp = document.getElementById('profile-role-display');
+    if (roleDisp) roleDisp.textContent = (u.role === 'admin' && u.mode === 'admin') ? 'Администратор' : 'Покупатель';
+    document.getElementById('profile-name').value = u.name || '';
+    document.getElementById('profile-phone').value = u.phone || '';
+    document.getElementById('profile-email').value = u.email || '';
+    document.getElementById('profile-name').readOnly = true;
+    document.getElementById('profile-phone').readOnly = true;
+    document.getElementById('profile-email').readOnly = true;
+    document.getElementById('profile-edit-btn').style.display = '';
+    document.getElementById('profile-save-btn').style.display = 'none';
+    document.getElementById('profile-cancel-btn').style.display = 'none';
+    document.getElementById('profile-admin-btn').style.display = (u.role === 'admin' && u.mode === 'admin') ? '' : 'none';
+  }
+
+  document.getElementById('profile-edit-btn')?.addEventListener('click', () => {
+    document.getElementById('profile-name').readOnly = false;
+    document.getElementById('profile-phone').readOnly = false;
+    document.getElementById('profile-email').readOnly = false;
+    document.getElementById('profile-edit-btn').style.display = 'none';
+    document.getElementById('profile-save-btn').style.display = '';
+    document.getElementById('profile-cancel-btn').style.display = '';
+  });
+
+  document.getElementById('profile-cancel-btn')?.addEventListener('click', loadProfileData);
+
+  document.getElementById('profile-save-btn')?.addEventListener('click', () => {
+    const u = store(STORAGE.user);
+    if (!u) return;
+    u.name = document.getElementById('profile-name').value.trim();
+    u.phone = document.getElementById('profile-phone').value.trim();
+    u.email = document.getElementById('profile-email').value.trim();
+    store(STORAGE.user, u);
+    updateAuthUI(u);
+    showToast(t('settings_reset'), 'success');
+    loadProfileData();
+  });
+
+  document.getElementById('profile-logout-btn')?.addEventListener('click', logout);
 
   /* --- accordion --- */
   function initAccordion(){
@@ -940,6 +1112,7 @@ const CAT_ICONS={
     initTopMore();
     initNavDropdowns();
     initModals();
+    initPhoneMask();
     initSearch();
     initCity();
     initForms();
@@ -1112,7 +1285,7 @@ const CAT_ICONS={
     const miniCard = p => `
       <div class="sidebar-mini-card" data-product-id="${p.id}">
         <a href="product.html?id=${p.id}" class="sidebar-mini-img-wrap">
-          <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+          <img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
         </a>
         <div class="sidebar-mini-info">
           <a href="product.html?id=${p.id}" class="sidebar-mini-name">${p.name}</a>
@@ -1305,7 +1478,7 @@ async function renderViewedPopup() {
     return `
 <a class="viewed-mini-card" href="product.html?id=${p.id}">
   <div class="viewed-mini-stock">В наличии</div>
-  <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+  <img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
   <div class="viewed-mini-thumbs">
     <div class="viewed-mini-thumb active"></div>
     <div class="viewed-mini-thumb"></div>
@@ -1442,7 +1615,7 @@ async function renderCartModal() {
     totalQty += qty;
     return `
 <div class="cart-modal-item" data-product-id="${p.id}">
-  <img class="cart-modal-item-img" src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+  <img class="cart-modal-item-img" src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
   <a class="cart-modal-item-name" href="product.html?id=${p.id}">${p.name}</a>
   <div class="cart-modal-item-qty">
     <button class="cart-modal-qty-btn" data-dir="-1" aria-label="Уменьшить">−</button>
@@ -1534,7 +1707,7 @@ async function renderCompareModal() {
 <div class="popup-mini-card" data-product-id="${p.id}">
   <button class="popup-mini-card-remove" type="button" aria-label="Удалить из сравнения">×</button>
   <a href="product.html?id=${p.id}" style="text-decoration:none">
-    <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+    <img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
     <div class="popup-mini-card-name">${p.name}</div>
     <div class="popup-mini-card-price">${fmtP(p.price)}</div>
   </a>
@@ -1590,7 +1763,7 @@ async function renderFavoritesModal() {
 <div class="popup-mini-card" data-product-id="${p.id}">
   <button class="popup-mini-card-remove" type="button" aria-label="Удалить из избранного">×</button>
   <a href="product.html?id=${p.id}" style="text-decoration:none">
-    <img src="${p.image || 'assets/images/MainBannerBig.png'}" alt="${p.name}" loading="lazy">
+    <img src="${p.image || 'assets/images/BigBanner1.png'}" alt="${p.name}" loading="lazy">
     <div class="popup-mini-card-name">${p.name}</div>
     <div class="popup-mini-card-price">${fmtP(p.price)}</div>
   </a>

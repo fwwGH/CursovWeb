@@ -114,7 +114,7 @@
 <nav class="header-nav" aria-label="Основная навигация">
   <div class="container">
     <ul class="nav-list">
-      <li class="nav-item"><a href="kategoriya.html?cat=teleskopy" class="nav-link">Телескопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=binokli" class="nav-link">Бинокли</a></li><li class="nav-item"><a href="kategoriya.html?cat=lupy" class="nav-link">Лупы</a></li><li class="nav-item"><a href="kategoriya.html?cat=mikroskopy" class="nav-link">Микроскопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=zritelnye-truby" class="nav-link">Зрительные трубы</a></li><li class="nav-item"><a href="kategoriya.html?cat=monokulary" class="nav-link">Монокуляры</a></li><li class="nav-item"><a href="kategoriya.html?cat=pritsely" class="nav-link">Прицелы</a></li><li class="nav-item"><a href="kategoriya.html?cat=dalnomery" class="nav-link">Дальномеры</a></li><li class="nav-item"><a href="kategoriya.html?cat=teplovizory" class="nav-link">Тепловизоры</a></li>
+      <li class="nav-item"><a href="kategoriya.html?cat=teleskopy" class="nav-link" data-i18n="cat_teleskopy">Телескопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=binokli" class="nav-link" data-i18n="cat_binokli">Бинокли</a></li><li class="nav-item"><a href="kategoriya.html?cat=lupy" class="nav-link" data-i18n="cat_lupy">Лупы</a></li><li class="nav-item"><a href="kategoriya.html?cat=mikroskopy" class="nav-link" data-i18n="cat_mikroskopy">Микроскопы</a></li><li class="nav-item"><a href="kategoriya.html?cat=zritelnye-truby" class="nav-link" data-i18n="cat_zritelnye">Зрительные трубы</a></li><li class="nav-item"><a href="kategoriya.html?cat=monokulary" class="nav-link" data-i18n="cat_monokulary">Монокуляры</a></li><li class="nav-item"><a href="kategoriya.html?cat=pritsely" class="nav-link" data-i18n="cat_pritsely">Прицелы</a></li><li class="nav-item"><a href="kategoriya.html?cat=dalnomery" class="nav-link" data-i18n="cat_dalnomery">Дальномеры</a></li><li class="nav-item"><a href="kategoriya.html?cat=teplovizory" class="nav-link" data-i18n="cat_teplovizory">Тепловизоры</a></li>
       <li class="nav-item">
         <a href="#" class="nav-link nav-link-more">Еще <img class="ui-icon ui-icon-xs" data-icon="chevron-down" alt="" aria-hidden="true"></a>
         <div class="nav-dropdown">
@@ -179,10 +179,8 @@
         <!-- Контактные данные -->
         <div class="checkout-form-section">
           <h3>Контактные данные</h3>
-          <div class="form-row">
-            <div class="form-group"><input type="text" name="name" placeholder="Ваше имя *" required aria-label="Имя"></div>
-            <div class="form-group"><input type="tel" name="phone" placeholder="+375 (__) ___-__-__" required aria-label="Телефон" id="checkout-phone"></div>
-          </div>
+          <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required aria-label="Имя"></div>
+      <div class="form-group"><div class="phone-wrap"><span class="phone-prefix">+375</span><input type="tel" name="phone" placeholder="(___) ___-__-__" required aria-label="Телефон" maxlength="18"></div></div>
           <div class="form-group"><input type="email" name="email" placeholder="Email" aria-label="Email"></div>
         </div>
 
@@ -238,7 +236,7 @@
       <div>
         <h3 class="footer-col-title" data-i18n="footer_catalog">Каталог</h3>
         <ul class="footer-links">
-          <li><a href="kategoriya.html?cat=binokli">Бинокли</a></li><li><a href="kategoriya.html?cat=teleskopy">Телескопы</a></li><li><a href="kategoriya.html?cat=monokulary">Монокуляры</a></li><li><a href="kategoriya.html?cat=lupy">Лупы</a></li><li><a href="kategoriya.html?cat=mikroskopy">Микроскопы</a></li><li><a href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы</a></li><li><a href="kategoriya.html?cat=dalnomery">Дальномеры</a></li><li><a href="kategoriya.html?cat=teplovizory">Тепловизоры</a></li>
+          <li><a href="kategoriya.html?cat=binokli" data-i18n="cat_binokli">Бинокли</a></li><li><a href="kategoriya.html?cat=teleskopy" data-i18n="cat_teleskopy">Телескопы</a></li><li><a href="kategoriya.html?cat=monokulary" data-i18n="cat_monokulary">Монокуляры</a></li><li><a href="kategoriya.html?cat=lupy" data-i18n="cat_lupy">Лупы</a></li><li><a href="kategoriya.html?cat=mikroskopy" data-i18n="cat_mikroskopy">Микроскопы</a></li><li><a href="kategoriya.html?cat=zritelnye-truby">Зрительные трубы</a></li><li><a href="kategoriya.html?cat=dalnomery" data-i18n="cat_dalnomery">Дальномеры</a></li><li><a href="kategoriya.html?cat=teplovizory" data-i18n="cat_teplovizory">Тепловизоры</a></li>
         </ul>
       </div>
       <div>
@@ -253,7 +251,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copyright">© 2022 Бинокль. Все права защищены.</div>
+      <div class="footer-copyright">© 2026 Tele-Optics. All rights reserved.</div>
     </div>
   </div>
 </footer>
@@ -313,6 +311,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   let total = 0;
   let totalQty = 0;
 
+  // Auto-fill from logged-in user
+  const userData = JSON.parse(localStorage.getItem('teleoptics.user') || 'null');
+  if (userData) {
+    const nameInput = document.querySelector('[name="name"]');
+    const phoneInput = document.querySelector('[name="phone"]');
+    const emailInput = document.querySelector('[name="email"]');
+    if (nameInput && userData.name) nameInput.value = userData.name;
+    if (phoneInput && userData.phone) {
+      const pc = userData.phone.replace(/\D/g, '');
+      if (pc.startsWith('375')) {
+        const digits = pc.substring(3);
+        phoneInput.value = '+375 (' + digits.substring(0,2) + ') ' + digits.substring(2,5) + '-' + digits.substring(5,7) + '-' + digits.substring(7);
+      } else {
+        phoneInput.value = userData.phone;
+      }
+    }
+    if (emailInput && userData.email) emailInput.value = userData.email;
+  }
+
   const summaryEl = document.getElementById('checkout-summary');
   let html = '<h3>Ваш заказ</h3>';
   items.forEach(item => {
@@ -320,7 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     total += price;
     totalQty += item.quantity;
     html += `<div class="checkout-summary-item">
-      <img src="${item.product.image || 'assets/images/MainBannerBig.png'}" alt="${item.product.name}">
+      <img src="${item.product.image || 'assets/images/BigBanner1.png'}" alt="${item.product.name}">
       <div class="checkout-summary-item-info">
         <div class="checkout-summary-item-name">${item.product.name}</div>
         <div class="checkout-summary-item-qty">${item.quantity} шт.</div>
@@ -340,17 +357,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (phoneInput) {
     phoneInput.addEventListener('input', function() {
       let v = this.value.replace(/\D/g, '');
-      if (v.startsWith('375')) {
-        this.value = '+375 (' + v.slice(3,5) + ') ' + v.slice(5,8) + '-' + v.slice(8,10) + '-' + v.slice(10,12);
-      } else if (v.startsWith('7')) {
-        this.value = '+7 (' + v.slice(1,4) + ') ' + v.slice(4,7) + '-' + v.slice(7,9) + '-' + v.slice(9,11);
-      }
-    });
-    phoneInput.addEventListener('blur', function() {
-      const v = this.value.replace(/\D/g, '');
-      if (v && !v.startsWith('375') && !v.startsWith('7')) {
-        this.value = '+375 ' + this.value;
-      }
+      if (v.startsWith('375')) v = v.substring(3);
+      v = v.substring(0, 9);
+      let formatted = '';
+      if (v.length > 0) formatted = '(' + v.substring(0, 2);
+      if (v.length >= 2) formatted += ') ' + v.substring(2, 5);
+      if (v.length >= 5) formatted += '-' + v.substring(5, 7);
+      if (v.length >= 7) formatted += '-' + v.substring(7);
+      this.value = '+375' + (formatted ? ' ' + formatted : '');
     });
   }
 
@@ -371,5 +385,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 </script>
 <script src="js/app.js" defer></script>
+<!-- Profile Modal -->
+<div class="modal-overlay" id="profile-modal" role="dialog" aria-modal="true" aria-label="Личный кабинет">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h2 class="modal-title">Личный кабинет</h2>
+    <div class="profile-data">
+      <div class="profile-field"><label>Имя</label><input type="text" id="profile-name" readonly></div>
+      <div class="profile-field"><label>Телефон</label><input type="tel" id="profile-phone" readonly></div>
+      <div class="profile-field"><label>Email</label><input type="email" id="profile-email" readonly></div>
+    </div>
+    <div class="profile-actions">
+      <button class="btn btn-outline" type="button" id="profile-edit-btn">Редактировать</button>
+      <button class="btn btn-primary" type="button" id="profile-save-btn" style="display:none;">Сохранить</button>
+      <button class="btn btn-outline" type="button" id="profile-cancel-btn" style="display:none;">Отмена</button>
+    </div>
+    <div class="profile-actions" style="margin-top:12px; border-top:1px solid var(--clr-border-light); padding-top:12px;">
+      <a href="admin.html" class="btn btn-outline" id="profile-admin-btn" style="display:none; width:100%; text-align:center;">Перейти в админ-панель</a>
+      <button class="btn btn-outline" type="button" id="profile-logout-btn" style="width:100%; text-align:center; color:var(--clr-danger);">Выйти из аккаунта</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
