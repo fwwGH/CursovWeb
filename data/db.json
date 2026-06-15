@@ -184,7 +184,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": false,
-      "image": "/assets/images/bpc2_10x40.jpg",
+      "image": "assets/images/bpc2_10x40.jpg",
       "brand": "Veber",
       "specs": {
         "magnification": "10x",
@@ -211,7 +211,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": false,
-      "image": "/assets/images/Veber-Classic-20x50.jpg",
+      "image": "assets/images/Veber-Classic-20x50.jpg",
       "brand": "Veber",
       "specs": {
         "magnification": "8-30x",
@@ -238,7 +238,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": true,
-      "image": "/assets/images/bpc2_10x40.jpg",
+      "image": "assets/images/bpc2_10x40.jpg",
       "brand": "Veber",
       "specs": {
         "magnification": "10x",
@@ -265,7 +265,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": false,
-      "image": "/assets/images/bpc2_10x40.jpg",
+      "image": "assets/images/bpc2_10x40.jpg",
       "brand": "Veber",
       "specs": {
         "magnification": "10x",
@@ -292,7 +292,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/VeberF700.jpg",
+      "image": "assets/images/VeberF700.jpg",
       "brand": "Veber",
       "specs": {
         "type": "Рефрактор",
@@ -317,7 +317,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": false,
-      "image": "/assets/images/Sky-WatcherBK.jpg",
+      "image": "assets/images/Sky-WatcherBK.jpg",
       "brand": "Sky-Watcher",
       "specs": {
         "type": "Рефлектор",
@@ -342,7 +342,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": false,
-      "image": "/assets/images/NikonForestryPro2.jpg",
+      "image": "assets/images/NikonForestryPro2.jpg",
       "brand": "Nikon",
       "specs": {
         "magnification": "6x",
@@ -368,7 +368,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/leica_rangemaster.jpg",
+      "image": "assets/images/leica_rangemaster.jpg",
       "brand": "Leica",
       "specs": {
         "magnification": "7x",
@@ -394,7 +394,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/vortex_crossfire.jpg",
+      "image": "assets/images/vortex_crossfire.jpg",
       "brand": "Vortex",
       "specs": {
         "magnification": "2-7x",
@@ -420,7 +420,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": true,
-      "image": "/assets/images/monocular-levenhuk-wise.jpg",
+      "image": "assets/images/monocular-levenhuk-wise.jpg",
       "brand": "Levenhuk",
       "specs": {
         "magnification": "8x",
@@ -471,7 +471,7 @@
       "inStock": true,
       "isHit": true,
       "isNew": true,
-      "image": "/assets/images/hikmicro-gryphon-gq35l.jpg",
+      "image": "assets/images/hikmicro-gryphon-gq35l.jpg",
       "brand": "HIKMICRO",
       "specs": {
         "resolution": "384x288",
@@ -497,7 +497,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/Veber-Classic-20x50.jpg",
+      "image": "assets/images/Veber-Classic-20x50.jpg",
       "brand": "Veber",
       "articleNo": "133125",
       "specs": {
@@ -525,7 +525,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/binoculars-celestron-nature.jpg",
+      "image": "assets/images/binoculars-celestron-nature.jpg",
       "brand": "Celestron",
       "specs": {
         "magnification": "8x",
@@ -552,7 +552,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/bresser-travel-20-60x80-spotting.jpg",
+      "image": "assets/images/bresser-travel-20-60x80-spotting.jpg",
       "brand": "Bresser",
       "specs": {
         "magnification": "20-60x",
@@ -579,7 +579,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/Veber1015_5x.jpg",
+      "image": "assets/images/Veber1015_5x.jpg",
       "brand": "Veber",
       "specs": {
         "magnification": "5x",
@@ -603,7 +603,7 @@
       "inStock": false,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/Meade8_LX90-ACF.jpg",
+      "image": "assets/images/Meade8_LX90-ACF.jpg",
       "brand": "Meade",
       "specs": {
         "type": "Катадиоптрик (ACF)",
@@ -628,7 +628,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/BurrisEliminator3.jpg",
+      "image": "assets/images/BurrisEliminator3.jpg",
       "brand": "Burris",
       "specs": {
         "magnification": "4-16x",
@@ -654,7 +654,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/yukon_nvmt_spartan_2x24.webp",
+      "image": "assets/images/yukon_nvmt_spartan_2x24.webp",
       "brand": "Yukon",
       "specs": {
         "magnification": "2x",
@@ -680,7 +680,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/celestron-labs-cm2000cf.jpg",
+      "image": "assets/images/celestron-labs-cm2000cf.jpg",
       "brand": "Celestron",
       "specs": {
         "magnification": "20-2000x",
@@ -704,7 +704,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/nikon_10_50_cf_action_ex.jpg",
+      "image": "assets/images/nikon_10_50_cf_action_ex.jpg",
       "brand": "Nikon",
       "specs": {
         "magnification": "10x",
@@ -731,7 +731,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/olympus-8-42-pro.jpg",
+      "image": "assets/images/olympus-8-42-pro.jpg",
       "brand": "Olympus",
       "specs": {
         "magnification": "8x",
@@ -758,7 +758,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/bushnell-elite-1-mile-arc.jpg",
+      "image": "assets/images/bushnell-elite-1-mile-arc.jpg",
       "brand": "Bushnell",
       "specs": {
         "magnification": "7x",
@@ -784,7 +784,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/FLIR-Scout-TK.jpg",
+      "image": "assets/images/FLIR-Scout-TK.jpg",
       "brand": "FLIR",
       "specs": {
         "resolution": "160x120",
@@ -810,7 +810,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/Bresser-Messier_NT-130.jpg",
+      "image": "assets/images/Bresser-Messier_NT-130.jpg",
       "brand": "Bresser",
       "specs": {
         "type": "Рефрактор (ахромат)",
@@ -835,7 +835,7 @@
       "inStock": false,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/Kowa-TSN-883.jpg",
+      "image": "assets/images/Kowa-TSN-883.jpg",
       "brand": "Kowa",
       "specs": {
         "magnification": "20-60x",
@@ -862,7 +862,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/eschenbach-mobilux-led.jpg",
+      "image": "assets/images/eschenbach-mobilux-led.jpg",
       "brand": "Eschenbach",
       "specs": {
         "magnification": "10x",
@@ -886,7 +886,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/March_1-10x24_Shorty.png",
+      "image": "assets/images/March_1-10x24_Shorty.png",
       "brand": "March",
       "specs": {
         "magnification": "1-10x",
@@ -912,7 +912,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/leica-monokuljar-monovid-8x20.jpg",
+      "image": "assets/images/leica-monokuljar-monovid-8x20.jpg",
       "brand": "Leica",
       "specs": {
         "magnification": "8x",
@@ -939,7 +939,7 @@
       "inStock": true,
       "isHit": false,
       "isNew": false,
-      "image": "/assets/images/levenhuk-med-30t-trinocular.jpg",
+      "image": "assets/images/levenhuk-med-30t-trinocular.jpg",
       "brand": "Levenhuk",
       "specs": {
         "magnification": "40-1000x",

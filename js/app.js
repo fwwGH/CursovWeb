@@ -174,7 +174,6 @@
       about_goal3:'сотрудничество с ведущими производителями оптических приборов;',
       about_goal4:'бесплатные консультации по выбору предпочитаемого ассортимента;',
       about_goal5:'обеспечение безупречного качества постоянных поставщиков.',
-      consultation_desc:'Задайте их по телефону или оставьте свои координаты и наш менеджер перезвонит вам.',
       blog_relevant:'Актуально на сегодня', blog_comments:'Комментарии', city_search:'Поиск населённого пункта',
       // A11y
       a11y_title:'Версия для слабовидящих', a11y_fontsize:'Размер шрифта',
@@ -215,12 +214,6 @@
       fill_required:'Заполните все обязательные поля', passwords_mismatch:'Пароли не совпадают',
       password_min8:'Пароль: минимум 8 символов', email_exists:'Пользователь с таким email уже существует',
       welcome:'Добро пожаловать',
-      subcat_army:'Армейско-полевой', subcat_astro:'Астрономический', subcat_kids:'Для детей',
-      subcat_hunting:'Для охоты и рыбалки', subcat_city:'Для города', subcat_pro:'Для профессионалов',
-      subcat_amateur:'Любительский',
-      feat_delivery:'Быстрая доставка', feat_certified:'Весь товар сертифицирован',
-      feat_consult:'Бесплатная консультация', feat_payment:'Удобная оплата',
-      feat_lowprice:'Низкие цены', feat_warranty:'Гарантия на товар',
 
     },
     en:{
@@ -277,7 +270,6 @@
       about_goal3:'cooperation with leading manufacturers of optical instruments;',
       about_goal4:'free consultations on choosing the desired product range;',
       about_goal5:'ensuring impeccable quality from our suppliers.',
-      consultation_desc:'Call us or leave your details and our manager will call you back.',
       blog_relevant:'Trending now', blog_comments:'Comments', city_search:'Search city',
       a11y_title:'Accessibility', a11y_fontsize:'Font size',
       a11y_scheme:'Color scheme', a11y_images:'Images',
@@ -313,12 +305,6 @@
       fill_required:'Fill in all required fields', passwords_mismatch:'Passwords do not match',
       password_min8:'Password: minimum 8 characters', email_exists:'User with this email already exists',
       welcome:'Welcome',
-      subcat_army:'Field/Tactical', subcat_astro:'Astronomical', subcat_kids:'Kids',
-      subcat_hunting:'Hunting & fishing', subcat_city:'Urban', subcat_pro:'Professional',
-      subcat_amateur:'Amateur',
-      feat_delivery:'Fast delivery', feat_certified:'All products certified',
-      feat_consult:'Free consultation', feat_payment:'Easy payment',
-      feat_lowprice:'Low prices', feat_warranty:'Warranty on products',
 
     },
   };
