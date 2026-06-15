@@ -1,6 +1,27 @@
 /**
  * TELE-OPTICS — Full Application Script
  * Vanilla JS · No frameworks · No jQuery
+ *
+ * Разделы кода:
+ *   STORAGE, TR        — константы хранилища и переводы (RU/EN)
+ *   getLang/applyLang  — управление языком интерфейса
+ *   getTheme/applyTheme — управление темой (светлая/тёмная)
+ *   getA11y/applyA11y   — версия для слабовидящих
+ *   loadDb/getAdminProducts — загрузка данных из JSON Server
+ *   fmtPrice/stars     — форматирование цен и рейтинга
+ *   addToCart/toggleFav/toggleCompare — корзина, избранное, сравнение
+ *   productCard/renderHits/renderRecommended — рендер карточек товаров
+ *   renderCategories/renderBanner — рендер категорий и баннеров
+ *   makeCarousel        — карусель товаров
+ *   initMobileMenu      — мобильное вложенное меню
+ *   initModals/initSearch/initCity — модалки, поиск, выбор города
+ *   initForms/initPhoneMask — формы обратной связи, маска телефона
+ *   initAccordion/initFilter/initGallery — аккордеон, фильтры, галерея
+ *   initHeroSlider      — hero-слайдер на главной/акциях
+ *   initKategoriyaPage  — фильтрация на странице категории
+ *   initLang/initA11y/initReset — инициализация языка, a11y, сброс
+ *   updateAuthUI/buildUserMenu/logout — аутентификация и личный кабинет
+ *   restoreSession/init — восстановление сессии и запуск
  */
 
 (() => {
@@ -8,6 +29,9 @@
 
   const API_BASE = 'http://localhost:3000';
 
+  /* ═══════════════════════════════════════════
+     Константы хранилища (localStorage keys)
+     ═══════════════════════════════════════════ */
   const STORAGE = {
     theme:    'teleoptics.theme',
     lang:     'teleoptics.lang',
@@ -75,12 +99,19 @@
     document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = label);
     document.querySelectorAll('.theme-toggle').forEach(b => b.setAttribute('aria-pressed', theme === 'dark'));
   }
+  /* ═══════════════════════════════════════════
+     Управление темой (светлая / тёмная)
+     ═══════════════════════════════════════════ */
   function initTheme() {
     applyTheme(getTheme());
     document.querySelectorAll('.theme-toggle').forEach(b => b.addEventListener('click', () => applyTheme(getTheme() === 'dark' ? 'light' : 'dark')));
   }
 
   /* --- translations --- */
+  /* ═══════════════════════════════════════════
+     Переводы интерфейса (RU / EN)
+     Все ключи для навигации, кнопок, модалок
+     ═══════════════════════════════════════════ */
   const TR = {
     ru:{
       // Navigation
@@ -291,6 +322,9 @@
 
     },
   };
+  /* ═══════════════════════════════════════════
+     Управление языком интерфейса
+     ═══════════════════════════════════════════ */
   function getLang() { return store(STORAGE.lang) || 'ru'; }
   function t(key) { return (TR[getLang()] || TR.ru)[key] || key; }
   function applyLang(lang) {
@@ -325,6 +359,9 @@
   }
 
   /* --- a11y --- */
+  /* ═══════════════════════════════════════════
+     Версия для слабовидящих
+     ═══════════════════════════════════════════ */
   function getA11y() { return store(STORAGE.a11y) || { on:false, fontSize:'normal', scheme:'default', images:'show', fontFamily:'default' }; }
   function applyA11y(state) {
     store(STORAGE.a11y, state);
@@ -407,6 +444,9 @@
 
   /* --- fetch --- */
   async function fetchJson(url) { const r=await fetch(url,{headers:{Accept:'application/json'}}); if(!r.ok) throw new Error(r.status); return r.json(); }
+  /* ═══════════════════════════════════════════
+     Загрузка данных из JSON Server
+     ═══════════════════════════════════════════ */
   async function loadDb() {
     let categories, products, brands, banners;
     try {
@@ -438,6 +478,9 @@
   }
 
   /* --- format --- */
+  /* ═══════════════════════════════════════════
+     Утилиты: форматирование цен, рейтинга
+     ═══════════════════════════════════════════ */
   function fmtPrice(n) { return new Intl.NumberFormat('ru-RU').format(n)+' ₽'; }
   function stars(r,max=5) { let h=''; for(let i=1;i<=max;i++) h+=`<span style="color:${i<=Math.round(r)?'#ffd600':'#d0d6dd'}">★</span>`; return h; }
 
@@ -447,6 +490,9 @@
   const getCompare=()=>store(STORAGE.compare)||[];
   const getViewed=()=>store(STORAGE.viewed)||[];
 
+  /* ═══════════════════════════════════════════
+     Корзина, избранное, сравнение, просмотренные
+     ═══════════════════════════════════════════ */
   function addToCart(id) {
     const c=getCart(); const it=c.find(i=>i.productId===id);
     const qtyInput = document.querySelector('.quantity-wrap .qty-input');
@@ -489,6 +535,9 @@
   window.updateBadges = updateBadges;
 
   /* --- product card --- */
+  /* ═══════════════════════════════════════════
+     Рендер карточек товаров, каруселей
+     ═══════════════════════════════════════════ */
   function productCard(p) {
     const lang=getLang(); const name=lang==='en'?(p.nameEn||p.name):p.name;
     const inStock=!!p.inStock; const price=fmtPrice(p.price||0);
@@ -549,6 +598,9 @@
     });
   }
 
+  /* ═══════════════════════════════════════════
+     Рендер категорий, баннеров
+     ═══════════════════════════════════════════ */
   /* --- categories --- */
 const CAT_ICONS={
     1: 'assets/icons/binokly.svg',
@@ -577,6 +629,9 @@ const CAT_ICONS={
     }).join('');
   }
 
+  /* ═══════════════════════════════════════════
+     Карусель товаров (хиты, рекомендуемые)
+     ═══════════════════════════════════════════ */
   /* --- carousel --- */
   function makeCarousel(rowId, dotsId, prevSel, nextSel, perPage=4) {
     const row=document.getElementById(rowId); if(!row) return null;
@@ -646,6 +701,9 @@ const CAT_ICONS={
   /* --- hero slider (два независимых) --- */
   
 
+  /* ═══════════════════════════════════════════
+     Мобильное вложенное меню (index, catalog)
+     ═══════════════════════════════════════════ */
   /* --- mobile menu --- */
   function initMobileMenu() {
     const menu=document.getElementById('mobile-menu'); const burger=document.querySelector('.burger-btn');
@@ -664,6 +722,9 @@ const CAT_ICONS={
     document.getElementById('mobile-catalog-back')?.addEventListener('click',()=>{resetMenuView();});
   }
 
+  /* ═══════════════════════════════════════════
+     Модальные окна: вход, регистрация, город
+     ═══════════════════════════════════════════ */
   /* --- modals --- */
   function openModal(id){const el=document.getElementById(id);if(!el)return;el.classList.add('open');document.body.style.overflow='hidden';el.querySelector('input')?.focus();}
   function closeModal(el){if(!el)return;el.classList.remove('open');if(!document.querySelector('.modal-overlay.open'))document.body.style.overflow='';}
@@ -687,6 +748,9 @@ const CAT_ICONS={
     });
   }
 
+  /* ═══════════════════════════════════════════
+     Выпадающее меню навигации (header)
+     ═══════════════════════════════════════════ */
   /* --- nav dropdown --- */
   function initNavDropdowns(){
     document.querySelectorAll('.nav-item').forEach(item=>{
@@ -696,6 +760,9 @@ const CAT_ICONS={
     });
   }
 
+  /* ═══════════════════════════════════════════
+     Маска ввода телефона (+375 XX) XXX-XX-XX
+     ═══════════════════════════════════════════ */
   /* --- phone mask --- */
   function initPhoneMask(){
     document.querySelectorAll('.phone-wrap input[name="phone"]').forEach(inp=>{
@@ -716,6 +783,9 @@ const CAT_ICONS={
     });
   }
 
+  /* ═══════════════════════════════════════════
+     Поиск по товарам (строка в шапке)
+     ═══════════════════════════════════════════ */
   /* --- search --- */
   function initSearch(){
     const inp=document.getElementById('search-input'); if(!inp) return;
@@ -724,6 +794,9 @@ const CAT_ICONS={
     inp.addEventListener('keydown',e=>{if(e.key==='Enter')go();});
   }
 
+  /* ═══════════════════════════════════════════
+     Выбор города (модальное окно)
+     ═══════════════════════════════════════════ */
   /* --- city --- */
   function initCity(){
     const saved=store(STORAGE.city)||'Москва';
@@ -741,6 +814,9 @@ const CAT_ICONS={
     });
   }
 
+  /* ═══════════════════════════════════════════
+     Формы: консультация, рассылка, авторизация
+     ═══════════════════════════════════════════ */
   /* --- forms --- */
   function initForms(){
     const subForm=(id,msg,close_id)=>{
@@ -919,6 +995,9 @@ const CAT_ICONS={
   }
 
   /* ── Обновить UI (имя + выпадающее меню) ── */
+  /* ═══════════════════════════════════════════
+     Обновление UI: шапка, аватар, личный кабинет
+     ═══════════════════════════════════════════ */
   function updateAuthUI(userData) {
     const short   = userData.name.split(' ')[0];
     const isAdmin = userData.role === 'admin' && userData.mode === 'admin';
@@ -970,6 +1049,9 @@ const CAT_ICONS={
     document.querySelectorAll('[data-auth-name]').forEach(el => { el.textContent = short; });
   }
 
+  /* ═══════════════════════════════════════════
+     Меню пользователя (dropdown в шапке)
+     ═══════════════════════════════════════════ */
   function buildUserMenu(isAdmin) {
     const menu = document.createElement('div');
     menu.className = 'user-dd-menu';
@@ -1038,6 +1120,9 @@ const CAT_ICONS={
 
   document.getElementById('profile-logout-btn')?.addEventListener('click', logout);
 
+  /* ═══════════════════════════════════════════
+     Аккордеон (вакансии, гарантии, оплата)
+     ═══════════════════════════════════════════ */
   /* --- accordion --- */
   function initAccordion(){
     document.querySelectorAll('.accordion-item').forEach(item=>{
@@ -1052,6 +1137,9 @@ const CAT_ICONS={
   }
 
   /* --- filter sidebar --- */
+  /* ═══════════════════════════════════════════
+     Фильтрация и сортировка (kategoriya.html)
+     ═══════════════════════════════════════════ */
   function initFilter(){
     const sid=document.querySelector('.filter-sidebar');if(!sid)return;
     const minS=sid.querySelector('[data-filter="price-min"]');const maxS=sid.querySelector('[data-filter="price-max"]');
@@ -1064,6 +1152,9 @@ const CAT_ICONS={
   }
 
   /* --- product gallery --- */
+  /* ═══════════════════════════════════════════
+     Галерея изображений (product.html)
+     ═══════════════════════════════════════════ */
   function initGallery(){
     const thumbs=document.querySelectorAll('.product-thumb');const main=document.querySelector('.product-main-image');if(!thumbs.length||!main)return;
     thumbs.forEach((t,i)=>{t.addEventListener('click',()=>{thumbs.forEach(x=>x.classList.remove('active'));t.classList.add('active');main.src=t.dataset.src||t.src;});if(i===0)t.classList.add('active');});
@@ -1079,6 +1170,9 @@ const CAT_ICONS={
   }
 
   /* --- pagination --- */
+  /* ═══════════════════════════════════════════
+     Пагинация (blog, kategoriya, sales)
+     ═══════════════════════════════════════════ */
   function initPagination(){
     document.querySelectorAll('.pagination').forEach(pg=>{
       pg.addEventListener('click',e=>{
@@ -1094,12 +1188,18 @@ const CAT_ICONS={
      ============================================================ */
 
   /* ── Восстановить сессию при загрузке страницы ── */
+  /* ═══════════════════════════════════════════
+     Восстановление сессии при загрузке
+     ═══════════════════════════════════════════ */
   function restoreSession() {
     const u = store(STORAGE.user);
     if (!u) return;
     updateAuthUI(u);
   }
 
+  /* ═══════════════════════════════════════════
+     Инициализация всего приложения
+     ═══════════════════════════════════════════ */
   async function init() {
     initPreloader();
     initTheme();
