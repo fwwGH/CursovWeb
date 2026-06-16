@@ -184,10 +184,18 @@
           <img class="product-main-image" src="assets/images/BigBanner1.png" alt="Бинокль армейский Veber Classic БПЦ 20x50 VL черный, кожа" id="product-main-img">
         </div>
         <div class="product-thumbs" role="list">
-          <button class="product-thumb active" type="button" data-src="assets/images/BigBanner1.png" aria-label="Фото 1"><img src="assets/images/BigBanner1.png" alt="Фото 1" width="60" height="60"></button>
-          <button class="product-thumb" type="button" data-src="assets/images/BigBanner2.png" aria-label="Фото 2"><img src="assets/images/BigBanner2.png" alt="Фото 2" width="60" height="60"></button>
-          <button class="product-thumb" type="button" data-src="assets/images/BigBanner3.png" aria-label="Фото 3"><img src="assets/images/BigBanner3.png" alt="Фото 3" width="60" height="60"></button>
-          <button class="product-thumb" type="button" data-src="assets/images/BigBanner4.png" aria-label="Фото 4"><img src="assets/images/BigBanner4.png" alt="Фото 4" width="60" height="60"></button>
+          <button class="product-thumb active" type="button" aria-label="Главное фото">
+            <img class="product-thumb-img" src="assets/images/BigBanner1.png" alt="Фото товара" width="80" height="80">
+          </button>
+          <button class="product-thumb product-thumb-empty" type="button" aria-label="Фото 2">
+            <span class="product-thumb-placeholder">Фото 2</span>
+          </button>
+          <button class="product-thumb product-thumb-empty" type="button" aria-label="Фото 3">
+            <span class="product-thumb-placeholder">Фото 3</span>
+          </button>
+          <button class="product-thumb product-thumb-empty" type="button" aria-label="Фото 4">
+            <span class="product-thumb-placeholder">Фото 4</span>
+          </button>
         </div>
       </div>
 
@@ -294,7 +302,7 @@
     <!-- Related products sections -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Рекомендуем</h2>
+        <h2 class="section-title" data-i18n="recommend">Рекомендуем</h2>
         <a href="catalog.html" class="section-link section-link-btn" data-i18n="view_catalog">Смотреть весь каталог <span class="section-link-icon"><img src="assets/icons/chevron-right.svg" alt="" aria-hidden="true"></span></a>
       </div>
       <div class="products-carousel">
@@ -305,7 +313,7 @@
     </section>
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Похожие товары</h2>
+        <h2 class="section-title" data-i18n="similar">Похожие товары</h2>
         <a href="catalog.html" class="section-link section-link-btn" data-i18n="view_catalog">Смотреть весь каталог <span class="section-link-icon"><img src="assets/icons/chevron-right.svg" alt="" aria-hidden="true"></span></a>
       </div>
       <div class="products-carousel">
@@ -316,7 +324,7 @@
     </section>
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">С этим товаром покупают</h2>
+        <h2 class="section-title" data-i18n="bought_with">С этим товаром покупают</h2>
         <a href="catalog.html" class="section-link section-link-btn" data-i18n="view_catalog">Смотреть весь каталог <span class="section-link-icon"><img src="assets/icons/chevron-right.svg" alt="" aria-hidden="true"></span></a>
       </div>
       <div class="products-carousel">
@@ -429,6 +437,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (mainImg && p.image) {
       mainImg.src = p.image;
       mainImg.alt = p.name;
+      /* Обновить первую миниатюру */
+      const firstThumb = document.querySelector('.product-thumb .product-thumb-img');
+      if (firstThumb) { firstThumb.src = p.image; firstThumb.alt = p.name; }
     }
 
     /* Бейджи */

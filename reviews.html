@@ -165,94 +165,10 @@
 <div class="breadcrumbs container"><a href="index.html">Главная</a><span class="sep">/</span><span class="current">Отзывы</span></div>
 <main>
   <div class="container">
-    <h1 class="page-title">Отзывы наших покупателей</h1>
+    <h1 class="page-title" data-i18n="page_reviews">Отзывы наших покупателей</h1>
 
-    <div class="reviews-list" id="reviews-list">
-      <!-- Reviews rendered by JS, static fallback: -->
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar" aria-hidden="true"></div>
-          <div class="review-meta">
-            <div class="review-date">2 сентября 2022</div>
-            <div class="review-author">Ковалёв Алексей Юрьевич</div>
-          </div>
-          <div class="review-rating" aria-label="Оценка 4.5">
-            <span class="stars" aria-hidden="true"><span style="color:#ffd600">★★★★</span><span style="color:#d0d6dd">★</span></span>
-            <span class="rating-value">4.5</span>
-          </div>
-        </div>
-        <div class="review-text">Здравствуйте! Сегодня я забрал на почте посылку - CELESTRON 16X32. Спасибо Вам огромное за бинокль - просто супер! Ребёнку нашему вообще понравился. Я себе тоже такой захотел, на рыбалку с собой брать самый раз в поле, и даже с собой куда нибудь брать, вещь хорошая.</div>
-      </div>
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar" aria-hidden="true"></div>
-          <div class="review-meta">
-            <div class="review-date">2 сентября 2022</div>
-            <div class="review-author">Илья Чекуляев, г. Москва</div>
-          </div>
-          <div class="review-rating" aria-label="Оценка 4.5">
-            <span class="stars" aria-hidden="true"><span style="color:#ffd600">★★★★</span><span style="color:#d0d6dd">★</span></span>
-            <span class="rating-value">4.5</span>
-          </div>
-        </div>
-        <div class="review-text">Отличная работа магазина! Выбрали ребенку на новый год подзорную трубу, менеджер быстро связался и договорились о доставке. Когда товар пришел, то видимо из-за доставки труба была в не рабочем состоянии.</div>
-      </div>
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar" aria-hidden="true"></div>
-          <div class="review-meta">
-            <div class="review-date">2 сентября 2022</div>
-            <div class="review-author">Ковалёв Алексей Юрьевич</div>
-          </div>
-          <div class="review-rating" aria-label="Оценка 4.5">
-            <span class="stars" aria-hidden="true"><span style="color:#ffd600">★★★★</span><span style="color:#d0d6dd">★</span></span>
-            <span class="rating-value">4.5</span>
-          </div>
-        </div>
-        <div class="review-text">О магазине Бинокль: остались только приятные впечатления. Покупал здесь бинокль Bushnell H2O 10x42 Roof 151042. Искал оригинальную модель, на рынке сейчас много подделок под этот бренд.</div>
-      </div>
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar" aria-hidden="true"></div>
-          <div class="review-meta">
-            <div class="review-date">2 сентября 2022</div>
-            <div class="review-author">Ковалёв Алексей Юрьевич</div>
-          </div>
-          <div class="review-rating" aria-label="Оценка 4.5">
-            <span class="stars" aria-hidden="true"><span style="color:#ffd600">★★★★</span><span style="color:#d0d6dd">★</span></span>
-            <span class="rating-value">4.5</span>
-          </div>
-        </div>
-        <div class="review-text">Здравствуйте! Сегодня я забрал на почте посылку - CELESTRON 16X32. Спасибо Вам огромное за бинокль - просто супер!</div>
-      </div>
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar" aria-hidden="true"></div>
-          <div class="review-meta">
-            <div class="review-date">2 сентября 2022</div>
-            <div class="review-author">Ковалёв Алексей Юрьевич</div>
-          </div>
-          <div class="review-rating" aria-label="Оценка 4.5">
-            <span class="stars" aria-hidden="true"><span style="color:#ffd600">★★★★</span><span style="color:#d0d6dd">★</span></span>
-            <span class="rating-value">4.5</span>
-          </div>
-        </div>
-        <div class="review-text">Здравствуйте! Сегодня я забрал на почте посылку - CELESTRON 16X32. Спасибо Вам огромное за бинокль - просто супер! Ребёнку нашему вообще понравился.</div>
-      </div>
-    </div>
-
-    <!-- Pagination -->
-    <nav class="pagination" aria-label="Навигация по страницам">
-      <button class="pagination-btn" type="button" aria-label="Назад">‹ Назад</button>
-      <button class="pagination-btn" type="button" data-page="1">1</button>
-      <button class="pagination-btn active" type="button" data-page="2" aria-current="page">2</button>
-      <button class="pagination-btn" type="button" data-page="3">3</button>
-      <button class="pagination-btn" type="button" data-page="4">4</button>
-      <button class="pagination-btn" type="button" data-page="5">5</button>
-      <span class="pagination-dots">…</span>
-      <button class="pagination-btn" type="button" data-page="18">18</button>
-      <button class="pagination-btn" type="button" aria-label="Далее">Далее ›</button>
-    </nav>
+    <div class="reviews-list" id="reviews-list"></div>
+    <nav class="pagination" id="reviews-pagination" aria-label="Навигация по страницам"></nav>
 
     <!-- Leave review form -->
     <div class="leave-review-section">
@@ -264,16 +180,16 @@
           </svg>
         </div>
         <div class="leave-review-form-wrap">
-          <h2 class="section-title" style="margin-bottom:20px">Оставить отзыв</h2>
+          <h2 class="section-title" data-i18n="leave_review" style="margin-bottom:20px">Оставить отзыв</h2>
           <form id="review-form" novalidate>
             <div class="form-row">
-              <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
-              <div class="form-group"><input type="tel" name="phone" placeholder="Ваш телефон"></div>
+              <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" data-i18n="form_name" required></div>
+              <div class="form-group"><input type="tel" name="phone" placeholder="Ваш телефон" data-i18n="form_phone"></div>
             </div>
-            <div class="form-group"><input type="email" name="email" placeholder="Ваш email"></div>
+            <div class="form-group"><input type="email" name="email" placeholder="Ваш email" data-i18n="form_email"></div>
             <div class="form-group"><textarea name="review" placeholder="Ваш отзыв" rows="4" required></textarea></div>
-            <button type="submit" class="btn btn-primary" style="width:100%">Оставить отзыв</button>
-            <p class="form-note">Нажимая «Оставить отзыв», я соглашаюсь с <a href="#">обработкой персональных данных</a> на условиях <a href="#">Политики конфиденциальности</a>.</p>
+            <button type="submit" class="btn btn-primary" data-i18n="btn_submit" style="width:100%">Оставить отзыв</button>
+            <p class="form-note" data-i18n="form_agree">Нажимая «Оставить отзыв», я соглашаюсь с обработкой персональных данных</p>
           </form>
         </div>
       </div>
@@ -281,12 +197,90 @@
   </div>
 </main>
 <script>
-document.getElementById('review-form')?.addEventListener('submit', async e => {
-  e.preventDefault();
-  await new Promise(r => setTimeout(r, 700));
-  if(window.showToast) showToast('Отзыв отправлен на модерацию!', 'success');
-  e.target.reset();
-});
+(function(){
+  const REVIEWS = [
+    {name:'Алексей Ковалёв',img:'assets/images/people-1.jpg',date:'12 мая 2025',rating:5,text:'Заказывал бинокль CELESTRON 16X32 для рыбалки. Доставка за 2 дня, всё в оригинальной упаковке. Качество оптики превзошло ожидания — даже в сумерках видно отлично. Ребёнок тоже в восторге, берём с собой на прогулки.',product:'Бинокль Celestron 16x32'},
+    {name:'Илья Чекуляев',img:'assets/images/people-2.jpg',date:'3 апреля 2025',rating:5,text:'Выбрал для сына подзорную трубу на Новый год. Менеджер помог определиться с моделью, подсказал нужные характеристики. Доставили вовремя, труба в идеальном состоянии. Мальчик доволен!',product:'Зрительная труба Veber'},
+    {name:'Мария Петрова',img:'assets/images/people-3.jpg',date:'18 марта 2025',rating:4,text:'Покупала микроскоп для дочери — учится на биологическом факультете. Выбрали Levenhuk Med 30T. Качество сборки отличное, линзы чёткие. Единственное — хотелось бы более подробную инструкцию на русском.',product:'Микроскоп Levenhuk Med 30T'},
+    {name:'Дмитрий Волков',img:'assets/images/people-4.png',date:'28 февраля 2025',rating:5,text:'Профессиональный дальномер Bushnell Eliminator 3 заказывал для охоты. Работает безупречно — точность измерения до метра. Доставили быстро, всё проверил — оригинал.',product:'Дальномер Bushnell Eliminator 3'},
+    {name:'Елена Смирнова',img:'assets/images/people-1.jpg',date:'14 февраля 2025',rating:5,text:'Заказывали телескоп Veber рефрактор для всей семьи. Консультант подробно объяснил, какой именно подходит для начинающих астрономов. Теперь наблюдаем за луной и планетами — детям очень нравится!',product:'Телескоп Veber рефрактор 60/700'},
+    {name:'Андрей Михайлов',img:'assets/images/people-3.jpg',date:'30 января 2025',rating:4,text:'Приобрёл тепловизор HIKMicro для охоты. Картинка отличная, дальность обнаружения соответствует заявленной. Корпус прочный, водонепроницаемый. Работает на морозе до -20° без проблем.',product:'Тепловизор HIKMicro Gryphon'},
+    {name:'Ольга Николаева',img:'assets/images/people-2.jpg',date:'15 января 2025',rating:5,text:'Покупали лупу Eschenbach Mobilux LED для работы с мелкими деталями. Освещение отличное, линза чёткая. Очень удобная для моделистов и ювелиров. Рекомендую!',product:'Лупа Eschenbach Mobilux LED'},
+    {name:'Сергей Козлов',img:'assets/images/people-4.png',date:'5 января 2025',rating:5,text:'Заказал монокуляр Levenhuk Wise для походов. Компактный, лёгкий, увеличение 8x — более чем достаточно. Водонепроницаемый корпус, удобный ремень. Лучший подарок для туриста!',product:'Монокуляр Levenhuk Wise 8x25'},
+    {name:'Наталья Иванова',img:'assets/images/people-1.jpg',date:'28 декабря 2024',rating:4,text:'Выбрали детский микроскоп Celestron Labs CM2000CF. Ребёнок в восторге — собирает образцы на прогулках и рассматривает под микроскопом. Хороший набор для начала.',product:'Микроскоп Celestron Labs CM2000CF'},
+    {name:'Павел Горов',img:'assets/images/people-3.jpg',date:'15 декабря 2024',rating:5,text:'Приобрёл микроскоп Nikon Eclipse E200 для лабораторных работ. Качество японской оптики на высоте. Изображение кристально чистое, освещение равномерное. Профессиональный инструмент.',product:'Микроскоп Nikon Eclipse E200'},
+    {name:'Анна Белова',img:'assets/images/people-2.jpg',date:'1 декабря 2024',rating:5,text:'Заказала бинокль Nikon Aculon A211 10x50 дляusbandа на охоту. Очень довольны качеством — яркое изображение, удобный хват. Доставка быстрая, упаковка надёжная.',product:'Бинокль Nikon Aculon A211 10x50'},
+    {name:'Виктор Лебедев',img:'assets/images/people-4.png',date:'20 ноября 2024',rating:5,text:'Дальномер Leica Rangemaster CRF 2800 —顶级设备. Точность идеальная, дальность до 2800м. Для стрельбы на дальних дистанциях незаменим. Магазин — молодцы, оригинал!',product:'Дальномер Leica Rangemaster CRF 2800'},
+  ];
+  const PER_PAGE = 4;
+  let page = 1;
+  const list = document.getElementById('reviews-list');
+  const pag = document.getElementById('reviews-pagination');
+
+  function starsHTML(r) {
+    let h = '';
+    for (let i = 1; i <= 5; i++) h += `<span style="color:${i<=r?'#ffd600':'#d0d6dd'}">★</span>`;
+    return h;
+  }
+
+  function render() {
+    const total = Math.ceil(REVIEWS.length / PER_PAGE);
+    page = Math.max(1, Math.min(page, total));
+    const start = (page - 1) * PER_PAGE;
+    const slice = REVIEWS.slice(start, start + PER_PAGE);
+    list.innerHTML = slice.map(r => `
+      <div class="review-card">
+        <div class="review-header">
+          <img class="review-avatar" src="${r.img}" alt="${r.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="review-avatar review-avatar-fallback" style="display:none;background:#e0e0e0;justify-content:center;align-items:center;">
+            <svg viewBox="0 0 40 40" width="36" height="36"><circle cx="20" cy="14" r="8" fill="#bbb"/><ellipse cx="20" cy="38" rx="14" ry="12" fill="#bbb"/></svg>
+          </div>
+          <div class="review-meta">
+            <div class="review-author">${r.name}</div>
+            <div class="review-date">${r.date}</div>
+          </div>
+          <div class="review-rating" aria-label="Оценка ${r.rating}">
+            <span class="stars" aria-hidden="true">${starsHTML(r.rating)}</span>
+            <span class="rating-value">${r.rating}.0</span>
+          </div>
+        </div>
+        <div class="review-text">${r.text}</div>
+        <div class="review-product">${r.product}</div>
+      </div>`).join('');
+
+    if (total <= 1) { pag.innerHTML = ''; return; }
+    let html = `<button class="pagination-btn" type="button" ${page===1?'disabled':''} data-dir="-1">‹ Назад</button>`;
+    for (let i = 1; i <= total; i++) {
+      html += `<button class="pagination-btn${i===page?' active':''}" type="button" data-page="${i}" ${i===page?'aria-current="page"':''}>${i}</button>`;
+    }
+    html += `<button class="pagination-btn" type="button" ${page===total?'disabled':''} data-dir="1">Далее ›</button>`;
+    pag.innerHTML = html;
+  }
+
+  pag.addEventListener('click', e => {
+    const btn = e.target.closest('.pagination-btn');
+    if (!btn || btn.disabled) return;
+    if (btn.dataset.dir) page += Number(btn.dataset.dir);
+    else if (btn.dataset.page) page = Number(btn.dataset.page);
+    render();
+    list.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  render();
+
+  document.getElementById('review-form')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const name = fd.get('name')?.trim();
+    const review = fd.get('review')?.trim();
+    if (!name || !review) { if(window.showToast) showToast('Заполните имя и отзыв!', 'error'); return; }
+    REVIEWS.unshift({name, img:'', date: new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}), rating:5, text:review, product:''});
+    page = 1;
+    render();
+    if(window.showToast) showToast('Отзыв опубликован!', 'success');
+    e.target.reset();
+  });
+})();
 </script>
 <footer class="footer">
   <div class="newsletter-bar">

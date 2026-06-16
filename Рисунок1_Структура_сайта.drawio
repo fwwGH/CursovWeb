@@ -1,0 +1,170 @@
+<mxfile host="app.diagrams.net" modified="2026-06-16" agent="5.0" version="24.0.0">
+  <diagram name="Рисунок 1 — Структура сайта" id="structure">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title1" value="Рисунок 1. Структура интернет-магазина «Tele-Optics»" style="text;html=1;fontSize=16;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="235" y="10" width="700" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Root node -->
+        <mxCell id="root" value="CursovWeb/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="484" y="60" width="150" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Level 1: Main folders/files -->
+        <mxCell id="html_folder" value="HTML (21 файл)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="css_folder" value="css/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="260" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="js_folder" value="js/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="420" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="data_folder" value="data/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="580" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="assets_folder" value="assets/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="740" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Edges root -> level 1 -->
+        <mxCell id="e_r_h" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="root" target="html_folder" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_r_css" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="root" target="css_folder" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_r_js" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="root" target="js_folder" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_r_data" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="root" target="data_folder" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_r_assets" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="root" target="assets_folder" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- HTML pages - Main -->
+        <mxCell id="index" value="index.html&#10;(Главная)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="10" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="catalog" value="catalog.html&#10;(Каталог)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="110" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kategoriya" value="kategoriya.html&#10;(Категория)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="210" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="product" value="product.html&#10;(Товар)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="310" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cart" value="cart.html&#10;(Корзина)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="410" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="checkout" value="checkout.html&#10;(Оформление)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="510" y="190" width="90" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- HTML pages - Info -->
+        <mxCell id="about" value="about.html&#10;(О нас)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="10" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="delivery" value="delivery.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="110" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="payment" value="payment.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="guarantee" value="guarantee.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="310" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="contacts" value="contacts.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="410" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="reviews" value="reviews.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="510" y="250" width="90" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- HTML pages - Commerce -->
+        <mxCell id="favorites" value="favorites.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="10" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="compare" value="compare.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="110" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="viewed" value="viewed.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="promotions" value="promotions.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="310" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sales" value="sales.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="410" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="blog" value="blog.html / post.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="510" y="300" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="vacancies" value="vacancies.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="345" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="admin" value="admin.html" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="310" y="345" width="90" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Edges html_folder -> pages -->
+        <mxCell id="e_h1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="html_folder" target="index" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_h2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="html_folder" target="about" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_h3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="html_folder" target="favorites" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- CSS -->
+        <mxCell id="style_css" value="style.css&#10;(3790 строк)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="250" y="190" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="e_css1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="css_folder" target="style_css" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- JS -->
+        <mxCell id="app_js" value="app.js&#10;(2100+ строк)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="410" y="190" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="e_js1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="js_folder" target="app_js" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Data -->
+        <mxCell id="db_json" value="db.json&#10;(30 товаров, 10 кат.)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="570" y="190" width="140" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="data_folder" target="db_json" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Assets -->
+        <mxCell id="icons" value="icons/ (36 SVG)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="730" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="images" value="images/ (фото)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="730" y="230" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e_a1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="assets_folder" target="icons" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_a2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#999;" edge="1" source="assets_folder" target="images" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Legend -->
+        <mxCell id="leg1" value="" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" value="— Функциональные страницы" style="text;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="75" y="398" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="50" y="420" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" value="— Информационные / торговые страницы" style="text;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="75" y="418" width="240" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" value="" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="50" y="440" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" value="— Ресурсы (CSS, JS, данные, иконки)" style="text;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="75" y="438" width="240" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="400" y="400" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" value="— Технологии: HTML5, CSS3, Vanilla JS, JSON Server, Fetch API, localStorage" style="text;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="425" y="398" width="440" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

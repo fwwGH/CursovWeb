@@ -164,14 +164,14 @@
 <div class="breadcrumbs container"><a href="index.html">Главная</a><span class="sep">/</span><span class="current">Корзина</span></div>
 <main>
   <div class="container">
-    <h1 class="page-title">Корзина</h1>
+    <h1 class="page-title" data-i18n="page_cart">Корзина</h1>
     <div class="cart-content" id="cart-page-content">
       <!-- Empty state -->
       <div class="cart-empty" id="cart-empty-state">
         <div class="cart-empty-icon">
           <img src="assets/icons/garbage.svg" alt="" width="80" height="80" aria-hidden="true">
         </div>
-        <h2 class="cart-empty-title">Ваша корзина пуста</h2>
+        <h2 class="cart-empty-title" data-i18n="empty_cart">Ваша корзина пуста</h2>
         <a href="catalog.html" class="btn btn-primary" data-i18n="btn_continue">Продолжить покупки</a>
       </div>
       <!-- Filled state (shown by JS when cart has items) -->
@@ -230,7 +230,7 @@
       content.innerHTML = `
         <div class="cart-empty">
           <div class="cart-empty-icon"><img src="assets/icons/garbage.svg" alt="" width="80" height="80"></div>
-          <h2 class="cart-empty-title">Ваша корзина пуста</h2>
+          <h2 class="cart-empty-title" data-i18n="empty_cart">Ваша корзина пуста</h2>
           <a href="catalog.html" class="btn btn-primary">Продолжить покупки</a>
         </div>`;
       return;

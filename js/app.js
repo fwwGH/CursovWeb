@@ -214,6 +214,19 @@
       fill_required:'Заполните все обязательные поля', passwords_mismatch:'Пароли не совпадают',
       password_min8:'Пароль: минимум 8 символов', email_exists:'Пользователь с таким email уже существует',
       welcome:'Добро пожаловать',
+      page_about:'О нас', page_cart:'Корзина', page_catalog:'Каталог оптики',
+      page_checkout:'Оформление заказа', page_compare:'Сравнение товаров', page_contacts:'Контакты',
+      page_delivery:'Доставка', page_favorites:'Избранное', page_guarantee:'Гарантии',
+      page_payment:'Оплата', page_promotions:'Акции', page_reviews:'Отзывы наших покупателей',
+      page_sales:'Распродажа', page_vacancies:'Вакансии', page_viewed:'Просмотренные товары',
+      page_blog:'Блог', empty_cart:'Ваша корзина пуста', total:'Итого', our_advantages:'Наши преимущества',
+      specs:'Технические характеристики', recommend:'Рекомендуем', similar:'Похожие товары',
+      bought_with:'С этим товаром покупают', observers:'Наблюдательная оптика',
+      popular_search:'Часто ищут покупатели', contact_data:'Контактные данные',
+      delivery_method:'Способ доставки', payment_method:'Способ оплаты', comment:'Комментарий к заказу',
+      leave_review:'Оставить отзыв', certificates:'Сертификаты на нашу продукцию', staff:'Сотрудники',
+      cash:'Оплата наличными', bank_transfer:'Безналичный расчёт', cards:'Оплата банковскими карточками',
+      online:'Оплата он-лайн', answer_questions:'Ответим на все ваши вопросы',
 
     },
     en:{
@@ -305,6 +318,19 @@
       fill_required:'Fill in all required fields', passwords_mismatch:'Passwords do not match',
       password_min8:'Password: minimum 8 characters', email_exists:'User with this email already exists',
       welcome:'Welcome',
+      page_about:'About us', page_cart:'Cart', page_catalog:'Optics catalog',
+      page_checkout:'Checkout', page_compare:'Product comparison', page_contacts:'Contacts',
+      page_delivery:'Delivery', page_favorites:'Wishlist', page_guarantee:'Warranty',
+      page_payment:'Payment', page_promotions:'Promotions', page_reviews:'Customer reviews',
+      page_sales:'Sale', page_vacancies:'Vacancies', page_viewed:'Recently viewed',
+      page_blog:'Blog', empty_cart:'Your cart is empty', total:'Total', our_advantages:'Our advantages',
+      specs:'Technical specifications', recommend:'Recommended', similar:'Similar products',
+      bought_with:'Frequently bought together', observers:'Observation optics',
+      popular_search:'Popular searches', contact_data:'Contact details',
+      delivery_method:'Delivery method', payment_method:'Payment method', comment:'Order comment',
+      leave_review:'Leave a review', certificates:'Certificates for our products', staff:'Staff',
+      cash:'Cash payment', bank_transfer:'Bank transfer', cards:'Card payment',
+      online:'Online payment', answer_questions:'We will answer all your questions',
 
     },
   };
@@ -366,19 +392,21 @@
       const mul = multipliers[state.fontSize] || 1;
       if (mul !== 1) {
         const SKIP_SEL = 'nav, .sticky-bar, .accessibility-panel, .settings-widget, .mobile-menu, .hero, .preloader, .modal-overlay, .product-actions-overlay, .product-badges, .newsletter-bar, .brands-section, .footer, [data-icon], svg, img, .ui-icon';
-        document.querySelectorAll('body *').forEach(el => {
-          if (el.closest(SKIP_SEL)) return;
-          // Skip non-text structural elements
-          const tag = el.tagName;
-          if (tag === 'BUTTON' || tag === 'SVG' || tag === 'IMG' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-          // Skip elements that are purely layout/badges/icons
-          if (el.classList.contains('badge') || el.classList.contains('stars') || el.classList.contains('action-badge') || el.classList.contains('sticky-bar-badge') || el.classList.contains('carousel-dot') || el.classList.contains('carousel-btn') || el.classList.contains('hero-dot') || el.classList.contains('hero-arrow-btn') || el.classList.contains('preloader')) return;
-          const cs = getComputedStyle(el);
-          const fs = parseFloat(cs.fontSize);
-          if (fs && !el.style.fontSize) {
-            el.style.fontSize = (fs * mul) + 'px';
-            el.setAttribute('data-a11y-fs', '1');
-          }
+        const skipEls = new Set();
+        document.querySelectorAll(SKIP_SEL).forEach(el => skipEls.add(el));
+        requestAnimationFrame(() => {
+          document.querySelectorAll('body *').forEach(el => {
+            if (skipEls.has(el) || el.closest(SKIP_SEL)) return;
+            const tag = el.tagName;
+            if (tag === 'BUTTON' || tag === 'SVG' || tag === 'IMG' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+            if (el.classList.contains('badge') || el.classList.contains('stars') || el.classList.contains('action-badge') || el.classList.contains('sticky-bar-badge') || el.classList.contains('carousel-dot') || el.classList.contains('carousel-btn') || el.classList.contains('hero-dot') || el.classList.contains('hero-arrow-btn') || el.classList.contains('preloader')) return;
+            const cs = getComputedStyle(el);
+            const fs = parseFloat(cs.fontSize);
+            if (fs && !el.style.fontSize) {
+              el.style.fontSize = (fs * mul) + 'px';
+              el.setAttribute('data-a11y-fs', '1');
+            }
+          });
         });
       }
     } else {
@@ -460,19 +488,23 @@
      ═══════════════════════════════════════════ */
   async function loadDb() {
     let categories, products, brands, banners;
+    // Try data/db.json first (fast, works everywhere)
     try {
-      ([categories, products, brands, banners] = await Promise.all([
-        fetchJson(`${API_BASE}/categories`),
-        fetchJson(`${API_BASE}/products`),
-        fetchJson(`${API_BASE}/brands`),
-        fetchJson(`${API_BASE}/banners`),
-      ]));
-    } catch {
       const db = await fetchJson('data/db.json');
       categories = db.categories || [];
       products   = db.products   || [];
       brands     = db.brands     || [];
       banners    = db.banners    || [];
+    } catch {
+      // Fallback: JSON Server (admin mode)
+      try {
+        ([categories, products, brands, banners] = await Promise.all([
+          fetchJson(`${API_BASE}/categories`),
+          fetchJson(`${API_BASE}/products`),
+          fetchJson(`${API_BASE}/brands`),
+          fetchJson(`${API_BASE}/banners`),
+        ]));
+      } catch { categories=[]; products=[]; brands=[]; banners=[]; }
     }
     // Применить правки администратора из localStorage
     const localProds = getAdminProducts();
@@ -625,7 +657,7 @@ const CAT_ICONS={
     9: 'assets/icons/teplovisor.svg',
     10: 'assets/icons/digitalcamera.svg',};
   function renderCategories(cats) {
-    const g=document.getElementById('categories-grid'); if(!g) return;
+    const g=document.getElementById('categories-grid'); if(!g || g.children.length) return;
     const lang=getLang();
     g.innerHTML=cats.map((c,i)=>{
       const name=lang==='en'?(c.nameEn||c.name):c.name;
