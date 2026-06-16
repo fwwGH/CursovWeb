@@ -1,25 +1,4 @@
-/* PT Root UI — @font-face */
-@font-face {
-  font-family: 'PT Root UI';
-  src: url('https://yastatic.net/s3/passport-static/fonts/pt-root-ui/pt-root-ui-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PT Root UI';
-  src: url('https://yastatic.net/s3/passport-static/fonts/pt-root-ui/pt-root-ui-medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PT Root UI';
-  src: url('https://yastatic.net/s3/passport-static/fonts/pt-root-ui/pt-root-ui-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* PT Root UI — removed: yastatic.net returns 404. Using Inter from Google Fonts as primary. */
 
 /* CSS Variables */
 :root {
@@ -68,7 +47,7 @@
   --transition-slow: 0.35s ease;
 
   /* Fonts */
-  --font-main: 'PT Root UI', 'Inter', 'Arial', sans-serif;
+  --font-main: 'Inter', 'PT Root UI', 'Arial', sans-serif;
   --font-size-sm: 12px;
   --font-size-base: 14px;
   --font-size-md: 15px;
@@ -1699,8 +1678,25 @@ img[src^="assets/images/"] {
   word-spacing: 0.16em !important;
 }
 [data-accessibility="on"] * { line-height: 1.8 !important; }
-[data-accessibility="on"] .product-name { min-height: auto; -webkit-line-clamp: unset; }
+[data-accessibility="on"] .product-name { min-height: auto; -webkit-line-clamp: unset; overflow: visible; }
 [data-accessibility="on"] img[data-hide-img="true"] { display: none !important; }
+[data-accessibility="on"] .breadcrumbs { overflow: visible; }
+[data-accessibility="on"] .breadcrumbs .current { white-space: normal; max-width: none; overflow: visible; text-overflow: unset; }
+[data-accessibility="on"] .nav-link { white-space: normal; }
+[data-accessibility="on"] .product-card { overflow: visible; min-width: 0; }
+[data-accessibility="on"] .popup-mini-card-name { -webkit-line-clamp: unset; overflow: visible; }
+[data-accessibility="on"] .sidebar-mini-name { -webkit-line-clamp: unset; overflow: visible; }
+[data-accessibility="on"] .viewed-mini-name { -webkit-line-clamp: unset; overflow: visible; }
+[data-accessibility="on"] .header-top-left { flex-wrap: wrap; gap: 4px; }
+[data-accessibility="on"] .header-top-links { flex-wrap: wrap; }
+[data-accessibility="on"] .header-top-right { flex-wrap: wrap; gap: 4px; }
+[data-accessibility="on"] .header-top-email { white-space: normal; }
+[data-accessibility="on"] .header-top-auth { white-space: normal; }
+[data-accessibility="on"] .header-search { min-width: 0; }
+[data-accessibility="on"] .header-search input { font-size: inherit; }
+[data-accessibility="on"] .nav-list { flex-wrap: wrap; gap: 2px; }
+[data-accessibility="on"] .nav-link { padding: 6px 8px; }
+[data-accessibility="on"] .section-link { white-space: normal; }
 
 .accessibility-panel {
   position: fixed;

@@ -316,22 +316,26 @@
   function applyLang(lang) {
     store(STORAGE.lang, lang);
     document.documentElement.lang = lang;
-    // Update lang-toggle button label
     document.querySelectorAll('.lang-toggle span').forEach(el => el.textContent = lang === 'ru' ? 'EN' : 'RU');
-    // Update all data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (key === 'theme_dark' || key === 'theme_light') return;
       const v = (TR[lang] || TR.ru)[key] || key;
-      if (el.tagName === 'INPUT') el.placeholder = v;
-      else if (el.children.length) {
-        // Preserve child elements (like <span> with numbers)
-        const firstText = el.childNodes[0];
-        if (firstText && firstText.nodeType === 3) firstText.textContent = v + ' ';
-        else { el.prepend(document.createTextNode(v + ' ')); }
-      } else el.textContent = v;
+      if (el.tagName === 'INPUT') { el.placeholder = v; return; }
+      // For elements with children, find and replace first text node
+      if (el.children.length) {
+        for (const child of el.childNodes) {
+          if (child.nodeType === 3 && child.textContent.trim()) {
+            child.textContent = v + ' ';
+            return;
+          }
+        }
+        // No text node found — prepend one
+        el.prepend(document.createTextNode(v + ' '));
+      } else {
+        el.textContent = v;
+      }
     });
-    // Re-sync theme button label after lang change
     const theme = getTheme();
     const themeKey = theme === 'dark' ? 'theme_light' : 'theme_dark';
     document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = (TR[lang] || TR.ru)[themeKey] || themeKey);
@@ -351,28 +355,49 @@
   function getA11y() { return store(STORAGE.a11y) || { on:false, fontSize:'normal', scheme:'default', images:'show', fontFamily:'default' }; }
   function applyA11y(state) {
     store(STORAGE.a11y, state);
-    const fsSizes = { small:'13px', normal:'15px', large:'18px' };
-    const fsVal = fsSizes[state.fontSize] || '15px';
-    // Применяем только к контентной зоне, НЕ к html/root — иначе ломается header/footer/sticky-bar
-    document.documentElement.style.fontSize = '';   // сбрасываем root
-    document.body.style.setProperty('--a11y-font-size', fsVal);
-    document.querySelectorAll('.main-content, .section, .catalog-main, .product-detail, .page-content, .container > *:not(.header-top):not(.sticky-bar)')
-      .forEach(el => { if (!el.closest('header') && !el.closest('footer') && !el.closest('.sticky-bar')) el.style.fontSize = fsVal; });
     const b = document.body;
-    if (state.on) { b.style.lineHeight='1.8'; b.style.letterSpacing='0.12em'; b.style.wordSpacing='0.16em'; }
-    else { b.style.lineHeight=''; b.style.letterSpacing=''; b.style.wordSpacing=''; }
+    b.setAttribute('data-accessibility', state.on ? 'on' : 'off');
+    document.querySelectorAll('[data-a11y-fs]').forEach(el => { el.style.fontSize = ''; el.removeAttribute('data-a11y-fs'); });
+    if (state.on) {
+      b.style.lineHeight='1.8';
+      b.style.letterSpacing='0.12em';
+      b.style.wordSpacing='0.16em';
+      const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
+      const mul = multipliers[state.fontSize] || 1;
+      if (mul !== 1) {
+        const SKIP_SEL = 'nav, .sticky-bar, .accessibility-panel, .settings-widget, .mobile-menu, .hero, .preloader, .modal-overlay, .product-actions-overlay, .product-badges, .newsletter-bar, .brands-section, .footer, [data-icon], svg, img, .ui-icon';
+        document.querySelectorAll('body *').forEach(el => {
+          if (el.closest(SKIP_SEL)) return;
+          // Skip non-text structural elements
+          const tag = el.tagName;
+          if (tag === 'BUTTON' || tag === 'SVG' || tag === 'IMG' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+          // Skip elements that are purely layout/badges/icons
+          if (el.classList.contains('badge') || el.classList.contains('stars') || el.classList.contains('action-badge') || el.classList.contains('sticky-bar-badge') || el.classList.contains('carousel-dot') || el.classList.contains('carousel-btn') || el.classList.contains('hero-dot') || el.classList.contains('hero-arrow-btn') || el.classList.contains('preloader')) return;
+          const cs = getComputedStyle(el);
+          const fs = parseFloat(cs.fontSize);
+          if (fs && !el.style.fontSize) {
+            el.style.fontSize = (fs * mul) + 'px';
+            el.setAttribute('data-a11y-fs', '1');
+          }
+        });
+      }
+    } else {
+      b.style.lineHeight='';
+      b.style.letterSpacing='';
+      b.style.wordSpacing='';
+    }
     const schemes = {
       'default':{bg:'',text:'',surface:''},
       'black-white':{bg:'#000',text:'#fff',surface:'#111'},
       'black-green':{bg:'#000',text:'#0f0',surface:'#001100'},
       'beige-brown':{bg:'#f5f0e8',text:'#5c3d11',surface:'#fff'},
-      'blue-navy':{bg:'#cce4f7',text:'#003366',surface:'#e8f4fc'},
+      'blue-yellow':{bg:'#fff700',text:'#00008b',surface:'#ffffcc'},
     };
     const sc = schemes[state.scheme] || schemes['default'];
     const r = document.documentElement;
     if (sc.bg) { r.style.setProperty('--clr-bg',sc.bg); r.style.setProperty('--clr-surface',sc.surface); r.style.setProperty('--clr-text',sc.text); }
     else { r.style.removeProperty('--clr-bg'); r.style.removeProperty('--clr-surface'); r.style.removeProperty('--clr-text'); }
-    const fonts = { default:"'PT Root UI','Inter','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
+    const fonts = { default:"'Inter','PT Root UI','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
     r.style.setProperty('--font-main', fonts[state.fontFamily] || fonts.default);
     document.querySelectorAll('img:not([data-icon]):not([src*="icon"]):not([src*="logo"])').forEach(img => { img.style.display = state.images==='hide'?'none':''; });
     document.querySelectorAll('[data-a11y]').forEach(btn => {
@@ -1480,6 +1505,7 @@ const CAT_ICONS={
   window.showToast    = showToast;
   window.applyTheme   = applyTheme;
   window.applyLang    = applyLang;
+  window.getLang      = getLang;
 })();
 
 /* =============================================
@@ -2019,6 +2045,7 @@ function initSettingsWidget() {
         localStorage.setItem('teleoptics.lang', lang);
         location.reload();
       }
+      if (window._db) { renderCategories(window._db.categories); renderHits(window._db.products); renderRecommended(window._db.products); renderBanner(window._db.banners, window._db.products); }
       syncWidgetState();
     });
   });
