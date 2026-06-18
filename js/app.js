@@ -384,31 +384,29 @@
     const b = document.body;
     b.setAttribute('data-accessibility', state.on ? 'on' : 'off');
     document.querySelectorAll('[data-a11y-fs]').forEach(el => { el.style.fontSize = ''; el.removeAttribute('data-a11y-fs'); });
-    if (state.on) {
+    const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
+    const mul = multipliers[state.fontSize] || 1;
+    if (state.on && mul !== 1) {
       b.style.lineHeight='1.8';
       b.style.letterSpacing='0.12em';
       b.style.wordSpacing='0.16em';
-      const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
-      const mul = multipliers[state.fontSize] || 1;
-      if (mul !== 1) {
-        const SKIP_SEL = 'nav, .sticky-bar, .accessibility-panel, .settings-widget, .mobile-menu, .hero, .preloader, .modal-overlay, .product-actions-overlay, .product-badges, .newsletter-bar, .brands-section, .footer, [data-icon], svg, img, .ui-icon';
-        const skipEls = new Set();
-        document.querySelectorAll(SKIP_SEL).forEach(el => skipEls.add(el));
-        requestAnimationFrame(() => {
-          document.querySelectorAll('body *').forEach(el => {
-            if (skipEls.has(el) || el.closest(SKIP_SEL)) return;
-            const tag = el.tagName;
-            if (tag === 'BUTTON' || tag === 'SVG' || tag === 'IMG' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-            if (el.classList.contains('badge') || el.classList.contains('stars') || el.classList.contains('action-badge') || el.classList.contains('sticky-bar-badge') || el.classList.contains('carousel-dot') || el.classList.contains('carousel-btn') || el.classList.contains('hero-dot') || el.classList.contains('hero-arrow-btn') || el.classList.contains('preloader')) return;
-            const cs = getComputedStyle(el);
-            const fs = parseFloat(cs.fontSize);
-            if (fs && !el.style.fontSize) {
-              el.style.fontSize = (fs * mul) + 'px';
-              el.setAttribute('data-a11y-fs', '1');
-            }
-          });
+      const SKIP_SEL = 'nav, .sticky-bar, .accessibility-panel, .settings-widget, .mobile-menu, .hero, .preloader, .modal-overlay, .product-actions-overlay, .product-badges, .newsletter-bar, .brands-section, .footer, [data-icon], svg, img, .ui-icon';
+      const skipEls = new Set();
+      document.querySelectorAll(SKIP_SEL).forEach(el => skipEls.add(el));
+      requestAnimationFrame(() => {
+        document.querySelectorAll('body *').forEach(el => {
+          if (skipEls.has(el) || el.closest(SKIP_SEL)) return;
+          const tag = el.tagName;
+          if (tag === 'BUTTON' || tag === 'SVG' || tag === 'IMG' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+          if (el.classList.contains('badge') || el.classList.contains('stars') || el.classList.contains('action-badge') || el.classList.contains('sticky-bar-badge') || el.classList.contains('carousel-dot') || el.classList.contains('carousel-btn') || el.classList.contains('hero-dot') || el.classList.contains('hero-arrow-btn') || el.classList.contains('preloader')) return;
+          const cs = getComputedStyle(el);
+          const fs = parseFloat(cs.fontSize);
+          if (fs && !el.style.fontSize) {
+            el.style.fontSize = (fs * mul) + 'px';
+            el.setAttribute('data-a11y-fs', '1');
+          }
         });
-      }
+      });
     } else {
       b.style.lineHeight='';
       b.style.letterSpacing='';
