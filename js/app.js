@@ -387,6 +387,7 @@
     const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
     const mul = multipliers[state.fontSize] || 1;
     if (state.on && mul !== 1) {
+      b.classList.add('a11y-fontscale');
       b.style.lineHeight='1.8';
       b.style.letterSpacing='0.12em';
       b.style.wordSpacing='0.16em';
@@ -408,6 +409,7 @@
         });
       });
     } else {
+      b.classList.remove('a11y-fontscale');
       b.style.lineHeight='';
       b.style.letterSpacing='';
       b.style.wordSpacing='';
@@ -425,7 +427,8 @@
     else { r.style.removeProperty('--clr-bg'); r.style.removeProperty('--clr-surface'); r.style.removeProperty('--clr-text'); }
     const fonts = { default:"'Inter','PT Root UI','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
     r.style.setProperty('--font-main', fonts[state.fontFamily] || fonts.default);
-    document.querySelectorAll('img:not([data-icon]):not([src*="icon"]):not([src*="logo"])').forEach(img => { img.style.display = state.images==='hide'?'none':''; });
+    // Image hiding via class — catches dynamically added images too
+    b.classList.toggle('a11y-hide-images', state.images === 'hide');
     document.querySelectorAll('[data-a11y]').forEach(btn => {
       const type = btn.getAttribute('data-a11y'); const val = btn.getAttribute('data-val');
       if (!val) return;

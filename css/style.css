@@ -1677,9 +1677,18 @@ img[src^="assets/images/"] {
   letter-spacing: 0.12em !important;
   word-spacing: 0.16em !important;
 }
-[data-accessibility="on"] * { line-height: 1.8 !important; }
+.a11y-hide-images img:not([data-icon]):not([src*="icon"]):not([src*="logo"]):not(.ui-icon):not(.preloader-icon img):not(.accessibility-panel img):not(.settings-widget img) { display: none !important; }
+.a11y-hide-images .product-image-wrap img,
+.a11y-hide-images .product-thumb-img,
+.a11y-hide-images .hero-main-img,
+.a11y-hide-images .hero-side-img,
+.a11y-hide-images .brands-together-img,
+.a11y-hide-images .review-avatar,
+.a11y-hide-images .category-icon img { display: none !important; }
+.a11y-hide-images .category-icon { background: var(--clr-border); display: flex; align-items: center; justify-content: center; }
+.a11y-hide-images .category-icon::after { content: '📷'; font-size: 24px; }
+[data-accessibility="on"].a11y-fontscale * { line-height: 1.8 !important; }
 [data-accessibility="on"] .product-name { min-height: auto; -webkit-line-clamp: unset; overflow: visible; }
-[data-accessibility="on"] img[data-hide-img="true"] { display: none !important; }
 [data-accessibility="on"] .breadcrumbs { overflow: visible; }
 [data-accessibility="on"] .breadcrumbs .current { white-space: normal; max-width: none; overflow: visible; text-overflow: unset; }
 [data-accessibility="on"] .nav-link { white-space: normal; }
