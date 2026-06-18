@@ -379,10 +379,33 @@
      Версия для слабовидящих
      ═══════════════════════════════════════════ */
   function getA11y() { return store(STORAGE.a11y) || { on:false, fontSize:'normal', scheme:'default', images:'show', fontFamily:'default' }; }
-  function applyA11y(state) {
-    store(STORAGE.a11y, state);
+  function updateA11yButtons(state) {
+    document.querySelectorAll('[data-a11y]').forEach(btn => {
+      const type = btn.getAttribute('data-a11y'); const val = btn.getAttribute('data-val');
+      if (!val) return;
+      btn.classList.toggle('active', String(state[type]) === String(val));
+      btn.setAttribute('aria-pressed', String(state[type]) === String(val));
+    });
+    const sel = document.querySelector('select[data-a11y="fontFamily"]');
+    if (sel) sel.value = state.fontFamily || 'default';
+  }
+
+  function applyColorScheme(state) {
+    const schemes = {
+      'default':{bg:'',text:'',surface:''},
+      'black-white':{bg:'#000',text:'#fff',surface:'#111'},
+      'black-green':{bg:'#000',text:'#0f0',surface:'#001100'},
+      'beige-brown':{bg:'#f5f0e8',text:'#5c3d11',surface:'#fff'},
+      'blue-yellow':{bg:'#fff700',text:'#00008b',surface:'#ffffcc'},
+    };
+    const sc = schemes[state.scheme] || schemes['default'];
+    const r = document.documentElement;
+    if (sc.bg) { r.style.setProperty('--clr-bg',sc.bg); r.style.setProperty('--clr-surface',sc.surface); r.style.setProperty('--clr-text',sc.text); }
+    else { r.style.removeProperty('--clr-bg'); r.style.removeProperty('--clr-surface'); r.style.removeProperty('--clr-text'); }
+  }
+
+  function applyFontSize(state) {
     const b = document.body;
-    b.setAttribute('data-accessibility', state.on ? 'on' : 'off');
     document.querySelectorAll('[data-a11y-fs]').forEach(el => { el.style.fontSize = ''; el.removeAttribute('data-a11y-fs'); });
     const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
     const mul = multipliers[state.fontSize] || 1;
@@ -414,29 +437,17 @@
       b.style.letterSpacing='';
       b.style.wordSpacing='';
     }
-    const schemes = {
-      'default':{bg:'',text:'',surface:''},
-      'black-white':{bg:'#000',text:'#fff',surface:'#111'},
-      'black-green':{bg:'#000',text:'#0f0',surface:'#001100'},
-      'beige-brown':{bg:'#f5f0e8',text:'#5c3d11',surface:'#fff'},
-      'blue-yellow':{bg:'#fff700',text:'#00008b',surface:'#ffffcc'},
-    };
-    const sc = schemes[state.scheme] || schemes['default'];
-    const r = document.documentElement;
-    if (sc.bg) { r.style.setProperty('--clr-bg',sc.bg); r.style.setProperty('--clr-surface',sc.surface); r.style.setProperty('--clr-text',sc.text); }
-    else { r.style.removeProperty('--clr-bg'); r.style.removeProperty('--clr-surface'); r.style.removeProperty('--clr-text'); }
+  }
+
+  function applyA11y(state) {
+    store(STORAGE.a11y, state);
+    document.body.setAttribute('data-accessibility', state.on ? 'on' : 'off');
+    applyFontSize(state);
+    applyColorScheme(state);
+    document.body.classList.toggle('a11y-hide-images', state.images === 'hide');
     const fonts = { default:"'Inter','PT Root UI','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
-    r.style.setProperty('--font-main', fonts[state.fontFamily] || fonts.default);
-    // Image hiding via class — catches dynamically added images too
-    b.classList.toggle('a11y-hide-images', state.images === 'hide');
-    document.querySelectorAll('[data-a11y]').forEach(btn => {
-      const type = btn.getAttribute('data-a11y'); const val = btn.getAttribute('data-val');
-      if (!val) return;
-      btn.classList.toggle('active', String(state[type]) === String(val));
-      btn.setAttribute('aria-pressed', String(state[type]) === String(val));
-    });
-    const sel = document.querySelector('select[data-a11y="fontFamily"]');
-    if (sel) sel.value = state.fontFamily || 'default';
+    document.documentElement.style.setProperty('--font-main', fonts[state.fontFamily] || fonts.default);
+    updateA11yButtons(state);
   }
   function initA11y() {
     const panel = document.getElementById('a11y-panel');
@@ -457,11 +468,36 @@
       btn.setAttribute('aria-pressed', open);
     }));
     document.getElementById('a11y-close')?.addEventListener('click', () => { panel?.classList.remove('open'); panel?.setAttribute('aria-hidden','true'); });
+
+    /* Each button handles ONLY its own setting independently */
     panel?.querySelectorAll('[data-a11y]:not(select)').forEach(btn => btn.addEventListener('click', () => {
-      const s = {...getA11y(), on:true}; s[btn.getAttribute('data-a11y')] = btn.getAttribute('data-val'); applyA11y(s);
+      const type = btn.getAttribute('data-a11y');
+      const val = btn.getAttribute('data-val');
+      const s = getA11y();
+      s[type] = val;
+      s.on = true;
+      store(STORAGE.a11y, s);
+
+      if (type === 'fontSize') {
+        applyFontSize(s);
+      } else if (type === 'scheme') {
+        applyColorScheme(s);
+      } else if (type === 'images') {
+        document.body.classList.toggle('a11y-hide-images', s.images === 'hide');
+      } else if (type === 'fontFamily') {
+        const fonts = { default:"'Inter','PT Root UI','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
+        document.documentElement.style.setProperty('--font-main', fonts[s.fontFamily] || fonts.default);
+      }
+      updateA11yButtons(s);
     }));
     panel?.querySelector('select[data-a11y]')?.addEventListener('change', function() {
-      const s = {...getA11y(), on:true}; s[this.getAttribute('data-a11y')] = this.value; applyA11y(s);
+      const s = getA11y();
+      s[this.getAttribute('data-a11y')] = this.value;
+      s.on = true;
+      store(STORAGE.a11y, s);
+      const fonts = { default:"'Inter','PT Root UI','Arial',sans-serif", arial:'Arial,sans-serif', times:"'Times New Roman',serif", verdana:'Verdana,sans-serif' };
+      document.documentElement.style.setProperty('--font-main', fonts[s.fontFamily] || fonts.default);
+      updateA11yButtons(s);
     });
   }
 
