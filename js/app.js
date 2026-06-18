@@ -441,7 +441,9 @@
 
   function applyA11y(state) {
     store(STORAGE.a11y, state);
-    document.body.setAttribute('data-accessibility', state.on ? 'on' : 'off');
+    const multipliers = { small:0.87, normal:1, large:1.2, xlarge:1.5, xxlarge:1.75 };
+    const mul = multipliers[state.fontSize] || 1;
+    document.body.setAttribute('data-accessibility', (state.on && mul !== 1) ? 'on' : 'off');
     applyFontSize(state);
     applyColorScheme(state);
     document.body.classList.toggle('a11y-hide-images', state.images === 'hide');
