@@ -44,6 +44,21 @@
     user:     'teleoptics.user',
   };
 
+  const PAGE_TITLES = {
+    ru: {
+      about: 'О нас', delivery: 'Доставка', payment: 'Оплата', guarantee: 'Гарантии',
+      contacts: 'Контакты', blog: 'Блог', catalog: 'Каталог оптики', cart: 'Корзина',
+      favorites: 'Избранное', compare: 'Сравнение товаров', viewed: 'Просмотренные товары',
+      promotions: 'Акции', sales: 'Распродажа', reviews: 'Отзывы', vacancies: 'Вакансии',
+    },
+    en: {
+      about: 'About us', delivery: 'Delivery', payment: 'Payment', guarantee: 'Warranty',
+      contacts: 'Contacts', blog: 'Blog', catalog: 'Optics catalog', cart: 'Cart',
+      favorites: 'Wishlist', compare: 'Compare products', viewed: 'Recently viewed',
+      promotions: 'Promotions', sales: 'Sale', reviews: 'Reviews', vacancies: 'Vacancies',
+    }
+  };
+
   const ICON_URLS = {
     logo:'assets/icons/logo.svg',search:'assets/icons/search.svg',
     favorite:'assets/icons/heart.svg',cart:'assets/icons/shopping-cart.svg',
@@ -227,6 +242,7 @@
       leave_review:'Оставить отзыв', certificates:'Сертификаты на нашу продукцию', staff:'Сотрудники',
       cash:'Оплата наличными', bank_transfer:'Безналичный расчёт', cards:'Оплата банковскими карточками',
       online:'Оплата он-лайн', answer_questions:'Ответим на все ваши вопросы',
+      search_placeholder:'Введите название: Бинокль армейский',
 
     },
     en:{
@@ -305,6 +321,7 @@
       admin_total_orders:'Orders', admin_revenue:'Revenue',
       admin_last_added:'Recently added products', admin_add_product:'Add product',
       admin_search_placeholder:'Search product...',
+      search_placeholder:'Search product...',
       // Settings widget
       swp_settings:'Settings', swp_theme:'Theme',
       swp_theme_light:'Light', swp_theme_dark:'Dark',
@@ -362,6 +379,236 @@
         el.textContent = v;
       }
     });
+    // Translate placeholders marked with data-i18n-placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const v = (TR[lang] || TR.ru)[key] || key;
+      el.placeholder = v;
+    });
+    // Translate <title> for known pages
+    const page = (location.pathname.split('/').pop() || '').replace('.html', '');
+    const titleMap = PAGE_TITLES[lang] || PAGE_TITLES.ru;
+    if (titleMap[page]) document.title = titleMap[page] + ' — TELE-OPTICS';
+    // Auto-translate remaining Russian text nodes using phrase dictionary
+    if (lang === 'en') {
+      const dict = {
+        'Главная':'Home','Вам нужна консультация?':'Need a consultation?',
+        'Ваше имя':'Your name','Ваш телефон':'Your phone','Ваш email':'Your email','Ваш вопрос':'Your question',
+        'Оставить заявку':'Send request','Подпишитесь и будьте в курсе!':'Subscribe and stay tuned!',
+        'Введите email':'Enter email','Подписаться':'Subscribe','Рейтинг магазина':'Store rating',
+        'Яндекс.Маркет':'Yandex.Market','Просмотренные':'Viewed','Сравнение':'Compare','Избранное':'Favorites',
+        'Корзина':'Cart','Пароль':'Password','Войти':'Sign in','ВКонтакте':'VKontakte',
+        'Нет аккаунта?':'No account?','Зарегистрируйтесь':'Register','Имя':'Name','Телефон':'Phone',
+        'Подтвердите пароль':'Confirm password','Согласен с':'I agree to','Политикой конфиденциальности':'the Privacy Policy',
+        'Регистрация':'Register','Уже зарегистрированы?':'Already registered?','Ваша корзина пуста':'Your cart is empty',
+        'Очистить все':'Clear all','Итого:':'Total:','Продолжить покупки':'Continue shopping','Купить':'Buy',
+        'Вы ещё не добавили товары к сравнению':'You have not added products to compare yet',
+        'Вы ещё ничего не добавили в избранное':'You have not added anything to favorites yet',
+        'Продолжить выбор →':'Continue →','Заказать звонок':'Request a call','Укажите свой город':'Select your city',
+        'Поиск населённого пункта':'Search city','Все города':'All cities','Личный кабинет':'Personal account',
+        'Личные данные':'Personal data','Редактировать':'Edit','Сохранить':'Save','Отмена':'Cancel',
+        'Активность':'Activity','Мои заказы':'My orders','Покупатель':'Customer','Выйти из аккаунта':'Log out',
+        'Перейти в админ-панель':'Go to admin panel','⚙ Перейти в админ-панель':'⚙ Go to admin panel',
+        'Все бренды':'All brands','Менеджер отдела продаж':'Sales manager','Старший менеджер':'Senior manager',
+        'Руководитель отдела продаж':'Head of sales','Менеджер по работе с клиентами':'Customer service manager',
+        'Способ доставки':'Delivery method','Цена':'Price','Сроки':'Delivery time',
+        'Москва, Московская область':'Moscow, Moscow region','По России':'Across Russia',
+        'Почта России':'Russian Post','Самовывоз':'Pickup','бесплатно':'free','руб.':'rub.','дня':'days','дней':'days',
+        'Оплата наличными':'Cash payment','Безналичный расчёт':'Bank transfer','Оплата банковскими карточками':'Card payment',
+        'Оплата он-лайн':'Online payment','Порядок возврата денежных средств':'Refund procedure',
+        'Возврат при оплате банковской картой':'Refund for card payments',
+        'Возврат при оплате наличными':'Refund for cash payments','Возврат для юридических лиц':'Refund for legal entities',
+        'Как осуществляется доставка в регионы?':'How is delivery to regions carried out?',
+        'Гарантия возврата и доставка':'Return guarantee and delivery',
+        'Как рассчитать стоимость доставки в Магадан?':'How to calculate delivery cost to Magadan?',
+        'Правовая база':'Legal framework','Гарантийные случаи':'Warranty cases',
+        'На что не распространяется скидки':'What discounts do not apply to','Качество товаров':'Product quality',
+        'ООО "Бинокль"':'LLC "Binokl"','Юридический адрес:':'Legal address:','Фактический адрес:':'Actual address:',
+        'Режим работы:':'Working hours:','Звоните. Звонки по России бесплатны:':'Call us. Calls across Russia are free:',
+        'Телефоны:':'Phones:','Пишите:':'Write to us:','Реквизиты':'Requisites','Мы в соц. сетях':'We are on social media',
+        'Ответим на все ваши вопросы':'We will answer all your questions','Отправить':'Send',
+        'Менеджер по продажам':'Sales manager','Полная занятость':'Full-time','Офис, Москва':'Office, Moscow',
+        'Обязанности:':'Responsibilities:','Требования:':'Requirements:','Условия:':'Conditions:',
+        'Отправить резюме':'Send resume','Менеджер по работе с корпоративными клиентами':'Corporate account manager',
+        'Помощник бухгалтера':'Assistant accountant','Водитель-экспедитор':'Driver-courier',
+        'Архив вакансий':'Vacancy archive','Разъездная':'Travel-based','Рекомендуем':'Recommended',
+        'Показать все':'Show all','товаров':'items','товара':'items','товар':'item','Найдено:':'Found:',
+        'Все скидки':'All discounts','Новинки со скидкой':'New arrivals with discount','Хиты со скидкой':'Best sellers with discount',
+        'Нет товаров в данной категории':'No products in this category','В наличии':'In stock','Нет в наличии':'Out of stock',
+        'отзывов':'reviews','Назад':'Back','Далее':'Next','ХИТ':'HIT','Новинка':'NEW','Добавлено ✓':'Added ✓',
+        'В корзину':'Add to cart','Удалить из сравнения':'Remove from comparison','Наличие':'Availability',
+        'Производитель':'Manufacturer','Увеличение':'Magnification','Диаметр объектива (мм)':'Lens diameter (mm)',
+        'Тип призмы':'Prism type','Просветление':'Coating','Мин. фокус (м)':'Min. focus (m)',
+        'Поле зрения (°)':'Field of view (°)','Угол зрения (°)':'View angle (°)','Материал корпуса':'Body material',
+        'Материал покрытия':'Cover material','Вес (г)':'Weight (g)','Водозащита':'Waterproof','Страна':'Country',
+        'Гарантия':'Warranty','Тип':'Type','Апертура (мм)':'Aperture (mm)','Фокусное расстояние (мм)':'Focal length (mm)',
+        'Макс. увеличение':'Max. magnification','Монтировка':'Mount','Макс. дальность (м)':'Max. range (m)',
+        'Точность (м)':'Accuracy (m)','Компенсация угла':'Angle compensation','Вынос зрачка (мм)':'Eye relief (mm)',
+        'Сетка прицела':'Reticle','Диаметр трубки':'Tube diameter','Ночное видение':'Night vision',
+        'Дальность (м)':'Range (m)','Время работы':'Battery life','Разрешение матрицы':'Matrix resolution',
+        'Размер пикселя':'Pixel size','Частота кадров':'Frame rate','Диаметр линзы (мм)':'Lens diameter (mm)',
+        'Подсветка':'Illumination','Складная':'Foldable','Объективы':'Objectives','Итого':'Total',
+        'Товары (':'Items (','шт.)':'pcs.)','Оформить заказ':'Checkout','Удалить':'Remove',
+        'Перейти в каталог':'Go to catalog','Вы ещё не просматривали товары':'You have not viewed any products yet',
+        'Товары не найдены':'Products not found','Все статьи':'All articles','Приборы ночного видения':'Night vision devices',
+        'Актуально на сегодня':'Trending now','Читать далее':'Read more','Советы':'Tips','Ваш отзыв':'Your review',
+        'Оставить отзыв':'Leave a review','Заполните имя и отзыв!':'Please fill in your name and review!',
+        'Отзыв опубликован!':'Review published!','Оценка':'Rating','Наблюдательная оптика':'Observation optics',
+        'Способ оплаты':'Payment method','Комментарий к заказу':'Order comment',
+        'Технические характеристики':'Technical specifications','Похожие товары':'Similar products',
+        'С этим товаром покупают':'Frequently bought together','Просмотренные товары':'Viewed products',
+        'Закрыть':'Close','Наверх':'Top','Найти':'Search','Еще':'More','Открыть меню':'Open menu',
+        'Вперёд':'Forward','Страница':'Page','Навигация по страницам':'Page navigation','Карта офиса':'Office map',
+        'Карта офиса Tele-Optics':'Tele-Optics office map','Баннер':'Banner','Правый':'Right',
+        'Подробнее →':'Learn more →','Смотреть весь каталог':'View all catalog','Показать все →':'Show all →',
+        'Продолжить покупки →':'Continue shopping →','Вы просмотрели эти товары':'Recently viewed products',
+        'Продолжить выбор':'Continue','Сравнение товаров':'Product comparison','Сравнить':'Compare',
+        'В избранное':'To favorites','Купить':'Buy now','Очистить':'Clear','Настройки':'Settings','Тема':'Theme',
+        'Светлая':'Light','Тёмная':'Dark','Язык / Language':'Language / Язык','Доступность':'Accessibility',
+        'Версия для слабовидящих':'Accessibility mode','Сбросить настройки':'Reset settings',
+        'Размер шрифта':'Font size','Цветовая схема':'Color scheme','Изображения':'Images','Показать':'Show',
+        'Скрыть':'Hide','Шрифт':'Font','PT Root UI (по умолчанию)':'PT Root UI (default)','Авторизация':'Sign in',
+        'Запомнить меня':'Remember me','Забыли пароль?':'Forgot password?','Войти через соцсети':'Sign in with social',
+        'Зарегистрироваться через соцсети':'Register with social','Google':'Google','Москва':'Moscow',
+        'Санкт-Петербург':'Saint Petersburg','Новосибирск':'Novosibirsk','Екатеринбург':'Yekaterinburg',
+        'Казань':'Kazan','Нижний Новгород':'Nizhny Novgorod','Челябинск':'Chelyabinsk','Самара':'Samara',
+        'Уфа':'Ufa','Ростов-на-Дону':'Rostov-on-Don','Омск':'Omsk','Красноярск':'Krasnoyarsk',
+        'Воронеж':'Voronezh','Пермь':'Perm','Волгоград':'Volgograd','Краснодар':'Krasnodar',
+        'Саратов':'Saratov','Тюмень':'Tyumen','Город: ':'City: ',
+        'Заявка отправлена! Мы перезвоним вам.':'Request sent! We will call you back.',
+        'Вы подписались на рассылку!':'You have subscribed to the newsletter!',
+        'Мы скоро перезвоним!':'We will call you back soon!','Добро пожаловать':'Welcome',
+        'Настройки сброшены':'Settings reset','Максимум 4 товара':'Maximum 4 items',
+        'Номер телефона должен начинаться с +375':'Phone number must start with +375',
+        'Заполните все поля':'Fill in all fields','Неверный email или пароль':'Wrong email or password',
+        'Не удалось связаться с сервером данных':'Failed to connect to server',
+        'Заполните все обязательные поля':'Fill in all required fields','Пароли не совпадают':'Passwords do not match',
+        'Пароль: минимум 8 символов':'Password: minimum 8 characters',
+        'Пользователь с таким email уже существует':'User with this email already exists',
+        'Пользователь с таким номером уже существует':'User with this phone number already exists',
+        'Вы выбрали':'You selected','товара на сумму':'items for','рублей':'rubles',
+        'Показать товары':'Show products','По данным фильтрам товары не найдены':'No products found for these filters',
+        'Категория не найдена':'Category not found','Нет товаров':'No products','Сортировка':'Sorting',
+        'По популярности':'By popularity','Сначала дешевле':'Cheapest first','Сначала дороже':'Most expensive first',
+        'По рейтингу':'By rating','По названию':'By name','Сначала новые':'Newest first','на странице':'per page',
+        'Сетка':'Grid','Список':'List','Фильтры':'Filters','Сбросить':'Reset','Применить':'Apply',
+        'Бренды':'Brands','Цена, ₽':'Price, ₽','от':'from','до':'to','Хиты продаж':'Best sellers',
+        'Популярные категории':'Popular categories','Каталог оптики':'Optics catalog','Каталог':'Catalog',
+        'О компании':'About us','Доставка':'Delivery','Оплата':'Payment','Акции':'Promotions',
+        'Распродажа':'Sale','Гарантии':'Warranty','Блог':'Blog','Отзывы':'Reviews','Вакансии':'Vacancies',
+        'Контакты':'Contacts','Вход / Регистрация':'Sign in / Register','Выйти':'Log out',
+        'Телескопы':'Telescopes','Бинокли':'Binoculars','Лупы':'Magnifiers','Микроскопы':'Microscopes',
+        'Зрительные трубы':'Spotting scopes','Монокуляры':'Monoculars','Прицелы':'Scopes',
+        'Дальномеры':'Rangefinders','Тепловизоры':'Thermal imagers','Цифровые камеры':'Digital cameras',
+        'Полезная информация':'Useful info','Возврат':'Returns','Производители':'Brands','Статьи':'Articles',
+        'О нас':'About us','Оптовые продажи':'Wholesale','Подписаться на новости':'Subscribe to news',
+        'Скачать прайс-лист':'Download price list','Политика конфиденциальности':'Privacy policy',
+        'Условия соглашения':'Terms of use','Карта сайта':'Sitemap','Наши преимущества':'Our advantages',
+        'Сертификаты на нашу продукцию':'Certificates for our products','Сотрудники':'Staff',
+        'О компании TeleOptics':'About TeleOptics','Магазин оптических приборов Tele-Optics.Ru':'Tele-Optics.Ru optical instruments store',
+        'Бинокль армейский':'Army binoculars','Введите название: Бинокль армейский':'Enter product name: Army binoculars',
+        'Поиск товаров':'Search products','Россия, г. Москва, ул. Никольская, д. 15':'Russia, Moscow, Nikolskaya st., 15',
+        'Пн-Пт с 09:00-19:00, Сб-Вс – выходной':'Mon-Fri 09:00-19:00, Sat-Sun – day off',
+        'Пн–Пт с 09:00–19:00, Сб–Вс – выходной':'Mon-Fri 09:00-19:00, Sat-Sun – day off',
+        'Все права защищены':'All rights reserved','© 2026 Tele-Optics. Все права защищены.':'© 2026 Tele-Optics. All rights reserved.',
+        'Чтобы авторизоваться, войти в профиль, введите свои логин и пароль':'To sign in to your profile, enter your login and password',
+        'Зарегистрируйтесь, чтобы использовать все возможности личного кабинета.':'Register to use all features of your personal account.',
+        'Оставьте контактные данные и мы перезвоним вам в течение 15 минут':'Leave your contact details and we will call you back within 15 minutes',
+        'Нажимая «Оставить заявку», я соглашаюсь с':'By clicking "Send request", I agree to',
+        'обработкой персональных данных':'the processing of personal data',
+        'Нажимая «Отправить», я соглашаюсь с':'By clicking "Send", I agree to',
+        'на условиях':'under the terms of','Политики конфиденциальности':'the Privacy Policy',
+        'Сообщение отправлено!':'Message sent!','г. Москва, ул. Никольская, д. 15':'Moscow, Nikolskaya st., 15',
+        'Офис находится недалеко от Площади Революции':'The office is located near Revolution Square',
+        'Пн-Пт 09:00-19:00, Сб-Вс – выходной':'Mon-Fri 09:00-19:00, Sat-Sun – day off',
+        'Огромный ассортимент оптических товаров':'Huge range of optical products',
+        'Доставка по Москве и МО в течение 2 часов':'Delivery in Moscow and Moscow region within 2 hours',
+        'Огромный склад товаров и оффлайн магазин':'Huge warehouse and offline store',
+        'Низкая стоимость и удобные способы оплаты':'Low prices and convenient payment methods',
+        'Менеджер по продажам':'Sales manager','Консультация клиентов по телефону и онлайн':'Consulting clients by phone and online',
+        'Обработка входящих заявок и формирование заказов':'Processing incoming requests and creating orders',
+        'Работа с базой клиентов, ведение CRM':'Working with the client database, maintaining CRM',
+        'Выполнение плана продаж':'Meeting the sales plan','Опыт работы в продажах от 1 года':'Sales experience of 1+ years',
+        'Знание MS Office, опыт работы с CRM':'Knowledge of MS Office, CRM experience',
+        'Коммуникабельность, стрессоустойчивость':'Communication skills, stress resistance',
+        'Официальное трудоустройство':'Official employment','График: Пн–Пт, 09:00–18:00':'Schedule: Mon-Fri, 09:00-18:00',
+        'Бонусы за выполнение плана':'Bonuses for meeting the plan','Обучение за счёт компании':'Company-paid training',
+        'Ведение крупных корпоративных клиентов':'Managing large corporate clients',
+        'Подготовка коммерческих предложений':'Preparing commercial proposals',
+        'Участие в тендерах и торгах':'Participating in tenders and auctions',
+        'Развитие партнёрских отношений':'Developing partner relationships',
+        'Опыт работы с корпоративными клиентами от 2 лет':'Corporate client experience of 2+ years',
+        'Знание 1С, CRM-систем':'Knowledge of 1C, CRM systems','Навыки ведения переговоров':'Negotiation skills',
+        'Фиксированный оклад + бонусы':'Fixed salary + bonuses','ДМС после испытательного срока':'Health insurance after probation period',
+        'Обучение и развитие':'Training and development','Ведение первичной документации':'Maintaining primary documentation',
+        'Обработка счетов-фактур':'Processing invoices','Сверка данных с контрагентами':'Reconciliation with counterparties',
+        'Подготовка отчётности':'Preparing reports','Образование: бухгалтерский учёт/финансы':'Education: accounting/finance',
+        'Знание 1С:Бухгалтерия':'Knowledge of 1C:Accounting','Внимательность к деталям':'Attention to detail',
+        'Дружный коллектив':'Friendly team','Доставка товаров клиентам по Москве и МО':'Delivering goods to customers in Moscow and the region',
+        'Приём оплаты при доставке':'Collecting payment upon delivery','Возврат невостребованных товаров':'Returning unclaimed goods',
+        'Водительское удостоверение категории B':'Driver\'s license category B','Знание города':'Knowledge of the city',
+        'Ответственность':'Responsibility','Оклад + процент от выручки':'Salary + percentage of revenue',
+        'Предоставление автомобиля':'Company car provided','Гибкий график':'Flexible schedule',
+        'Работа направлена на достижение высоких результатов и постоянное развитие. Мы создаём условия, в которых каждый сотрудник может реализовать свой потенциал и внести вклад в общий успех компании.':'Our work is aimed at achieving high results and continuous development. We create conditions in which every employee can realize their potential and contribute to the overall success of the company.',
+        'Важную роль мы отводим уровню образования и профессиональной подготовки наших сотрудников. Мы инвестируем в обучение и повышение квалификации каждого члена команды.':'We place great importance on the level of education and professional training of our employees. We invest in the training and professional development of every team member.',
+        'Ждём в нашу команду, чтобы расти вместе! Если вы ищете стабильную работу с возможностью карьерного роста — ознакомьтесь с нашими вакансиями ниже.':'We are waiting for you in our team to grow together! If you are looking for stable work with career growth opportunities, check out our vacancies below.',
+        'Вы можете забрать товар в одном из магазинов, сотрудничающих с нами. Список торговых точек, которые принимают заказы от нашей компании появится у вас в корзине. Когда заказ поступит в ваш город, вам придёт уведомление. Вы просто идёте в этот магазин, обращаетесь к сотруднику в кассовой зоне и называете номер заказа. Забрать покупку может ваш друг или родственник, который знает номер и имя, на кого он оформлен.':'You can pick up your order at one of our partner stores. The list of stores accepting orders from our company will appear in your cart. When the order arrives in your city, you will receive a notification. Simply go to the store, approach the cashier and give your order number. A friend or relative who knows the order number and the name it is registered under can also pick up the purchase.',
+        'Магазин наблюдательной оптики «Tele-Optics» предлагает несколько удобных способов оплаты вашего заказа. Вы можете оплатить покупку наличными при получении, банковской картой онлайн или при доставке, а также воспользоваться безналичным расчётом для юридических лиц.':'The Tele-Optics observation optics store offers several convenient payment methods for your order. You can pay in cash upon receipt, by bank card online or upon delivery, as well as use non-cash payment for legal entities.',
+        'Вы можете оплатить покупку наличными при получении, банковской картой онлайн или при доставке,':'You can pay in cash upon receipt, by bank card online or upon delivery,',
+        'а также воспользоваться безналичным расчётом для юридических лиц.':'as well as use non-cash payment for legal entities.',
+        'Оплата наличными производится курьеру при доставке товара на дом или в офис':'Cash payment is made to the courier upon delivery of goods to your home or office',
+        'При самовывозе из пункта выдачи оплата наличными принимается на месте':'When picking up from a pickup point, cash payment is accepted on site',
+        'Оплата производится в российских рублях. Кассовый чек выдаётся обязательно':'Payment is made in Russian rubles. A cash receipt is always issued',
+        'Для юридических лиц — оплата по счёту-фактуре. Выставляем счёт с НДС и без НДС':'For legal entities — payment by invoice. We issue invoices with and without VAT',
+        'Оплата по QR-коду через Систему быстрых платежей (СБП) — моментально и без комиссии':'Payment by QR code via the Fast Payment System (SBP) — instant and without commission',
+        'Интернет-эквайринг через платёжную систему ASSIST — безопасная оплата банковскими картами Visa, Mastercard, МИР':'Internet acquiring via the ASSIST payment system — secure payment with Visa, Mastercard, MIR bank cards',
+        'Принимаем к оплате карты Visa, Mastercard, МИР любых банков':'We accept Visa, Mastercard, MIR cards from any bank',
+        'Оплата возможна онлайн на сайте через защищённый платёжный шлюз':'Payment is possible online on the website via a secure payment gateway',
+        'Также принимаем оплату картой при получении заказа курьеру или в пункте выдачи':'We also accept card payment upon delivery to the courier or at the pickup point',
+        'Оплата через систему быстрых платежей (СБП) — переведите деньги по QR-коду из мобильного банка':'Payment via the Fast Payment System (SBP) — transfer money by QR code from your mobile bank',
+        'Оплата по реквизитам: переведите сумму на расчётный счёт, указав номер заказа в назначении платежа':'Payment by details: transfer the amount to the bank account, specifying the order number in the payment purpose',
+        'При необходимости выставляем счёт-заказ и счёт-фактуру':'If necessary, we issue an order invoice and an invoice',
+        'При возврате товара, оплаченного банковской картой, возврат средств осуществляется на ту же карту, с которой была произведена оплата. Срок возврата — от 3 до 30 рабочих дней в зависимости от банка-эмитента.':'When returning goods paid by bank card, the refund is made to the same card used for payment. Refund period is 3 to 30 business days depending on the issuing bank.',
+        'При возврате товара, оплаченного наличными, возврат денежных средств производится через кассу магазина или переводом на банковский счёт покупателя в течение 10 рабочих дней с момента подачи заявления.':'When returning goods paid in cash, the refund is made through the store cash register or by bank transfer to the customer\'s account within 10 business days from the date of application.',
+        'Для юридических лиц возврат денежных средств осуществляется на расчётный счёт организации на основании выставленного акта приёма-передачи и счёта-кредита. Срок перечисления — до 10 рабочих дней.':'For legal entities, refunds are made to the organization\'s bank account based on the transfer acceptance certificate and credit invoice. Transfer period is up to 10 business days.',
+        'Выбрать прибор правильно трудно без специальных знаний, к покупке стоит подходить со всей серьёзностью и ответственностью. Неправильно думать, что бинокли с большим увеличением одни из лучших. Характеристики устройств многообразны и их внимательно просматривают при покупке. Перед планированием похода в специализированный магазин познакомьтесь с терминами, основными составными частями, функционалом и разновидностями приборов наблюдения.':'Choosing the right device is difficult without special knowledge, so you should approach the purchase with all seriousness and responsibility. It is wrong to think that binoculars with high magnification are the best. Device characteristics are diverse and should be carefully reviewed before purchase. Before planning a trip to a specialized store, familiarize yourself with the terms, main components, functionality and types of observation devices.',
+        'Прежде чем выбрать бинокль, какой лучше купить определитесь с вопросом, зачем он вообще нужен. Биноклем именуется прибор оптического типа, он состоит из двух труб, соединённых между собой для зрительного наблюдения для каждого из глаз.':'Before choosing which binoculars to buy, decide why you need them at all. Binoculars are an optical device consisting of two tubes connected together for visual observation for each eye.',
+        'Кратностью называется показатель приближения предмета, за которым идёт наблюдение. Если смотреть на другой берег реки из бинокля в 10 крат, то покажется будто бы расстояние всего лишь 10 метров. Самый мощный бинокль купить можно для хорошего приближения удалённых объектов.':'Magnification is the indicator of how much closer an observed object appears. If you look at the other bank of a river through 10x binoculars, it will seem as if the distance is only 10 meters. You can buy the most powerful binoculars for good magnification of distant objects.',
+        'Стоимость доставки рассчитывается по тарифам транспортных компаний в зависимости от веса и габаритов товара, а также региона доставки.':'Delivery cost is calculated according to transport company tariffs depending on the weight and dimensions of the goods, as well as the delivery region.',
+        'Возврат товара осуществляется в соответствии с Законом РФ «О защите прав потребителей» от 07.02.1992 №2300-1.':'Product returns are carried out in accordance with the Russian Federation Law "On Protection of Consumer Rights" dated 07.02.1992 No. 2300-1.',
+        'Гарантия распространяется на производственные дефекты и неисправности, возникшие не по вине покупателя.':'The warranty covers manufacturing defects and malfunctions that occurred not due to the buyer\'s fault.',
+        'Скидки не распространяются на товары, участвующие в специальных акциях и распродажах.':'Discounts do not apply to products participating in special promotions and sales.',
+        'Возврат осуществляется в течение 14 дней с момента получения товара при сохранении товарного вида и упаковки.':'Returns are made within 14 days of receiving the goods, provided the product appearance and packaging are preserved.',
+        'Все товары в нашем магазине сертифицированы и соответствуют стандартам качества.':'All products in our store are certified and meet quality standards.',
+        'Наша компания существует на рынке оптических приборов более 5 лет. За это время мы сделали умным и счастливым огромное количество людей. Как показало время, нельзя постоянно быть одинаковым и удовлетворять запросы самых требовательных покупателей. Теперь мы предстаём перед Вами в новом облике, с новыми подходами, новейшим функционалом, который сделает Ваше время, проведённое у нас, не только приятным, но и полезным!':'Our company has been in the optical instruments market for over 5 years. During this time we have made a huge number of people smarter and happier. As time has shown, you cannot always stay the same and satisfy the demands of the most discerning customers. Now we appear before you in a new form, with new approaches, the latest functionality that will make your time with us not only pleasant but also useful!',
+        'Наша компания ставит перед собой только самые реальные цели: улучшение соотношения цена-качество путём предоставления скидок постоянным клиентам; разнообразие возможностей доставки и оплаты Ваших покупок; увеличение количества дополнительных услуг; сотрудничество с самыми известными производителями оптических приборов и развивающихся органик; грамотные консультации по всему представленному ассортименту; обеспечение безупречного качества поставляемых товаров.':'Our company sets only the most realistic goals: improving the price-quality ratio by providing discounts to regular customers; a variety of delivery and payment options for your purchases; increasing the number of additional services; cooperation with the most famous manufacturers of optical instruments; professional consultations on the entire product range; ensuring impeccable quality of supplied goods.',
+        'В нашем интернет-магазине только бинокли, монокуляры и зрительные трубы. Мы хорошо разбираемся в оптике, что позволяет сформировать ассортимент из проверенных моделей ведущих мировых производителей. Каждый товар проходит строгий контроль качества перед поступлением в продажу.':'Our online store offers binoculars, monoculars and spotting scopes. We know optics well, which allows us to offer a range of proven models from leading global manufacturers. Every product undergoes strict quality control before going on sale.',
+        'Доставляем заказ от 2 часов с момента заявки. Имеем несколько складов на окраинах Москвы и в области. По России отправляем товары через транспортные компании: CDEK, DPD, Почта России, EMS. Бесплатная доставка при заказе от 5000 ₽.':'We deliver orders from 2 hours after the request. We have several warehouses on the outskirts of Moscow and the region. Across Russia we ship via transport companies: CDEK, DPD, Russian Post, EMS. Free delivery for orders over 5000 ₽.',
+        'Чтобы уйти от дорогой аренды и высоких зарплат сотрудников мы перенесли офис из Москвы в Челябинск. Наличие склада на Урале позволяет нам быстро и недорого доставлять заказы в регионы. Офис работает как пункт выдачи заказов.':'To avoid expensive rent and high employee salaries, we moved the office from Moscow to Chelyabinsk. Having a warehouse in the Urals allows us to deliver orders to regions quickly and inexpensively. The office also serves as a pickup point.',
+        'Есть возможность оптимизировать затраты: содержать небольшой штат, не вкладываться в дорогостоящее продвижение сайта и рекламные кампании широкого охвата, а в итоге снижать стоимость товара. Принимаем Visa, MasterCard, МИР, СБП, наличные.':'We optimize costs: maintain a small staff, avoid expensive website promotion and broad advertising campaigns, and ultimately reduce product prices. We accept Visa, MasterCard, MIR, SBP, cash.',
+        'Мы работаем на рынке с 1991 года. Выдержали кризис российской экономики и падение курса рубля, за это время расширили ассортимент и обросли связями, сотрудничаем с компаниями из России, Беларуси, Германии, Японии и США.':'We have been on the market since 1991. We survived the Russian economic crisis and the ruble exchange rate collapse, expanded our range and built connections, cooperating with companies from Russia, Belarus, Germany, Japan and the USA.',
+        'Если Вы хотите забрать заказ самостоятельно, для этого у нас работает Пункт Выдачи Заказов. В нашем интернет-магазине лучшие цены на бинокли! В продаже бинокли только проверенных фирм, а магазин является официальным дилером таких известных брендов как Veber, Celestron, Levenhuk, Olympus, Bresser и многих других.':'If you want to pick up your order yourself, we have a Pickup Point. Our online store has the best prices on binoculars! We sell binoculars only from trusted brands, and the store is an official dealer of well-known brands such as Veber, Celestron, Levenhuk, Olympus, Bresser and many others.',
+        'Задайте их по телефону +7 (000) 000-000-00 или оставьте свои координаты и наш менеджер перезвонит вам через 10 минут':'Call us at +7 (000) 000-000-00 or leave your details and our manager will call you back within 10 minutes'
+      };
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node => {
+        const txt = node.textContent;
+        if (!txt || !txt.trim()) return;
+        const parent = node.parentElement;
+        if (!parent) return;
+        if (parent.closest('script,style,pre,code,textarea,input,select')) return;
+        if (parent.hasAttribute('data-i18n')) return;
+        // Normalize whitespace (collapse newlines/multiple spaces) for matching
+        const trimmed = txt.trim().replace(/\s+/g, ' ');
+        if (dict[trimmed]) {
+          const lead = txt.match(/^\s*/)[0];
+          const trail = txt.match(/\s*$/)[0];
+          node.textContent = lead + dict[trimmed] + trail;
+        }
+      });
+    }
     const theme = getTheme();
     const themeKey = theme === 'dark' ? 'theme_light' : 'theme_dark';
     document.querySelectorAll('.theme-toggle span').forEach(el => el.textContent = (TR[lang] || TR.ru)[themeKey] || themeKey);

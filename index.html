@@ -85,7 +85,7 @@
       </div>
     </a>
     <div class="header-search">
-      <input id="search-input" type="search" placeholder="Введите название: Бинокль армейский" autocomplete="off" aria-label="Поиск товаров">
+      <input id="search-input" type="search" placeholder="Введите название: Бинокль армейский" data-i18n-placeholder="search_placeholder" autocomplete="off" aria-label="Поиск товаров">
       <button class="search-btn" type="button" aria-label="Найти">
         <img class="ui-icon" data-icon="search" alt="" aria-hidden="true">
       </button>
@@ -621,17 +621,17 @@
       <div class="newsletter-text">
         <img src="assets/icons/tg.svg" alt="" aria-hidden="true" width="36" height="36">
         <div>
-          <div class="newsletter-title">Подпишитесь и будьте в курсе!</div>
+          <div class="newsletter-title" data-i18n="subscribe_title">Подпишитесь и будьте в курсе!</div>
           <div class="newsletter-subtitle" data-i18n="newsletter_sub">Акции, скидки, распродажи ждут!</div>
         </div>
       </div>
       <form class="newsletter-form" id="newsletter-form" novalidate>
-        <input type="email" placeholder="Введите email" aria-label="Email для подписки" required>
-        <button type="submit" class="btn btn-yellow">Подписаться</button>
+        <input type="email" placeholder="Введите email" data-i18n-placeholder="email_placeholder" aria-label="Email для подписки" required>
+        <button type="submit" class="btn btn-yellow" data-i18n="btn_subscribe">Подписаться</button>
       </form>
       <label class="newsletter-agree">
         <input type="checkbox" required>
-        <span>Я согласен на обработку своих персональных данных</span>
+        <span data-i18n="agree_personal_data">Я согласен на обработку своих персональных данных</span>
       </label>
     </div>
   </div>
@@ -649,9 +649,9 @@
           <div style="margin-top:4px;"><a href="mailto:sales@tele-optics.ru" style="color:var(--clr-primary)">sales@tele-optics.ru</a></div>
         </address>
         <div class="footer-rating">
-          <span>Рейтинг магазина</span>
+          <span data-i18n="store_rating">Рейтинг магазина</span>
           <div class="stars">★★★★★</div>
-          <span>Яндекс.Маркет</span>
+          <span data-i18n="yandex_market">Яндекс.Маркет</span>
         </div>
       </div>
 
@@ -728,7 +728,7 @@
   <div class="container">
     <a class="sticky-bar-item" href="viewed.html" aria-label="Просмотренные">
       <img class="ui-icon ui-icon-lg" data-icon="viewed" alt="" aria-hidden="true">
-      <span>Просмотренные</span>
+      <span data-i18n="viewed">Просмотренные</span>
       <span class="sticky-bar-badge" id="viewed-badge">0</span>
     </a>
     <a class="sticky-bar-item" href="compare.html" aria-label="Сравнение товаров">
@@ -944,44 +944,44 @@
       </div>
     </div>
     <div class="profile-section">
-      <h3 class="profile-section-title">Личные данные</h3>
+      <h3 class="profile-section-title" data-i18n="profile_personal_data">Личные данные</h3>
       <div class="profile-data" id="profile-data">
         <div class="profile-field"><label>Имя</label><input type="text" id="profile-name" readonly></div>
         <div class="profile-field"><label>Телефон</label><input type="tel" id="profile-phone" readonly></div>
         <div class="profile-field"><label>Email</label><input type="email" id="profile-email" readonly></div>
       </div>
       <div class="profile-actions">
-        <button class="btn btn-outline" type="button" id="profile-edit-btn">Редактировать</button>
-        <button class="btn btn-primary" type="button" id="profile-save-btn" style="display:none;">Сохранить</button>
-        <button class="btn btn-outline" type="button" id="profile-cancel-btn" style="display:none;">Отменить</button>
+        <button class="btn btn-outline" type="button" id="profile-edit-btn" data-i18n="profile_edit">Редактировать</button>
+        <button class="btn btn-primary" type="button" id="profile-save-btn" style="display:none;" data-i18n="profile_save">Сохранить</button>
+        <button class="btn btn-outline" type="button" id="profile-cancel-btn" style="display:none;" data-i18n="profile_cancel">Отменить</button>
       </div>
     </div>
     <div class="profile-section">
-      <h3 class="profile-section-title">Активность</h3>
+      <h3 class="profile-section-title" data-i18n="profile_activity">Активность</h3>
       <a href="checkout.html" class="profile-menu-item">
         <span class="profile-menu-icon">📦</span>
-        <span>Мои заказы</span>
+        <span data-i18n="my_orders">Мои заказы</span>
         <span class="profile-menu-arrow">›</span>
       </a>
       <a href="favorites.html" class="profile-menu-item">
         <span class="profile-menu-icon">❤️</span>
-        <span>Избранное</span>
+        <span data-i18n="action_fav">Избранное</span>
         <span class="profile-menu-arrow">›</span>
       </a>
       <a href="viewed.html" class="profile-menu-item">
         <span class="profile-menu-icon">👁️</span>
-        <span>Просмотренные</span>
+        <span data-i18n="viewed">Просмотренные</span>
         <span class="profile-menu-arrow">›</span>
       </a>
       <a href="compare.html" class="profile-menu-item">
         <span class="profile-menu-icon">⚖️</span>
-        <span>Сравнение</span>
+        <span data-i18n="action_compare">Сравнение</span>
         <span class="profile-menu-arrow">›</span>
       </a>
     </div>
     <div class="profile-section">
       <a href="admin.html" class="btn btn-outline" id="profile-admin-btn" style="display:none; width:100%; text-align:center;">⚙ Перейти в админ-панель</a>
-      <button class="btn btn-outline" type="button" id="profile-logout-btn" style="width:100%; text-align:center; color:var(--clr-danger);">Выйти из аккаунта</button>
+      <button class="btn btn-outline" type="button" id="profile-logout-btn" style="width:100%; text-align:center; color:var(--clr-danger);" data-i18n="logout">Выйти из аккаунта</button>
     </div>
   </div>
 </div>
